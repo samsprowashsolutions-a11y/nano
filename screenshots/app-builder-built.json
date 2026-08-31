@@ -1,0 +1,38 @@
+{
+  "url": "http://127.0.0.1:8081/",
+  "viewports": {
+    "desktop": {
+      "width": 1280,
+      "height": 800,
+      "status": 200,
+      "title": "NanoAssure™ · Asset Protection",
+      "hasCanvas": false,
+      "bodyTextLen": 5490,
+      "bodyTextHash": "47dd426133bccb19bea009fe98b2454795e37b8309cd885b6399780d261d8468",
+      "bodyTextPrefix": "NanoAssure™ COLLECTION ASSURANCE ANALYSIS CAREERS VERIFY STAFF R",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-built.png"
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844,
+      "status": 200,
+      "title": "NanoAssure™ · Asset Protection",
+      "hasCanvas": false,
+      "bodyTextLen": 5410,
+      "bodyTextHash": "349a9d4ce3bd2f3a6d768429307453e8fca14c1118b9fb87c6abd5375c0a3c00",
+      "bodyTextPrefix": "NanoAssure™ DARWIN · BY APPOINTMENT · LIMITED EDITION Advanced n",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-built-mobile.png"
+    }
+  },
+  "brandWarnings": [],
+  "authWarnings": [],
+  "verdictFile": "/workspace/screenshots/app-builder-built.json",
+  "divergesFromBaseline": false,
+  "baselineReasons": []
+}

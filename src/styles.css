@@ -1,0 +1,352 @@
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Great+Vibes&family=Inter:wght@400;500;600;700&display=swap");
+@import "tailwindcss";
+
+@theme {
+  --color-carbon: #050508;
+  --color-carbon-2: #0c0c14;
+  --color-carbon-3: #14141e;
+  --color-surface: #16161f;
+  --color-fg: #f5f3ec;
+  --color-muted: #c4c6cc;
+  --color-faint: #6a6e78;
+  --color-gold: #e8b838;
+  --color-gold-hi: #f5e2a0;
+  --color-gold-deep: #b88828;
+  --color-gold-glow: #ffe860;
+  --color-aqua: #00d0e0;
+  --color-aqua-hi: #6ef0e8;
+  --color-purple: #7a32c8;
+  --color-purple-hi: #b794f6;
+  --color-purple-glow: #c4a4f6;
+  --color-chrome: #c8ced6;
+  --color-chrome-2: #9aa0a8;
+  --color-pearl: #e8ecf0;
+  --color-border: rgba(200, 206, 214, 0.18);
+  --color-line: color-mix(in oklab, var(--color-chrome) 18%, transparent);
+  --color-line-gold: color-mix(in oklab, var(--color-gold) 38%, transparent);
+  --color-ok: #5eead4;
+  --color-bad: #f0a0a0;
+  --color-warn: #e8b838;
+
+  --font-display: "Cormorant Garamond", Georgia, serif;
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-script: "Great Vibes", cursive;
+  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-xl: 24px;
+  --radius-2xl: 32px;
+
+  --shadow-chrome: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 18px 48px rgba(0, 0, 0, 0.45);
+}
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background: #050508;
+    color: #f5f3ec;
+    font-size: 20px;
+  }
+  body {
+    font-family: var(--font-sans);
+    background: #050508;
+    color: #f5f3ec;
+    font-size: 1.125rem;
+    line-height: 1.6;
+  }
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    text-wrap: balance;
+    letter-spacing: -0.03em;
+  }
+  p {
+    text-wrap: pretty;
+  }
+  ::selection {
+    background: color-mix(in oklab, #00d0e0 35%, transparent);
+    color: #f5f3ec;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.gold-text {
+  background: linear-gradient(135deg, #b88828 0%, #e8b838 28%, #ffe860 50%, #e8b838 72%, #b88828 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.chrome-text {
+  background: linear-gradient(135deg, #6a6e78 0%, #c8ced6 35%, #ffffff 52%, #a8b0b8 70%, #6a6e78 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.chrome-rule {
+  height: 1px;
+  border: 0;
+  background: linear-gradient(90deg, transparent, #c8ced6 18%, #f5e2a0 50%, #c8ced6 82%, transparent);
+  opacity: 0.55;
+}
+
+.gold-cta {
+  background: linear-gradient(135deg, #b88828, #e8b838, #ffe860, #e8b838, #b88828);
+  color: #050508;
+}
+
+.carbon-weave,
+.carbon-field {
+  background-color: #050508;
+  background-image:
+    radial-gradient(ellipse 80% 50% at 82% -8%, rgba(122, 50, 200, 0.2), transparent 52%),
+    radial-gradient(ellipse 70% 45% at 8% 100%, rgba(0, 208, 224, 0.12), transparent 48%),
+    radial-gradient(ellipse 50% 40% at 50% 40%, rgba(232, 184, 56, 0.05), transparent 55%),
+    repeating-linear-gradient(45deg, rgba(0, 0, 0, 0.35) 0 1px, transparent 1px 3px),
+    repeating-linear-gradient(-45deg, rgba(255, 255, 255, 0.028) 0 1px, transparent 1px 4px),
+    linear-gradient(165deg, #12121a 0%, #0e0e14 40%, #050508 100%);
+  background-attachment: fixed;
+}
+
+.metal-panel {
+  background:
+    linear-gradient(145deg, rgba(232, 238, 245, 0.07) 0%, rgba(90, 100, 120, 0.05) 40%, rgba(12, 12, 20, 0.92) 100%),
+    #14141e;
+  border: 1px solid rgba(200, 206, 214, 0.16);
+  box-shadow: var(--shadow-chrome);
+  position: relative;
+}
+.metal-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(125deg, rgba(255, 255, 255, 0.08) 0%, transparent 36%, transparent 62%, rgba(0, 208, 224, 0.05) 100%);
+}
+
+.kicker {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-aqua);
+}
+
+.chrome-rim {
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(0, 208, 224, 0.5), rgba(232, 184, 56, 0.55), rgba(122, 50, 200, 0.5));
+}
+
+.film-vignette {
+  background:
+    linear-gradient(180deg, rgba(5, 5, 8, 0.15) 0%, rgba(5, 5, 8, 0.2) 40%, rgba(5, 5, 8, 0.78) 100%),
+    radial-gradient(ellipse at center, transparent 40%, rgba(5, 5, 8, 0.45) 100%);
+}
+
+.chrome-icon {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  isolation: isolate;
+}
+.chrome-icon img {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+}
+.chrome-icon-sheen {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(
+    105deg,
+    transparent 28%,
+    rgba(255, 255, 255, 0.55) 48%,
+    transparent 64%
+  );
+  mix-blend-mode: screen;
+  opacity: 0;
+  animation: chrome-sheen 5.6s ease-in-out infinite;
+  -webkit-mask-image: var(--chrome-mask);
+  mask-image: var(--chrome-mask);
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+}
+
+@keyframes chrome-sheen {
+  0%,
+  18% {
+    transform: translateX(-70%) skewX(-14deg);
+    opacity: 0;
+  }
+  38% {
+    opacity: 0.9;
+  }
+  62%,
+  100% {
+    transform: translateX(70%) skewX(-14deg);
+    opacity: 0;
+  }
+}
+
+.logo-chrome {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  filter: drop-shadow(0 0 22px rgba(0, 208, 224, 0.45)) drop-shadow(0 0 18px rgba(122, 50, 200, 0.35));
+}
+.logo-chrome::after {
+  content: "";
+  position: absolute;
+  inset: 8%;
+  pointer-events: none;
+  border-radius: 40%;
+  background: linear-gradient(115deg, transparent 30%, rgba(255, 255, 255, 0.4) 50%, transparent 68%);
+  mix-blend-mode: screen;
+  animation: chrome-sheen 6s ease-in-out infinite;
+}
+
+.chrome-plate {
+  padding: 3px;
+  border-radius: 22px;
+  background: conic-gradient(
+    from 210deg,
+    #0e4a52,
+    #67e8e0 18%,
+    #c8ced6 32%,
+    #f7e08a 48%,
+    #7a32c8 68%,
+    #67e8e0 86%,
+    #0e4a52
+  );
+  box-shadow:
+    0 28px 55px rgba(0, 0, 0, 0.55),
+    0 0 34px rgba(0, 200, 220, 0.1),
+    0 0 28px rgba(122, 50, 200, 0.12);
+}
+.chrome-gold-rim {
+  padding: 2px;
+  border-radius: 19px;
+  background: conic-gradient(from 30deg, #6e5214, #f7e08a, #8a6318, #ffefb0, #b88828, #6e5214);
+}
+.chrome-body {
+  position: relative;
+  overflow: hidden;
+  border-radius: 17px;
+  background:
+    repeating-linear-gradient(115deg, rgba(255, 255, 255, 0.03) 0 1px, rgba(0, 0, 0, 0.05) 1px 3px),
+    radial-gradient(ellipse at 28% 10%, rgba(255, 255, 255, 0.14) 0%, transparent 42%),
+    linear-gradient(150deg, #1c1230 0%, #0a0a12 55%, #050508 100%);
+  box-shadow:
+    inset 0 2px 3px rgba(255, 255, 255, 0.18),
+    inset 0 -5px 12px rgba(0, 0, 0, 0.72);
+}
+.chrome-body::after {
+  content: "";
+  position: absolute;
+  top: -70%;
+  left: -30%;
+  width: 48%;
+  height: 240%;
+  background: linear-gradient(75deg, transparent, rgba(255, 255, 255, 0.08) 45%, transparent 60%);
+  transform: rotate(8deg);
+  pointer-events: none;
+  animation: chrome-sheen 8s ease-in-out infinite;
+}
+
+.field-test-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.4rem 0.85rem 0.4rem 0.3rem;
+  border-radius: 16px;
+  border: 1px solid color-mix(in oklab, var(--color-gold) 38%, transparent);
+  background: linear-gradient(90deg, rgba(8, 8, 14, 0.15), rgba(20, 18, 28, 0.92));
+  box-shadow: var(--shadow-chrome);
+}
+.field-test-chrome {
+  height: 4.5rem;
+  width: 7.8rem;
+  flex-shrink: 0;
+  filter: drop-shadow(0 10px 16px rgba(0, 0, 0, 0.5));
+}
+
+.chrome-doc {
+  background:
+    radial-gradient(ellipse at 12% 0%, rgba(255, 255, 255, 0.65), transparent 46%),
+    linear-gradient(180deg, #f7f2ea 0%, #efe6d6 100%);
+  color: #1a1420;
+  font-size: 1.15rem;
+  line-height: 1.65;
+}
+.chrome-doc .field-test-row {
+  background: #fffdf8;
+  border-color: #e4d2a0;
+  box-shadow: 0 8px 18px rgba(40, 24, 8, 0.08);
+}
+.chrome-doc .field-test-row .text-gold-hi {
+  color: #161018;
+  font-size: 1.15rem;
+}
+.chrome-doc .field-test-row .text-muted {
+  color: #3f3b36;
+  font-size: 1.08rem;
+}
+
+.chrome-doc-kicker {
+  color: #0a6e78;
+  font-size: 1rem;
+  letter-spacing: 0.1em;
+}
+
+.readable-doc {
+  font-family: var(--font-sans);
+  font-size: 1.25rem;
+  line-height: 1.75;
+}
+
+.chrome-strip {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.5rem;
+  align-items: end;
+}
+
+.glass-proof {
+  cursor: ew-resize;
+}
+.glass-proof:focus-visible {
+  outline: 2px solid color-mix(in oklab, var(--color-aqua) 70%, transparent);
+  outline-offset: 3px;
+}

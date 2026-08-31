@@ -1,0 +1,38 @@
+{
+  "url": "http://127.0.0.1:8080/",
+  "viewports": {
+    "desktop": {
+      "width": 1280,
+      "height": 800,
+      "status": 200,
+      "title": "NanoAssure™ · Asset Protection",
+      "hasCanvas": false,
+      "bodyTextLen": 5454,
+      "bodyTextHash": "a704d7f1353d5aea273d83760c0963c168a845ffa469363915b33b44283ecb23",
+      "bodyTextPrefix": "NanoAssure™ COLLECTION ASSURANCE ANALYSIS CAREERS VERIFY STAFF A",
+      "horizontalOverflow": false,
+      "consoleErrors": [
+        "A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:\n\n- A server/client branch `if (typeof window !== 'undefined')`.\n- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.\n- Date formatting in a user's locale which doesn't match the server.\n- External changing data without sending a snapshot of it along with the HTML.\n- Invalid HTML tag nesting.\n\nIt can also happen if the client has a browser extension installed which messes with the HTML before React loaded.\n\n%s%s https://react.dev/link/hydration-mismatch \n\n  ...\n    <Home>\n      <SiteShell>\n        <div className=\"carbon-fie...\">\n          <SiteNav>\n          <section>\n          <section>\n          <section>\n          <section>\n          <section>\n          <section>\n          <section>\n          <section>\n          <section>\n          <section className=\"mx-auto ma...\">\n            <ChromePlate>\n              <div className=\"chrome-plate\">\n                <div className=\"chrome-gol...\">\n                  <div className=\"chrome-body\">\n                    <div className=\"relative z-10\">\n                      <div className=\"p-8\">\n                        <h2>\n                        <p>\n                        <AnalysisForm>\n                          <form onSubmit={function onSubmit} className=\"grid gap-4...\">\n                            <div>\n                              <Label>\n                              <Input id=\"organisation\" name=\"organisation\" required={true} placeholder=\"Company or...\">\n                                <input\n                                  className=\"h-12 w-full rounded-xl border border-chrome/20 bg-carbon-2 px-4 text-base...\"\n                                  id=\"organisation\"\n                                  name=\"organisation\"\n                                  required={true}\n                                  placeholder=\"Company or agency\"\n-                                 style={{caret-color:\"transparent\"}}\n                                >\n                            <div>\n                              <Label>\n                              <Input id=\"name\" name=\"name\" required={true} placeholder=\"Your name\">\n                                <input\n                                  className=\"h-12 w-full rounded-xl border border-chrome/20 bg-carbon-2 px-4 text-base...\"\n                                  id=\"name\"\n                                  name=\"name\"\n                                  required={true}\n                                  placeholder=\"Your name\"\n-                                 style={{caret-color:\"transparent\"}}\n                                >\n                            <div>\n                              <Label>\n                              <Input id=\"email\" name=\"email\" type=\"email\" required={true} placeholder=\"you@exampl...\">\n                                <input\n                                  className=\"h-12 w-full rounded-xl border border-chrome/20 bg-carbon-2 px-4 text-base...\"\n                                  id=\"email\"\n                                  name=\"email\"\n                                  type=\"email\"\n                                  required={true}\n                                  placeholder=\"you@example.com\"\n-                                 style={{caret-color:\"transparent\"}}\n                                >\n                            <div>\n                              <Label>\n                              <Input id=\"phone\" name=\"phone\" placeholder=\"Optional\">\n                                <input\n                                  className=\"h-12 w-full rounded-xl border border-chrome/20 bg-carbon-2 px-4 text-base...\"\n                                  id=\"phone\"\n                                  name=\"phone\"\n                                  placeholder=\"Optional\"\n-                                 style={{caret-color:\"transparent\"}}\n                                >\n                            <div>\n                            <div className=\"md:col-span-2\">\n                              <Label>\n                              <Textarea id=\"notes\" name=\"notes\" placeholder=\"Site, subs...\">\n                                <textarea\n                                  className=\"min-h-32 w-full rounded-xl border border-chrome/20 bg-carbon-2 px-4 py-3 ...\"\n                                  id=\"notes\"\n                                  name=\"notes\"\n                                  placeholder=\"Site, substrate, timeline…\"\n-                                 style={{caret-color:\"transparent\"}}\n                                >\n                            ...\n          ...\n"
+      ],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-preview.png"
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844,
+      "status": 200,
+      "title": "NanoAssure™ · Asset Protection",
+      "hasCanvas": false,
+      "bodyTextLen": 5383,
+      "bodyTextHash": "fdd3998f666d558a67f2912eab15750de4bfcdccbd3fc1c1b33f50acccacc9ba",
+      "bodyTextPrefix": "NanoAssure™ DARWIN · BY APPOINTMENT · LIMITED EDITION Advanced n",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-preview-mobile.png"
+    }
+  },
+  "brandWarnings": [],
+  "authWarnings": [],
+  "verdictFile": "/workspace/screenshots/app-builder-preview.json"
+}

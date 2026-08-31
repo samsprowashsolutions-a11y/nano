@@ -15,8 +15,8 @@ function Home() {
       <section className="relative isolate overflow-hidden">
         <video
           className="absolute inset-0 h-full w-full object-cover opacity-45"
-          src="/media/film-rain-glass.mp4"
-          poster="/media/beads-macro.jpg"
+          src="/media/film-estate.mp4"
+          poster="/media/estate-dusk.jpg"
           autoPlay
           muted
           loop
@@ -111,9 +111,9 @@ function Home() {
             </ol>
           </div>
           <Film
-            src="/media/film-rain-glass.mp4"
+            src="/media/film-facade.mp4"
             poster="/media/commercial-glass.jpg"
-            caption="Tropical rain. Crystal glass."
+            caption="Rain on specified glass."
             className="aspect-video"
           />
         </div>
@@ -167,6 +167,11 @@ function Home() {
       </section>
 
       <section className="relative mx-auto max-w-6xl overflow-hidden rounded-2xl px-5 pb-20">
+        <img
+          src="/media/estate-night.jpg"
+          alt=""
+          className="absolute inset-0 h-full w-full object-cover opacity-30"
+        />
         <div className="relative metal-panel rounded-2xl p-8 md:p-12">
           <p className="kicker">Core QA · 5-step data test set™</p>
           <h2 className="gold-text mt-2 font-display text-3xl">Every application is proven</h2>
@@ -222,13 +227,18 @@ function Home() {
 
       <section className="mx-auto max-w-6xl px-5 pb-20">
         <p className="kicker mb-4">Atelier film</p>
-        <div className="mb-3">
+        <div className="mb-3 grid gap-3 md:grid-cols-2">
+          <Film src="/media/film-house.mp4" poster="/media/residence-night.jpg" caption="Golden hour on glass." className="aspect-video" />
           <Film src="/media/film-rain-glass.mp4" poster="/media/beads-macro.jpg" caption="Rain. Chrome beads." className="aspect-video" />
         </div>
         <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
           {[
-            ["/media/pavers.jpg", "Protected stone"],
-            ["/media/stone-split.jpg", "Before · after masonry"],
+            ["/media/estate-dusk.jpg", "Dusk façade"],
+            ["/media/pavers.jpg", "Stone after coating"],
+            ["/media/stone-split.jpg", "Masonry split view"],
+            ["/media/estate-night.jpg", "Night façade"],
+            ["/media/facade-dusk.jpg", "Plaza dusk"],
+            ["/media/residence-night.jpg", "Evening glass"],
             ["/media/beads-macro.jpg", "Hydrophobic beads"],
             ["/media/technician.jpg", "Controlled application"],
             ["/media/civic-stone.jpg", "Civic sandstone"],

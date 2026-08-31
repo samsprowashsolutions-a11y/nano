@@ -21,7 +21,7 @@ function About() {
           <p className="mt-4 italic text-pearl">{BRAND.positioning}</p>
           <p className="mt-4 text-sm text-muted">{BRAND.tagline}</p>
         </div>
-        <Film src="/media/film-beads.mp4" poster="/media/beads-macro.jpg" className="aspect-video" />
+        <Film src="/media/film-estate.mp4" poster="/media/estate-dusk.jpg" className="aspect-video" />
       </section>
       <section className="mx-auto grid max-w-6xl gap-6 px-5 pb-16 md:grid-cols-3">
         {[

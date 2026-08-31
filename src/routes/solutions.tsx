@@ -53,7 +53,7 @@ function Solutions() {
         </div>
       </section>
       <div className="mx-auto max-w-6xl px-5 pb-20">
-        <Film src="/media/film-rain-glass.mp4" poster="/media/commercial-glass.jpg" caption="Specified glass. Proven sheeting." className="aspect-video" />
+        <Film src="/media/film-facade.mp4" poster="/media/facade-dusk.jpg" caption="Specified glass at dusk." className="aspect-video" />
         <div className="mt-8 text-center">
           <Button asChild>
             <Link to="/analysis">Request analysis</Link>

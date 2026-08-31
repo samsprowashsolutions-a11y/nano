@@ -34,7 +34,7 @@ export const SOLUTIONS = [
   { id: "graffiti", title: "Anti-graffiti armour", copy: "Porous and non-porous systems. Markers cannot bond. CSIRO-tested APAS 1441 on porous.", image: "/media/pavers.jpg" },
   { id: "metal", title: "Metal & non-porous", copy: "Aluminium, stainless, powder-coat, GRP. Light-film protection specified to TDS.", image: "/media/commercial-glass.jpg" },
   { id: "antimicrobial", title: "Antimicrobial hard surfaces", copy: "Microbiostatic defence for high-touch civic and commercial interiors under tropical humidity.", image: "/media/application.jpg" },
-  { id: "solar", title: "Solar & high UV", copy: "Presentation life for arrays and exposed glass under Darwin sun — SolarStress™ context.", image: "/media/commercial-glass.jpg" },
+  { id: "solar", title: "Solar & high UV", copy: "Presentation life for arrays and exposed glass under tropical sun — SolarStress™ context.", image: "/media/estate-dusk.jpg" },
 ] as const;
 
 export const QA_TESTS: { n: string; name: string; detail: string; tone: ChromeTone }[] = [

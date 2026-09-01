@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteShell } from "@/components/site/shell";
 import { Film } from "@/components/site/film";
 import { BRAND } from "@/lib/content";
+import { BrandLockup } from "@/components/brand/logo";
 import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/about")({ component: About });
@@ -20,10 +21,11 @@ function About() {
           </p>
           <p className="mt-4 italic text-pearl">{BRAND.positioning}</p>
           <p className="mt-4 text-sm text-muted">{BRAND.tagline}</p>
+          <BrandLockup className="mt-8 max-w-lg" />
         </div>
-        <Film src="/media/film-estate.mp4" poster="/media/estate-dusk.jpg" className="aspect-video" />
       </section>
-      <section className="mx-auto grid max-w-6xl gap-6 px-5 pb-16 md:grid-cols-3">
+      <Film src="/media/film-estate.mp4" poster="/media/estate-dusk.jpg" bleed className="aspect-[21/9] min-h-[320px] md:min-h-[520px]" />
+      <section className="mx-auto grid max-w-6xl gap-6 px-5 py-16 md:grid-cols-3">
         {[
           ["Samantha Rae", "Director — command, specification, financials"],
           ["Jasmin Calma", "Director — cultural advisor, academy, community"],
@@ -35,9 +37,9 @@ function About() {
           </div>
         ))}
       </section>
-      <section className="mx-auto max-w-6xl px-5 pb-16">
-        <img src="/media/pavers.jpg" alt="Protected stone after NanoAssure" className="mb-8 w-full rounded-xl object-cover" />
-        <div className="grid gap-8 md:grid-cols-2">
+      <section className="w-full pb-16">
+        <img src="/media/pavers.jpg" alt="Specified stone after coating" className="h-[50vh] w-full object-cover md:h-[70vh]" />
+        <div className="mx-auto grid max-w-6xl gap-8 px-5 py-12 md:grid-cols-2">
           <div>
             <h2 className="gold-text font-display text-3xl">Limited edition service</h2>
             <p className="mt-3 text-muted">

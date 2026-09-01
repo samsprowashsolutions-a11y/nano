@@ -19,12 +19,18 @@ import { Route as SolutionsRouteImport } from './routes/solutions'
 import { Route as StaffRouteImport } from './routes/staff'
 import { Route as VerifyRouteImport } from './routes/verify'
 import { Route as StaffIndexRouteImport } from './routes/staff/index'
+import { Route as StaffClientsRouteImport } from './routes/staff/clients'
+import { Route as StaffCommandRouteImport } from './routes/staff/command'
 import { Route as StaffInboxRouteImport } from './routes/staff/inbox'
 import { Route as StaffOperationsRouteImport } from './routes/staff/operations'
 import { Route as StaffProductsRouteImport } from './routes/staff/products'
 import { Route as StaffPromptRouteImport } from './routes/staff/prompt'
 import { Route as StaffProtocolRouteImport } from './routes/staff/protocol'
+import { Route as StaffQrRouteImport } from './routes/staff/qr'
+import { Route as StaffReportRouteImport } from './routes/staff/report'
+import { Route as StaffVaultRouteImport } from './routes/staff/vault'
 import { Route as StaffVerifyRouteImport } from './routes/staff/verify'
+import { Route as StaffWarrantyRouteImport } from './routes/staff/warranty'
 import { Route as StaffWorkforceRouteImport } from './routes/staff/workforce'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 
@@ -78,6 +84,16 @@ const StaffIndexRoute = StaffIndexRouteImport.update({
   path: '/',
   getParentRoute: () => StaffRoute,
 } as any)
+const StaffClientsRoute = StaffClientsRouteImport.update({
+  id: '/clients',
+  path: '/clients',
+  getParentRoute: () => StaffRoute,
+} as any)
+const StaffCommandRoute = StaffCommandRouteImport.update({
+  id: '/command',
+  path: '/command',
+  getParentRoute: () => StaffRoute,
+} as any)
 const StaffInboxRoute = StaffInboxRouteImport.update({
   id: '/inbox',
   path: '/inbox',
@@ -103,9 +119,29 @@ const StaffProtocolRoute = StaffProtocolRouteImport.update({
   path: '/protocol',
   getParentRoute: () => StaffRoute,
 } as any)
+const StaffQrRoute = StaffQrRouteImport.update({
+  id: '/qr',
+  path: '/qr',
+  getParentRoute: () => StaffRoute,
+} as any)
+const StaffReportRoute = StaffReportRouteImport.update({
+  id: '/report',
+  path: '/report',
+  getParentRoute: () => StaffRoute,
+} as any)
+const StaffVaultRoute = StaffVaultRouteImport.update({
+  id: '/vault',
+  path: '/vault',
+  getParentRoute: () => StaffRoute,
+} as any)
 const StaffVerifyRoute = StaffVerifyRouteImport.update({
   id: '/verify',
   path: '/verify',
+  getParentRoute: () => StaffRoute,
+} as any)
+const StaffWarrantyRoute = StaffWarrantyRouteImport.update({
+  id: '/warranty',
+  path: '/warranty',
   getParentRoute: () => StaffRoute,
 } as any)
 const StaffWorkforceRoute = StaffWorkforceRouteImport.update({
@@ -129,12 +165,18 @@ export interface FileRoutesByFullPath {
   '/solutions': typeof SolutionsRoute
   '/staff': typeof StaffRouteWithChildren
   '/verify': typeof VerifyRoute
+  '/staff/clients': typeof StaffClientsRoute
+  '/staff/command': typeof StaffCommandRoute
   '/staff/inbox': typeof StaffInboxRoute
   '/staff/operations': typeof StaffOperationsRoute
   '/staff/products': typeof StaffProductsRoute
   '/staff/prompt': typeof StaffPromptRoute
   '/staff/protocol': typeof StaffProtocolRoute
+  '/staff/qr': typeof StaffQrRoute
+  '/staff/report': typeof StaffReportRoute
+  '/staff/vault': typeof StaffVaultRoute
   '/staff/verify': typeof StaffVerifyRoute
+  '/staff/warranty': typeof StaffWarrantyRoute
   '/staff/workforce': typeof StaffWorkforceRoute
   '/staff/': typeof StaffIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
@@ -148,12 +190,18 @@ export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/solutions': typeof SolutionsRoute
   '/verify': typeof VerifyRoute
+  '/staff/clients': typeof StaffClientsRoute
+  '/staff/command': typeof StaffCommandRoute
   '/staff/inbox': typeof StaffInboxRoute
   '/staff/operations': typeof StaffOperationsRoute
   '/staff/products': typeof StaffProductsRoute
   '/staff/prompt': typeof StaffPromptRoute
   '/staff/protocol': typeof StaffProtocolRoute
+  '/staff/qr': typeof StaffQrRoute
+  '/staff/report': typeof StaffReportRoute
+  '/staff/vault': typeof StaffVaultRoute
   '/staff/verify': typeof StaffVerifyRoute
+  '/staff/warranty': typeof StaffWarrantyRoute
   '/staff/workforce': typeof StaffWorkforceRoute
   '/staff': typeof StaffIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
@@ -169,12 +217,18 @@ export interface FileRoutesById {
   '/solutions': typeof SolutionsRoute
   '/staff': typeof StaffRouteWithChildren
   '/verify': typeof VerifyRoute
+  '/staff/clients': typeof StaffClientsRoute
+  '/staff/command': typeof StaffCommandRoute
   '/staff/inbox': typeof StaffInboxRoute
   '/staff/operations': typeof StaffOperationsRoute
   '/staff/products': typeof StaffProductsRoute
   '/staff/prompt': typeof StaffPromptRoute
   '/staff/protocol': typeof StaffProtocolRoute
+  '/staff/qr': typeof StaffQrRoute
+  '/staff/report': typeof StaffReportRoute
+  '/staff/vault': typeof StaffVaultRoute
   '/staff/verify': typeof StaffVerifyRoute
+  '/staff/warranty': typeof StaffWarrantyRoute
   '/staff/workforce': typeof StaffWorkforceRoute
   '/staff/': typeof StaffIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
@@ -191,12 +245,18 @@ export interface FileRouteTypes {
     | '/solutions'
     | '/staff'
     | '/verify'
+    | '/staff/clients'
+    | '/staff/command'
     | '/staff/inbox'
     | '/staff/operations'
     | '/staff/products'
     | '/staff/prompt'
     | '/staff/protocol'
+    | '/staff/qr'
+    | '/staff/report'
+    | '/staff/vault'
     | '/staff/verify'
+    | '/staff/warranty'
     | '/staff/workforce'
     | '/staff/'
     | '/api/auth/$'
@@ -210,12 +270,18 @@ export interface FileRouteTypes {
     | '/login'
     | '/solutions'
     | '/verify'
+    | '/staff/clients'
+    | '/staff/command'
     | '/staff/inbox'
     | '/staff/operations'
     | '/staff/products'
     | '/staff/prompt'
     | '/staff/protocol'
+    | '/staff/qr'
+    | '/staff/report'
+    | '/staff/vault'
     | '/staff/verify'
+    | '/staff/warranty'
     | '/staff/workforce'
     | '/staff'
     | '/api/auth/$'
@@ -230,12 +296,18 @@ export interface FileRouteTypes {
     | '/solutions'
     | '/staff'
     | '/verify'
+    | '/staff/clients'
+    | '/staff/command'
     | '/staff/inbox'
     | '/staff/operations'
     | '/staff/products'
     | '/staff/prompt'
     | '/staff/protocol'
+    | '/staff/qr'
+    | '/staff/report'
+    | '/staff/vault'
     | '/staff/verify'
+    | '/staff/warranty'
     | '/staff/workforce'
     | '/staff/'
     | '/api/auth/$'
@@ -326,6 +398,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof StaffIndexRouteImport
       parentRoute: typeof StaffRoute
     }
+    '/staff/clients': {
+      id: '/staff/clients'
+      path: '/clients'
+      fullPath: '/staff/clients'
+      preLoaderRoute: typeof StaffClientsRouteImport
+      parentRoute: typeof StaffRoute
+    }
+    '/staff/command': {
+      id: '/staff/command'
+      path: '/command'
+      fullPath: '/staff/command'
+      preLoaderRoute: typeof StaffCommandRouteImport
+      parentRoute: typeof StaffRoute
+    }
     '/staff/inbox': {
       id: '/staff/inbox'
       path: '/inbox'
@@ -361,11 +447,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof StaffProtocolRouteImport
       parentRoute: typeof StaffRoute
     }
+    '/staff/qr': {
+      id: '/staff/qr'
+      path: '/qr'
+      fullPath: '/staff/qr'
+      preLoaderRoute: typeof StaffQrRouteImport
+      parentRoute: typeof StaffRoute
+    }
+    '/staff/report': {
+      id: '/staff/report'
+      path: '/report'
+      fullPath: '/staff/report'
+      preLoaderRoute: typeof StaffReportRouteImport
+      parentRoute: typeof StaffRoute
+    }
+    '/staff/vault': {
+      id: '/staff/vault'
+      path: '/vault'
+      fullPath: '/staff/vault'
+      preLoaderRoute: typeof StaffVaultRouteImport
+      parentRoute: typeof StaffRoute
+    }
     '/staff/verify': {
       id: '/staff/verify'
       path: '/verify'
       fullPath: '/staff/verify'
       preLoaderRoute: typeof StaffVerifyRouteImport
+      parentRoute: typeof StaffRoute
+    }
+    '/staff/warranty': {
+      id: '/staff/warranty'
+      path: '/warranty'
+      fullPath: '/staff/warranty'
+      preLoaderRoute: typeof StaffWarrantyRouteImport
       parentRoute: typeof StaffRoute
     }
     '/staff/workforce': {
@@ -386,23 +500,35 @@ declare module '@tanstack/react-router' {
 }
 
 interface StaffRouteChildren {
+  StaffClientsRoute: typeof StaffClientsRoute
+  StaffCommandRoute: typeof StaffCommandRoute
   StaffInboxRoute: typeof StaffInboxRoute
   StaffOperationsRoute: typeof StaffOperationsRoute
   StaffProductsRoute: typeof StaffProductsRoute
   StaffPromptRoute: typeof StaffPromptRoute
   StaffProtocolRoute: typeof StaffProtocolRoute
+  StaffQrRoute: typeof StaffQrRoute
+  StaffReportRoute: typeof StaffReportRoute
+  StaffVaultRoute: typeof StaffVaultRoute
   StaffVerifyRoute: typeof StaffVerifyRoute
+  StaffWarrantyRoute: typeof StaffWarrantyRoute
   StaffWorkforceRoute: typeof StaffWorkforceRoute
   StaffIndexRoute: typeof StaffIndexRoute
 }
 
 const StaffRouteChildren: StaffRouteChildren = {
+  StaffClientsRoute: StaffClientsRoute,
+  StaffCommandRoute: StaffCommandRoute,
   StaffInboxRoute: StaffInboxRoute,
   StaffOperationsRoute: StaffOperationsRoute,
   StaffProductsRoute: StaffProductsRoute,
   StaffPromptRoute: StaffPromptRoute,
   StaffProtocolRoute: StaffProtocolRoute,
+  StaffQrRoute: StaffQrRoute,
+  StaffReportRoute: StaffReportRoute,
+  StaffVaultRoute: StaffVaultRoute,
   StaffVerifyRoute: StaffVerifyRoute,
+  StaffWarrantyRoute: StaffWarrantyRoute,
   StaffWorkforceRoute: StaffWorkforceRoute,
   StaffIndexRoute: StaffIndexRoute,
 }

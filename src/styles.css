@@ -26,7 +26,8 @@
   --color-line-gold: color-mix(in oklab, var(--color-gold) 38%, transparent);
   --color-ok: #5eead4;
   --color-bad: #f0a0a0;
-  --color-warn: #e8b838;
+  --color-neon: #ff7a18;
+  --color-neon-hi: #ffc078;
 
   --font-display: "Cormorant Garamond", Georgia, serif;
   --font-sans: "Inter", system-ui, sans-serif;
@@ -50,6 +51,7 @@
     background: #050508;
     color: #f5f3ec;
     font-size: 20px;
+    overflow-x: hidden;
   }
   body {
     font-family: var(--font-sans);
@@ -57,6 +59,7 @@
     color: #f5f3ec;
     font-size: 1.125rem;
     line-height: 1.6;
+    overflow-x: hidden;
   }
   button:not(:disabled),
   [role="button"]:not(:disabled) {
@@ -349,4 +352,111 @@
 .glass-proof:focus-visible {
   outline: 2px solid color-mix(in oklab, var(--color-aqua) 70%, transparent);
   outline-offset: 3px;
+}
+
+.qa7-banner {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse 50% 80% at 18% 50%, rgba(255, 122, 24, 0.18), transparent 58%),
+    radial-gradient(ellipse 40% 60% at 88% 20%, rgba(232, 184, 56, 0.12), transparent 55%),
+    linear-gradient(180deg, #0a0806 0%, #14100c 45%, #050508 100%);
+  border-top: 1px solid color-mix(in oklab, var(--color-gold-hi) 45%, transparent);
+  border-bottom: 1px solid color-mix(in oklab, var(--color-neon) 55%, transparent);
+}
+.qa7-banner::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    repeating-linear-gradient(
+      115deg,
+      transparent 0 18px,
+      rgba(255, 122, 24, 0.035) 18px 19px
+    );
+}
+.qa7-drop {
+  display: block;
+  object-fit: contain;
+  filter: drop-shadow(0 18px 30px rgba(0, 0, 0, 0.55)) drop-shadow(0 0 22px rgba(255, 122, 24, 0.45));
+}
+.qa7-mark {
+  display: block;
+  filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.45)) drop-shadow(0 0 10px rgba(255, 122, 24, 0.35));
+}
+.qa7-step {
+  border: 1px solid color-mix(in oklab, var(--color-gold) 28%, transparent);
+  background: color-mix(in oklab, var(--color-carbon-2) 82%, transparent);
+  border-radius: 16px;
+  padding: 0.75rem 0.5rem 1rem;
+}
+
+.sam-desk {
+  background: #f3eee4;
+  color: #2a241c;
+}
+.sam-desk .kicker {
+  color: #8a6a18;
+}
+.sam-desk .metal-panel {
+  background: linear-gradient(180deg, #fffdf8 0%, #f7f1e6 100%);
+  border: 1px solid rgba(184, 136, 40, 0.28);
+  box-shadow: 0 10px 28px rgba(42, 36, 28, 0.08);
+  color: #2a241c;
+}
+.sam-desk .metal-panel::before {
+  background: linear-gradient(125deg, rgba(255, 255, 255, 0.7) 0%, transparent 42%);
+}
+.sam-desk input,
+.sam-desk textarea,
+.sam-desk select {
+  background: #fff;
+  color: #2a241c;
+  border-color: rgba(184, 136, 40, 0.28);
+}
+.sam-desk .text-muted {
+  color: #5c564c;
+}
+.sam-desk .text-pearl {
+  color: #3a342c;
+}
+.sam-desk .text-faint {
+  color: #8a8378;
+}
+.sam-desk .border-border,
+.sam-desk .border-white\/5 {
+  border-color: rgba(184, 136, 40, 0.18);
+}
+.sam-desk .chrome-body {
+  background: #fffdf8;
+  color: #2a241c;
+}
+
+.portal-card {
+  background: #fffdf8;
+  border: 1px solid rgba(184, 136, 40, 0.22);
+  border-radius: 18px;
+  box-shadow: 0 8px 22px rgba(42, 36, 28, 0.06);
+}
+
+.kpi-chip {
+  background: linear-gradient(180deg, #ffffff 0%, #f7f1e6 100%);
+  border: 1px solid rgba(184, 136, 40, 0.25);
+  border-radius: 16px;
+  box-shadow: 0 6px 16px rgba(42, 36, 28, 0.05);
+}
+
+@media print {
+  header,
+  aside,
+  nav,
+  .no-print,
+  [data-slot="user-button"] {
+    display: none !important;
+  }
+  .print-sheet {
+    box-shadow: none !important;
+    border: 1px solid #c8ced6;
+  }
 }

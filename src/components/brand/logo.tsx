@@ -4,7 +4,7 @@ export function BrandMark({ className, size = 48 }: { className?: string; size?:
   return (
     <span className={cn("logo-chrome", className)}>
       <img
-        src="/brand/sp-shield.png"
+        src="/brand/sp-lockup-shield.jpg"
         alt=""
         width={size}
         height={size}
@@ -24,5 +24,36 @@ export function Wordmark({ compact = false }: { compact?: boolean }) {
         </div>
       ) : null}
     </div>
+  );
+}
+
+export function BrandLockup({ className }: { className?: string }) {
+  return (
+    <img
+      src="/brand/sp-lockup.jpg"
+      alt="Sam's Prowash Solutions — Advanced Surface Protection"
+      className={cn("h-auto w-full object-contain", className)}
+    />
+  );
+}
+
+export function WaterGlassBand({
+  className,
+  tall = false,
+}: {
+  className?: string;
+  tall?: boolean;
+}) {
+  return (
+    <figure className={cn("relative w-full overflow-hidden", className)}>
+      <img
+        src="/media/water-glass-banner.jpg"
+        alt="Water beading on glass"
+        className={cn(
+          "block w-full object-cover",
+          tall ? "h-48 md:h-72 lg:h-96" : "h-20 md:h-28 lg:h-32",
+        )}
+      />
+    </figure>
   );
 }

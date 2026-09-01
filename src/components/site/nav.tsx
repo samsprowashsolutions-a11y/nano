@@ -1,5 +1,5 @@
 import { Link, useRouterState } from "@tanstack/react-router";
-import { BrandMark, Wordmark } from "@/components/brand/logo";
+import { BrandLockup, BrandMark, Wordmark } from "@/components/brand/logo";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { BRAND } from "@/lib/content";
@@ -94,13 +94,7 @@ export function SiteFooter() {
     <footer className="border-t border-line-gold/40 bg-carbon">
       <div className="mx-auto grid max-w-6xl gap-10 px-4 py-14 sm:px-6 md:grid-cols-4">
         <div className="md:col-span-2">
-          <div className="flex items-center gap-3">
-            <BrandMark size={48} />
-            <div>
-              <div className="font-display text-2xl text-gold-hi">NanoAssure™</div>
-              <div className="text-base uppercase tracking-[0.1em] text-aqua">Asset Protection</div>
-            </div>
-          </div>
+          <BrandLockup className="max-w-md" />
           <p className="mt-5 max-w-md text-lg leading-relaxed text-muted">
             {BRAND.parent}. {BRAND.positioning} Public pages do not publish prices. Internal
             platforms are role-locked. Finance remains Director-only.

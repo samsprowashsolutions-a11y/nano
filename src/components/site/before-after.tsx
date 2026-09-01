@@ -155,9 +155,11 @@ function WindowScene({ mode, uid }: { mode: "treated" | "untreated"; uid: string
 export function BeforeAfter({
   beforeLabel = "Non applied",
   afterLabel = "NanoAssure™ applied",
+  className,
 }: {
   beforeLabel?: string;
   afterLabel?: string;
+  className?: string;
 }) {
   const [pos, setPos] = useState(48);
   const ref = useRef<HTMLDivElement>(null);
@@ -174,7 +176,7 @@ export function BeforeAfter({
   return (
     <div
       ref={ref}
-      className="glass-proof relative aspect-4/3 touch-none overflow-hidden rounded-[28px] bg-carbon shadow-[var(--shadow-chrome)] outline outline-1 -outline-offset-1 outline-chrome/25"
+      className={`glass-proof relative aspect-video w-full touch-none overflow-hidden bg-carbon shadow-[var(--shadow-chrome)] outline outline-1 -outline-offset-1 outline-chrome/25 ${className ?? ""}`}
       onPointerDown={(e) => {
         (e.currentTarget as HTMLDivElement).setPointerCapture(e.pointerId);
         setFromClientX(e.clientX);

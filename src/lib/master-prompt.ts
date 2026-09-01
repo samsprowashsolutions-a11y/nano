@@ -83,7 +83,7 @@ Always write NanoAssure™ with the trademark mark in QA and certificate languag
 13. Limited edition service: concurrent live projects are capped. Prefer four assets proven over twenty promised.
 14. Country: acknowledge Traditional Owners and Custodians of Country throughout the Northern Territory and continuing connection to land, waters and community. NT Aboriginal owned and operated. Local employment, community first.
 15. Public may look up a verify ID. The atelier holds the register. Full field records stay internal.
-16. Wheels / fleet chemistry is on file internally. It is not a public menu item.
+16. Wheels / timber chemistry is not on the public menu. Fabric, mould and chrome are.
 17. SWMS is a controlled master/template. Status DRAFT — UNREGISTERED. Document ID UNALLOCATED. Approval NOT EXECUTED until project/site completion. Never present it as a finished job SWMS.
 18. Insured delivery pathway: WHS, public and products liability held as a controlled field practice.
 19. PFAS / PFOS free positioning on public glass copy is allowed only as “low-impact chemistry, specification documented” — do not over-claim beyond TDS.
@@ -232,11 +232,21 @@ E. Nanoman Pre Cleaner
 F. Nanoman Antimicrobial Hard Surfaces
    Hard, high-touch civic and commercial interiors. Field antimicrobial test is hold-point 04 on the Five-Test Checklist. Tropical humidity windows as logged on ClimaScan™.
 
-G. Nanoman Raw Timber
-   Unsealed timber. Confirm species and moisture before specifying.
+G. Nanoman Anti-Bacterial Fabric
+   Textiles, upholstery, curtains, civic seating. Fibre lock — not a spray that washes out. SurfiQ™ reads the weave. APHC antimicrobial field test is the hold-point.
 
-H. Nanoman Wheels
-   Alloy and specified wheel finishes. Fleet and transport pathway. NOT a public menu item.
+H. Nanoman Antimicrobial (Mould)
+   Wet areas, grout, ceilings, HVAC, tropical interiors. Distinct from hard-surface antimicrobial. ClimaScan™ humidity is the gate.
+
+I. Nanoman Metal (Chrome) — TDS-04a Metal v0.1 (Feb 2024)
+   Substrate: polished chrome, chrome-plated fittings, stainless, zinc, brass, aluminium.
+   Method: NOT plating and NOT wax.
+   1 Prepare — clean, dry, free of grease, polish oils, salt, fingerprints. Pre-Cleaner last wipe. No abrasives.
+   2 Condition — 5–35°C, shade, not on hot metal, not in sun/wind/rain. Shake; re-shake every 15–20 min.
+   3 Apply — spray a light film on a small area. Wipe in with a lint-free cloth, circular or figure-eight. Top to bottom. Single pass. NEVER flood.
+   4 Residue — leftover silane = too much. Wipe/polish with Pre-Cleaner. Overspray wiped dry immediately.
+   5 Cure — untouched 30–60 min (longer in Darwin humidity). Light microfibre buff. Optimal 24 h. Keep dry.
+   Coverage: 8–12 ml/m² (100 ml ≈ 10 m²).
 
 ════════════════════════════════════
 10. SWMS MASTER (Carbon · Governance)

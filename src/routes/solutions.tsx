@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteShell } from "@/components/site/shell";
 import { Film } from "@/components/site/film";
-import { PRODUCTS, SOLUTIONS, assuranceFor, QA_TESTS } from "@/lib/content";
+import { PRODUCTS, SOLUTIONS, assuranceFor, QA_TESTS, productMethod } from "@/lib/content";
 import { Button } from "@/components/ui/button";
 import { ChromeShield } from "@/components/chrome-shield";
 
@@ -18,8 +18,9 @@ function Solutions() {
             <p className="kicker">Specified systems</p>
             <h1 className="gold-text mt-2 font-display text-4xl md:text-6xl">The collection</h1>
             <p className="mt-4 max-w-xl text-lg text-muted">
-              Premium nano-coating systems for glass, masonry, metal, antimicrobial and anti-graffiti
-              protection — always applied to manufacturer TDS and proven by NanoAssure™ gates.
+              Premium nano-coating systems for glass, masonry, chrome, fabric, mould and
+              anti-graffiti protection — always applied to manufacturer TDS and proven by
+              NanoAssure QA7™.
             </p>
           </div>
         </div>
@@ -33,7 +34,9 @@ function Solutions() {
           />
           <div className={`relative mx-auto flex min-h-[85vh] max-w-6xl items-center px-5 py-20 ${i % 2 ? "md:justify-end" : ""}`}>
             <div className="max-w-lg">
-              <p className="kicker text-gold">0{i + 1} / 06</p>
+              <p className="kicker text-gold">
+                {String(i + 1).padStart(2, "0")} / {String(SOLUTIONS.length).padStart(2, "0")}
+              </p>
               <h2 className="mt-2 font-display text-4xl text-gold-hi md:text-5xl">{s.title}</h2>
               <p className="mt-4 text-lg leading-relaxed text-pearl">{s.copy}</p>
             </div>
@@ -70,6 +73,13 @@ function Solutions() {
                   );
                 })()}
                 <p className="mt-2 text-sm text-aqua">{p.tds}</p>
+                {productMethod(p) ? (
+                  <ol className="mt-3 list-decimal space-y-1 pl-5 text-sm text-pearl">
+                    {productMethod(p)!.map((step) => (
+                      <li key={step}>{step}</li>
+                    ))}
+                  </ol>
+                ) : null}
                 <p className="mt-2 text-base text-muted">{p.substrate}</p>
                 <p className="mt-1 text-sm text-muted">
                   {p.coats} · {p.coverage}

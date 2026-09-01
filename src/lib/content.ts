@@ -32,8 +32,10 @@ export const SOLUTIONS = [
   { id: "glass", title: "Glass & ceramic", copy: "Facades, showers, mirrors, splashbacks. Self-cleaning assist with a controlled hydrophobic bond.", image: "/media/beads-macro.jpg" },
   { id: "stone", title: "Stone & brick", copy: "Porous mineral — sandstone, brick, concrete, marble. Invisible barrier against staining and weather.", image: "/media/civic-stone.jpg" },
   { id: "graffiti", title: "Anti-graffiti armour", copy: "Porous and non-porous systems. Markers cannot bond. CSIRO-tested APAS 1441 on porous.", image: "/media/masonry-protected.jpg" },
-  { id: "metal", title: "Metal & non-porous", copy: "Aluminium, stainless, powder-coat, GRP. Light-film protection specified to TDS.", image: "/media/metal-cladding.jpg" },
+  { id: "metal", title: "Metal & chrome", copy: "Polished chrome, stainless and plated metal. Spray a light film, then wipe in — circular or figure-eight. 8–12 ml/m². Never flood. TDS-04a.", image: "/media/chrome-fittings.jpg" },
   { id: "antimicrobial", title: "Antimicrobial hard surfaces", copy: "Microbiostatic defence for high-touch civic and commercial interiors under tropical humidity.", image: "/media/antimicrobial-lobby.jpg" },
+  { id: "mould", title: "Antimicrobial mould", copy: "Wet-area and tropical-interior mould pathway. Humidity is logged. The film stays; the spores do not.", image: "/media/antimicrobial-mould.jpg" },
+  { id: "fabric", title: "Anti-bacterial fabric", copy: "Textiles, upholstery and civic seating. Molecules lock to the fibre — not a spray that washes out.", image: "/media/antibacterial-fabric.jpg" },
   { id: "solar", title: "Solar & high UV", copy: "Presentation life for arrays and exposed glass under tropical sun — SolarStrest™ context.", image: "/media/solar-array.jpg" },
 ] as const;
 
@@ -295,32 +297,53 @@ export const PRODUCTS = [
     image: "/media/antimicrobial-lobby.jpg",
   },
   {
-    id: "raw-timber",
-    name: "Nanoman Raw Timber",
-    tds: "Raw Timber TDS",
-    sds: "SDS Raw Timber",
-    substrate: "Unsealed timber (not for engineered composites unless specified)",
-    coats: "Per TDS",
-    coverage: "Varies with absorbency",
-    env: "Dry timber · no rain in the cure window",
-    dryTimes: "Per TDS",
+    id: "ab-fabric",
+    name: "Nanoman Anti-Bacterial Fabric",
+    tds: "Anti-Bacterial Fabric / 365 Fabric Surfaces TDS",
+    sds: "SDS Antimicrobial Fabric",
+    substrate: "Textiles, upholstery, curtains, civic seating, specified fabrics",
+    coats: "As specified on TDS — fibre treatment, not a paint",
+    coverage: "Per TDS · varies with weave and absorbency",
+    env: "Cool, dry fabric. Humidity logged on ClimaScan™",
+    dryTimes: "Per TDS · fully dry before return to service",
     apas: "",
-    certNote: "Confirm species and moisture before specifying.",
-    image: "/media/raw-timber.jpg",
+    certNote: "Fibre lock. Field antimicrobial test is the hold-point. Not a perfume that washes out.",
+    image: "/media/antibacterial-fabric.jpg",
   },
   {
-    id: "wheels",
-    name: "Nanoman Wheels",
-    tds: "Wheels TDS",
-    sds: "SDS Wheels",
-    substrate: "Alloy and specified wheel finishes",
-    coats: "Light film",
+    id: "am-mould",
+    name: "Nanoman Antimicrobial (Mould)",
+    tds: "Antimicrobial Mould / Wet-Area TDS",
+    sds: "SDS Antimicrobial",
+    substrate: "Wet areas, grout, ceilings, HVAC, bathrooms, tropical interiors prone to mould",
+    coats: "As specified on TDS",
     coverage: "Per TDS",
-    env: "Cool, dry, dust-free",
+    env: "Tropical humidity windows as logged on ClimaScan™. Face must be dry at application.",
     dryTimes: "Per TDS",
     apas: "",
-    certNote: "Fleet and transport pathway. Not a public menu item.",
-    image: "/media/wheels.jpg",
+    certNote: "Mould pathway is not the same as hard-surface antimicrobial. APHC field test is the hold-point.",
+    image: "/media/antimicrobial-mould.jpg",
+  },
+  {
+    id: "chrome",
+    name: "Nanoman Metal (Chrome)",
+    tds: "TDS-04a Metal v0.1 (Feb 2024)",
+    sds: "SDS Metal · chrome-plated surfaces",
+    substrate: "Polished chrome, chrome-plated fittings, stainless, zinc, brass, aluminium — handrails, taps, facings, marine and architectural chrome",
+    coats: "Single light film — spray then wipe. Never a second wet coat.",
+    coverage: "8–12 ml/m² · 100 ml treats ~10 m² · do not flood",
+    env: "5–35°C · shade · not on hot metal · not in sun, wind or rain · dust-free",
+    dryTimes: "Untouched 30–60 min (longer in humidity) · optimal after 24 h · keep dry",
+    apas: "",
+    certNote: "Applied per Nanoman TDS-04a. Light film only. Residue means too much was applied.",
+    image: "/media/chrome-fittings.jpg",
+    method: [
+      "Prepare — completely clean, dry, free of grease, polish oils, salt and fingerprints. Pre-Cleaner is the last wipe. No abrasive cloths on polished chrome.",
+      "Condition — 5–35°C. Shade. Not in direct sun. Not on hot metal. Shake; re-shake every 15–20 minutes so the nanoparticles stay suspended.",
+      "Apply — spray a light film onto a small area. Wipe in with a lint-free cloth in circular or figure-eight motions. Work top to bottom. Single pass. Never flood.",
+      "Residue — leftover silane means over-application. Wipe or polish off with Pre-Cleaner. Overspray is wiped dry immediately so it cannot crystallise.",
+      "Cure — untouched and dry 30–60 minutes (longer in Darwin humidity). Light buff with a clean microfibre. Optimal after 24 hours. Keep dry in that window.",
+    ],
   },
 ] as const;
 
@@ -409,21 +432,6 @@ export const ASSURANCES: {
     ],
   },
   {
-    productId: "raw-timber",
-    mark: "QA7-TIMBER",
-    name: "Timber Capillary Bond",
-    science:
-      "Unsealed timber drinks. SurfiQ™ reads the species. NanoBond™ confirms the molecules occupy the grain — not a varnish sitting proud.",
-    tests: ["climascan", "surfiq", "phield", "nanobond", "solarstrest"],
-    notes: [
-      "SurfiQ™ — absorbency varies by species. Coverage follows the read.",
-      "pHield™ — no residual treatment fighting the film.",
-      "ClimaScan™ — dry timber, no rain in the cure window.",
-      "NanoBond™ — capillary lock into the grain.",
-      "SolarStrest™ — UV weathering on exposed timber.",
-    ],
-  },
-  {
     productId: "pre-cleaner",
     mark: "QA7-PREP",
     name: "Workface Neutral Gate",
@@ -437,23 +445,58 @@ export const ASSURANCES: {
     ],
   },
   {
-    productId: "wheels",
-    mark: "QA7-ALLOY",
-    name: "Alloy Film Bond",
+    productId: "ab-fabric",
+    mark: "QA7-FABRIC",
+    name: "FibreGuard Antibacterial Bond",
     science:
-      "A light film on specified wheel finishes. Dust and heat will kill a bond that was never measured. NANODATA Collection™ measures it.",
+      "The molecules lock to the fibre. NANODATA Collection™ reads absorbency first — then NanoBond™ proves the treatment is in the weave, not sitting as a spray that washes out.",
+    tests: ["climascan", "surfiq", "nanobond"],
+    notes: [
+      "SurfiQ™ — weave and absorbency set coverage. Upholstery is not glass.",
+      "ClimaScan™ — tropical humidity is logged before return to service.",
+      "NanoBond™ — fibre lock. The antibacterial field test is the APHC hold-point.",
+    ],
+  },
+  {
+    productId: "am-mould",
+    mark: "QA7-MOULD",
+    name: "MouldLock Microbiostatic Bond",
+    science:
+      "Darwin wet-season interiors. The film stays on grout, wet-area stone and tropical faces so mould cannot colonise. Humidity is a measured window — not a guess.",
     tests: ["climascan", "phield", "nanobond", "solarstrest"],
     notes: [
-      "ClimaScan™ — cool, dry, dust-free. No exceptions.",
-      "pHield™ — brake dust and cleaner residue must be gone.",
-      "NanoBond™ — light-film lock on alloy.",
-      "SolarStrest™ — heat and UV on fleet assets.",
+      "ClimaScan™ — humidity is the gate. Apply only on a dry face.",
+      "pHield™ — residual cleaner or alkali will fight the bond.",
+      "NanoBond™ — molecular lock on the wet-area substrate.",
+      "SolarStrest™ — heat and exposure on bathrooms, plant rooms and exteriors.",
+      "APHC field antimicrobial test is the hold-point. This is not the hard-surface pathway.",
+    ],
+  },
+  {
+    productId: "chrome",
+    mark: "QA7-CHROME",
+    name: "Chrome Film Bond",
+    science:
+      "A light film on polished chrome — not plating, not wax. Spray, then wipe in. The molecules lock to the metal; water beads because the bond is there, not because a polish is sitting on top.",
+    tests: ["climascan", "surfiq", "phield", "nanobond", "solarstrest"],
+    notes: [
+      "Method — spray a light film, wipe in circular or figure-eight with a lint-free cloth. 8–12 ml/m². Never flood.",
+      "SurfiQ™ — confirms non-absorbent chrome. If it drinks, this is the wrong system.",
+      "ClimaScan™ — 5–35°C, shade, not on hot metal, not in sun, wind or rain.",
+      "pHield™ — polish oils, salt and fingerprints gone. Pre-Cleaner is the last wipe. No abrasives.",
+      "NanoBond™ — light-film molecular lock. Haze means too much was applied — buff off with Pre-Cleaner.",
+      "SolarStrest™ — Darwin UV, heat and marine salt on architectural chrome.",
+      "Cure — untouched 30–60 min (longer in humidity). Light microfibre buff. Keep dry 24 h.",
     ],
   },
 ];
 
 export function assuranceFor(productId: string) {
   return ASSURANCES.find((a) => a.productId === productId);
+}
+
+export function productMethod(p: (typeof PRODUCTS)[number]) {
+  return "method" in p ? p.method : undefined;
 }
 
 export const NANODATA_SCIENCE =

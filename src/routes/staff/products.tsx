@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { PRODUCTS, QA_TESTS, assuranceFor } from "@/lib/content";
+import { PRODUCTS, QA_TESTS, assuranceFor, productMethod } from "@/lib/content";
 import { ChromePlate, ChromeShield } from "@/components/chrome-shield";
 import { Qa7Drop } from "@/components/qa/qa7";
 
@@ -58,6 +58,13 @@ function Products() {
                       <dd className="inline">{p.coverage}</dd>
                     </div>
                   </dl>
+                  {productMethod(p) ? (
+                    <ol className="mt-3 list-decimal space-y-1 pl-5 text-sm text-pearl">
+                      {productMethod(p)!.map((step) => (
+                        <li key={step}>{step}</li>
+                      ))}
+                    </ol>
+                  ) : null}
                   <p className="mt-3 text-xs leading-relaxed text-pearl/80">{p.certNote}</p>
                 </div>
               </article>

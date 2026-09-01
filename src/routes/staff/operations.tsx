@@ -42,7 +42,7 @@ function Operations() {
       },
     });
     setOpenId(res.id);
-    setMsg("Pathway opened. Seven gates. No shortcuts.");
+    setMsg("Pathway opened. Seven NANO7™ gates. No shortcuts.");
     e.currentTarget.reset();
     void jobs.refetch();
   }
@@ -72,10 +72,10 @@ function Operations() {
     <div className="mx-auto max-w-6xl space-y-8">
       <Qa7Banner compact />
       <DeskHeader
-        kicker="Pearl · NanoAssure QA7™"
-        title="Seven-step quality assurance"
-        script="The headliner."
-        copy="Every job walks APA → AR → APDC → APHC → SSC → FDP → NIA. NANODATA Collection™ is the science inside APDC. Hold-points are gold. Certificates are not issued from a conversation."
+        kicker="Pearl · NANO7™"
+        title="Asset Assurance Policy"
+        script="Inspect to handover."
+        copy="Every job walks Inspect → Prepare → Apply → Verify → Record → Approve → Handover. NANODATA Collection™ is the science inside Verify. Hold-points are gold. Certificates are not issued from a conversation."
       />
 
       <div className="grid gap-3 sm:grid-cols-7">
@@ -195,7 +195,7 @@ function Operations() {
       <ChromePlate>
         <form onSubmit={onTest} className="space-y-4 p-5 md:p-8">
           <div>
-            <p className="kicker">APHC · QA-FORM-001</p>
+            <p className="kicker">Verify · QA-FORM-001</p>
             <h2 className="gold-text font-display text-2xl">Five-test field checklist</h2>
             <p className="font-script text-xl text-gold">Nanotechnology · Performance · Protection</p>
           </div>

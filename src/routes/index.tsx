@@ -155,7 +155,7 @@ function Home() {
 
       <section className="mx-auto max-w-3xl px-5 pb-20">
         <p className="kicker mb-2 text-center">
-          Pearl · QA-FORM-001 · APHC
+          Pearl · QA-FORM-001 · Verify
         </p>
         <h2 className="gold-text mb-6 text-center font-display text-3xl">Five-test field checklist</h2>
         <FieldChecklist documentLook />

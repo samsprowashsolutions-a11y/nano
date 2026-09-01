@@ -14,7 +14,7 @@ function Products() {
           <p className="kicker">Purple · Reference</p>
           <h1 className="gold-text font-display text-3xl">Chemistry library</h1>
           <p className="text-sm text-muted">
-            Each system carries a named NanoAssure QA7™ bond. NANODATA Collection™ is the science.
+            Each system carries a named NANO7™ bond. NANODATA Collection™ is the science inside Verify.
           </p>
         </div>
       </header>

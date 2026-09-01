@@ -20,7 +20,7 @@ function Solutions() {
             <p className="mt-4 max-w-xl text-lg text-muted">
               Premium nano-coating systems for glass, masonry, chrome, fabric, mould and
               anti-graffiti protection — always applied to manufacturer TDS and proven by
-              NanoAssure QA7™.
+              NanoAssure™ NANO7™.
             </p>
           </div>
         </div>

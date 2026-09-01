@@ -17,7 +17,7 @@ function Assurance() {
         <h2 className="gold-text font-display text-3xl md:text-5xl">Each mark is a hold-point</h2>
         <p className="mt-3 max-w-3xl text-lg text-muted">
           Gold metallic. Half neon. Not a shield — shields belong to {SYSTEMS.nanodata.name}.
-          QA7 is the pathway. Certificates are not issued from a conversation.
+          NANO7™ is the policy. NANODATA Collection™ is the science inside Verify.
         </p>
         <div className="mt-8 grid gap-3 md:grid-cols-2">
           {PROCESS.map((p) => (
@@ -42,7 +42,7 @@ function Assurance() {
         <h2 className="gold-text mb-2 font-display text-3xl">Five-test field checklist</h2>
         <p className="mb-6 font-script text-2xl text-gold">Nanotechnology · Performance · Protection</p>
         <p className="mb-6 text-muted">
-          APHC on the QA7 pathway. After NANODATA Collection™ has locked the molecules, the
+          Verify on the NANO7™ pathway. After NANODATA Collection™ has locked the molecules, the
           workface still initials adhesion, beading, UV, antimicrobial and durability.
         </p>
         <FieldChecklist documentLook />
@@ -59,8 +59,8 @@ function Assurance() {
       <section className="mx-auto max-w-6xl px-5 pb-20">
         <h2 className="gold-text mb-4 font-display text-3xl">Verify IDs</h2>
         <p className="max-w-xl text-muted">
-          Format <code className="text-aqua">NA-YYYYMMDD-XXXX</code>. Issued only after QA7
-          gates pass and NANODATA Collection™ has confirmed the molecular lock.
+          Format <code className="text-aqua">NA-YYYYMMDD-XXXX</code>. Issued only after NANO7™
+          Approve — and only after NANODATA Collection™ has confirmed the molecular lock.
         </p>
         <Button asChild className="mt-6">
           <Link to="/analysis">Request analysis</Link>

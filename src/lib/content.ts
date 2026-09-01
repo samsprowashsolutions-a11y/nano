@@ -25,7 +25,7 @@ export const TRUST = [
   { title: "Business & government ready", copy: "Darwin NT and surrounding regions. Civic, commercial, body-corporate." },
   { title: "Insured delivery pathway", copy: "WHS, public and products liability held as a controlled field practice." },
   { title: "Aboriginal-led values", copy: "NT Aboriginal owned and operated. Local employment, community first." },
-  { title: "Evidence-based QA", copy: "NANOASSURE QA7™ is the pathway. NANODATA Collection™ is the science. Never merged." },
+  { title: "Evidence-based QA", copy: "NANO7™ Asset Assurance Policy is the pathway. NANODATA Collection™ is the science. Never merged." },
 ] as const;
 
 export const SOLUTIONS = [
@@ -41,13 +41,15 @@ export const SOLUTIONS = [
 
 export const SYSTEMS = {
   qa7: {
-    mark: "QA7",
-    name: "NANOASSURE QA7",
-    full: "NanoAssure QA7™",
+    mark: "NANO7",
+    name: "NANO7™",
+    full: "NANO7™ Asset Assurance Policy",
+    policy: "ASSET ASSURANCE POLICY",
+    sequence: "Inspect · Prepare · Apply · Verify · Record · Approve · Handover",
     steps: 7,
-    kicker: "The headliner · seven-step controlled pathway",
-    script: "Proven. Not promised.",
-    role: "Headliner pathway. The Nano Drop shield is the system mark. Seven gold metallic step icons carry a half neon outline — never the same as NANODATA shields.",
+    kicker: "The headliner · seven-gate policy",
+    script: "Asset Assurance Policy",
+    role: "Headliner pathway. The Nano Drop is the system mark. Seven gold metallic gates with a half neon outline — never the same as NANODATA shields.",
   },
   nanodata: {
     mark: "ND5",
@@ -56,7 +58,7 @@ export const SYSTEMS = {
     steps: 5,
     kicker: "The science · five-instrument substrate series",
     script: "Molecules. Not guesswork.",
-    role: "Chrome shield marks. Lives inside QA7 at APDC. Must never be merged or substituted.",
+    role: "Chrome shield marks. Lives inside NANO7™ at Verify. Must never be merged or substituted.",
   },
 } as const;
 
@@ -129,85 +131,85 @@ export const FIELD_TESTS: { n: string; name: string; detail: string; tone: Chrom
   { n: "05", name: "Durability & Abrasion Test", detail: "Confirms long-term durability and resistance. Surface maintains performance under real-world use.", tone: "gold", key: "durability" },
 ];
 
-export type Qa7Icon = "apa" | "ar" | "apdc" | "aphc" | "ssc" | "fdp" | "nia";
+export type Qa7Icon = "inspect" | "prepare" | "apply" | "verify" | "record" | "approve" | "handover";
 
 export const PROCESS = [
   {
-    code: "APA",
+    code: "INS",
     key: "apa",
-    icon: "apa" as Qa7Icon,
+    icon: "inspect" as Qa7Icon,
     n: "01",
-    name: "Asset Protection Analysis",
+    name: "Inspect",
     short: "The read",
     tone: "carbon" as ChromeTone,
     hold: "Inspection is invitation-only. No public quote.",
-    detail: "Confidential workface read: substrate, exposure, access, chemistry window.",
+    detail: "Confidential workface read: substrate, exposure, access, chemistry window. The asset is seen before anything is specified.",
   },
   {
-    code: "AR",
+    code: "PRE",
     key: "rpt",
-    icon: "ar" as Qa7Icon,
+    icon: "prepare" as Qa7Icon,
     n: "02",
-    name: "Analysis Report",
-    short: "The spec",
+    name: "Prepare",
+    short: "The face",
     tone: "teal" as ChromeTone,
-    hold: "Report is the specification. Nothing is applied from a phone call.",
-    detail: "Written atelier report to TDS. Client profile receives the document.",
+    hold: "Nothing is applied to a dirty, wet or unready face.",
+    detail: "Specification to TDS. Pre-Cleaner where required. Exclusion zone. The workface is made ready — not hoped ready.",
   },
   {
-    code: "APDC",
+    code: "APL",
     key: "dat",
-    icon: "apdc" as Qa7Icon,
+    icon: "apply" as Qa7Icon,
     n: "03",
-    name: "Asset Protection Data Check",
-    short: "The science",
+    name: "Apply",
+    short: "The film",
     tone: "purple" as ChromeTone,
-    hold: "NANODATA Collection™ lives here. Never merged with QA7.",
-    detail: "ClimaScan™ · SurfiQ™ · pHield™ · NanoBond™ · SolarStrest™. Five instruments. One gate.",
+    hold: "Applied per manufacturer TDS. SP brands assurance only. Never flood.",
+    detail: "Controlled application. Chrome is spray-then-wipe. Porous systems are single coat. Cure window protected.",
   },
   {
-    code: "APHC",
+    code: "VER",
     key: "hlt",
-    icon: "aphc" as Qa7Icon,
+    icon: "verify" as Qa7Icon,
     n: "04",
-    name: "Asset Protection Health Check",
-    short: "The pulse",
+    name: "Verify",
+    short: "The science",
     tone: "pearl" as ChromeTone,
-    hold: "Field five-test must pass before SSC.",
-    detail: "Adhesion, beading, UV, antimicrobial, durability. Initials on the workface.",
+    hold: "NANODATA Collection™ lives here. Never merged with NANO7™.",
+    detail: "ClimaScan™ · SurfiQ™ · pHield™ · NanoBond™ · SolarStrest™, then the field five-test. Molecules locked — or the job holds.",
   },
   {
-    code: "SSC",
+    code: "REC",
     key: "crt",
-    icon: "ssc" as Qa7Icon,
+    icon: "record" as Qa7Icon,
     n: "05",
-    name: "Surface Shield Certificate",
-    short: "The seal",
+    name: "Record",
+    short: "The file",
     tone: "gold" as ChromeTone,
-    hold: "Issued only after APDC and APHC pass.",
-    detail: "NanoAssure™ certificate NA-YYYYMMDD-XXXX, QR-tagged to the client profile.",
+    hold: "If it is not written, it was not done.",
+    detail: "Ops daily, photos, NANODATA values, initials. The client profile and Sam’s Safe receive the pack.",
   },
   {
-    code: "FDP",
+    code: "APP",
     key: "dep",
-    icon: "fdp" as Qa7Icon,
+    icon: "approve" as Qa7Icon,
     n: "06",
-    name: "Field Deployment Protocol",
-    short: "The apply",
+    name: "Approve",
+    short: "The seal",
     tone: "teal" as ChromeTone,
-    hold: "Applied per manufacturer TDS. SP brands assurance only.",
-    detail: "Controlled application. Cure window protected. Ops daily files the day.",
+    hold: "Certificate only after Verify and Record pass.",
+    detail: "NanoAssure™ certificate NA-YYYYMMDD-XXXX. Director/atelier sign-off. QR is printed for the asset.",
   },
   {
-    code: "NIA",
+    code: "HND",
     key: "nia",
-    icon: "nia" as Qa7Icon,
+    icon: "handover" as Qa7Icon,
     n: "07",
-    name: "Nano-Integrity Alert",
-    short: "The watch",
+    name: "Handover",
+    short: "The pass",
     tone: "gold" as ChromeTone,
     hold: "The job is not finished at the van door.",
-    detail: "Watch window after cure. Alerts reopen APDC/APHC, never a silent patch.",
+    detail: "Warranty, verify ID and documents go to the client profile. Watch window after cure. Alerts reopen Verify, never a silent patch.",
   },
 ] as const;
 
@@ -359,7 +361,7 @@ export const ASSURANCES: {
 }[] = [
   {
     productId: "glass-ceramic",
-    mark: "QA7-GLASS",
+    mark: "N7-GLASS",
     name: "Hydrophobic Glass Bond",
     science:
       "A single thin film locks to silica. Water beads because the molecules have bonded — not because a wax sits on top.",
@@ -374,7 +376,7 @@ export const ASSURANCES: {
   },
   {
     productId: "stone-brick",
-    mark: "QA7-MINERAL",
+    mark: "N7-MINERAL",
     name: "Mineral Capillary Bond",
     science:
       "The chemistry is drunk into the stone. NANODATA Collection™ proves the capillaries accepted the molecules before we call it protected.",
@@ -389,7 +391,7 @@ export const ASSURANCES: {
   },
   {
     productId: "ag-porous",
-    mark: "QA7-GRAFF-P",
+    mark: "N7-GRAFF-P",
     name: "Graffiti Porous Bond",
     science:
       "A single coat enters the masonry. Markers cannot bond because the pores are already occupied — APAS 1441 on file.",
@@ -404,7 +406,7 @@ export const ASSURANCES: {
   },
   {
     productId: "ag-nonporous",
-    mark: "QA7-GRAFF-N",
+    mark: "N7-GRAFF-N",
     name: "Graffiti Film Bond",
     science:
       "A light film on metal, powder-coat and GRP. SurfiQ™ first proves the face will not drink — then NanoBond™ locks a 10–12 ml coat.",
@@ -419,7 +421,7 @@ export const ASSURANCES: {
   },
   {
     productId: "antimicrobial",
-    mark: "QA7-MICRO",
+    mark: "N7-MICRO",
     name: "Microbiostatic Bond",
     science:
       "The film stays on the high-touch face. NANODATA Collection™ plus the field antimicrobial test prove the molecules remain active — not a perfume that fades.",
@@ -433,7 +435,7 @@ export const ASSURANCES: {
   },
   {
     productId: "pre-cleaner",
-    mark: "QA7-PREP",
+    mark: "N7-PREP",
     name: "Workface Neutral Gate",
     science:
       "Not a coating. Pre-Cleaner is the gate that makes NanoBond™ possible. A dirty or alkaline face cannot lock molecules.",
@@ -446,7 +448,7 @@ export const ASSURANCES: {
   },
   {
     productId: "ab-fabric",
-    mark: "QA7-FABRIC",
+    mark: "N7-FABRIC",
     name: "FibreGuard Antibacterial Bond",
     science:
       "The molecules lock to the fibre. NANODATA Collection™ reads absorbency first — then NanoBond™ proves the treatment is in the weave, not sitting as a spray that washes out.",
@@ -459,7 +461,7 @@ export const ASSURANCES: {
   },
   {
     productId: "am-mould",
-    mark: "QA7-MOULD",
+    mark: "N7-MOULD",
     name: "MouldLock Microbiostatic Bond",
     science:
       "Darwin wet-season interiors. The film stays on grout, wet-area stone and tropical faces so mould cannot colonise. Humidity is a measured window — not a guess.",
@@ -474,7 +476,7 @@ export const ASSURANCES: {
   },
   {
     productId: "chrome",
-    mark: "QA7-CHROME",
+    mark: "N7-CHROME",
     name: "Chrome Film Bond",
     science:
       "A light film on polished chrome — not plating, not wax. Spray, then wipe in. The molecules lock to the metal; water beads because the bond is there, not because a polish is sitting on top.",
@@ -500,7 +502,7 @@ export function productMethod(p: (typeof PRODUCTS)[number]) {
 }
 
 export const NANODATA_SCIENCE =
-  "Before a Surface Shield Certificate is issued, the workface walks NANODATA Collection™ — a series of substrate tests that scientifically assure the specified molecules have bonded to the substrate. ClimaScan™ confirms environmental equilibrium. SurfiQ™ reads porosity so the chemistry can enter capillaries or sit as a specified light coat. pHield™ confirms the face is chemically ready. NanoBond™ is the molecular audit: proof the coating has locked to the substrate, not merely dried on top. SolarStrest™ logs UV, heat and exposure so the bond is written for Darwin conditions. Five instruments. One science. Never merged with NANOASSURE QA7™.";
+  "Before Approve is signed, the workface walks NANODATA Collection™ — a series of substrate tests that scientifically assure the specified molecules have bonded to the substrate. ClimaScan™ confirms environmental equilibrium. SurfiQ™ reads porosity so the chemistry can enter capillaries or sit as a specified light coat. pHield™ confirms the face is chemically ready. NanoBond™ is the molecular audit: proof the coating has locked to the substrate, not merely dried on top. SolarStrest™ logs UV, heat and exposure so the bond is written for Darwin conditions. Five instruments. One science. It lives inside NANO7™ at Verify. Never merged with the Asset Assurance Policy.";
 
 export const SWMS = {
   title: "Safe Work Method Statement",

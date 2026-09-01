@@ -15,9 +15,9 @@ You have missed information if ANY of these are absent, renamed, or contradicted
 [ ] Legal entity, ABN, ACN, Darwin NT, both emails
 [ ] Positioning line verbatim + tagline triad verbatim
 [ ] Chrome Category System 01–05 with numbered chrome shields and metallic sheen
-[ ] Five-Step Data Test Set™ (ClimaScan, SurfiQ, pHield, NanoBond, SolarStress)
+[ ] NANODATA Collection™ (ClimaScan, SurfiQ, pHield, NanoBond, SolarStrest) — five-instrument science
 [ ] Five Test Field Checklist (Adhesion, Beading/Sheeting, UV, Antimicrobial, Durability)
-[ ] Seven-step process APA → RPT → DAT → HLT → CRT → DEP → NIA
+[ ] NANO7™ Asset Assurance Policy: Inspect → Prepare → Apply → Verify → Record → Approve → Handover
 [ ] Full Nanoman chemistry library with TDS/SDS, coats, coverage, env windows
 [ ] SWMS as DRAFT UNREGISTERED master template — not a completed job SWMS
 [ ] Verify IDs NA-YYYYMMDD-XXXX, issued only after gates pass
@@ -127,15 +127,15 @@ Chrome plate = conic aqua–chrome–gold–purple rim + inner gold rim + carbon
 Field-test rows sit on cream document plates when shown as QA-FORM-001.
 
 ════════════════════════════════════
-5. FIVE-STEP DATA TEST SET™  (Pearl · QA)
+5. NANODATA COLLECTION™  (five-instrument science · Pearl)
 ════════════════════════════════════
-Every application is proven. Not promised.
+Lives inside NANO7™ at Verify. Chrome shield icons. Never merged with the Asset Assurance Policy.
 
-01  ClimaScan™     CARBON   Temperature and humidity at the workface before the window is approved.
-02  SurfiQ™        TEAL     Porosity and absorption — is the substrate ready to accept the system?
-03  pHield™        PURPLE   Substrate pH and residual chemistry so the bond is not fighting contamination.
-04  NanoBond™      PEARL    Bond integrity after application. Confirmation the film has set as specified.
-05  SolarStress™   GOLD     UV and durability context for tropical exposure and long presentation life.
+01  ClimaScan™     CARBON   Climate lock — environmental equilibrium at the workface.
+02  SurfiQ™        TEAL     Porosity read — will the face drink the film or hold a light coat?
+03  pHield™        PURPLE   Chemistry ready — pH / residual contamination.
+04  NanoBond™      PEARL    Molecular lock — the substrate has bonded to the specified molecules.
+05  SolarStrest™   GOLD     Exposure profile — solar, UV, heat for Darwin conditions.
 
 ════════════════════════════════════
 6. FIVE TEST FIELD CHECKLIST  (QA-FORM-001 · Rev 1.0)
@@ -154,17 +154,18 @@ Footer: Tested. Verified. Assured. · QA-FORM-001 · Rev 1.0
 Staff operations records: site, product, five hold-point checkboxes, applicator initials, notes.
 
 ════════════════════════════════════
-7. SEVEN-STEP CONTROLLED PROCESS
+7. NANO7™ ASSET ASSURANCE POLICY
 ════════════════════════════════════
-01  APA   Asset Protection Analysis
-02  RPT   Analysis Report
-03  DAT   Data Check
-04  HLT   Health Check
-05  CRT   Surface Shield Cert
-06  DEP   Field Deployment
-07  NIA   Nano-Integrity Alert
+01  INS   Inspect
+02  PRE   Prepare
+03  APL   Apply
+04  VER   Verify     ← NANODATA Collection™ lives here. Never merged.
+05  REC   Record
+06  APP   Approve
+07  HND   Handover
 
-Public may also see APDC / APHC / SSC / FDP as historic labels — keep the seven codes above as canonical.
+Sequence (canonical): Inspect · Prepare · Apply · Verify · Record · Approve · Handover
+Historic labels APA / AR / APDC / APHC / SSC / FDP / NIA are retired. Do not revive them on the public surface.
 
 ════════════════════════════════════
 8. PUBLIC COLLECTION (no prices)

@@ -15,7 +15,7 @@ import { ChromeShield } from "@/components/chrome-shield";
 function GoldGlyph({ kind }: { kind: Qa7Icon }) {
   const stroke = "currentColor";
   switch (kind) {
-    case "apa":
+    case "inspect":
       return (
         <>
           <polygon points="32,6 56,20 56,44 32,58 8,44 8,20" />
@@ -23,16 +23,21 @@ function GoldGlyph({ kind }: { kind: Qa7Icon }) {
           <circle cx="32" cy="32" r="3.2" />
         </>
       );
-    case "ar":
+    case "prepare":
       return (
         <>
-          <path d="M16 10h24l10 10v36H16z" />
-          <path d="M40 10v10h10" fill="none" stroke={stroke} strokeWidth="2.2" />
-          <circle cx="32" cy="40" r="7" fill="none" stroke={stroke} strokeWidth="2.2" />
-          <path d="M32 36v8M29 40h6" fill="none" stroke={stroke} strokeWidth="2" />
+          <rect x="12" y="16" width="40" height="32" rx="5" />
+          <path d="M18 28h28" fill="none" stroke={stroke} strokeWidth="2.4" />
+          <path d="M18 36c8-8 20-8 28 0" fill="none" stroke={stroke} strokeWidth="2.4" />
         </>
       );
-    case "apdc":
+    case "apply":
+      return (
+        <>
+          <path d="M32 8c0 0 14 16 14 26a14 14 0 1 1-28 0C18 24 32 8 32 8z" />
+        </>
+      );
+    case "verify":
       return (
         <>
           <polygon points="32,4 60,32 32,60 4,32" />
@@ -43,21 +48,15 @@ function GoldGlyph({ kind }: { kind: Qa7Icon }) {
           <circle cx="18" cy="32" r="2.2" />
         </>
       );
-    case "aphc":
+    case "record":
       return (
         <>
-          <circle cx="32" cy="32" r="22" />
-          <polyline
-            points="12,32 22,32 26,20 32,44 38,24 44,32 52,32"
-            fill="none"
-            stroke={stroke}
-            strokeWidth="2.6"
-            strokeLinejoin="round"
-            strokeLinecap="round"
-          />
+          <path d="M16 10h24l10 10v36H16z" />
+          <path d="M40 10v10h10" fill="none" stroke={stroke} strokeWidth="2.2" />
+          <path d="M22 32h20M22 40h16" fill="none" stroke={stroke} strokeWidth="2.2" />
         </>
       );
-    case "ssc":
+    case "approve":
       return (
         <>
           <circle cx="32" cy="32" r="24" />
@@ -65,20 +64,26 @@ function GoldGlyph({ kind }: { kind: Qa7Icon }) {
           <polygon points="32,16 35,28 48,28 37,36 41,48 32,40 23,48 27,36 16,28 29,28" />
         </>
       );
-    case "fdp":
-      return (
-        <>
-          <path d="M32 8c0 0 14 16 14 26a14 14 0 1 1-28 0C18 24 32 8 32 8z" />
-          <path d="M18 44c0 0 8 9 8 14a8 8 0 1 1-16 0c0-5 8-14 8-14z" transform="translate(2 -6) scale(.7)" />
-          <path d="M46 44c0 0 8 9 8 14a8 8 0 1 1-16 0c0-5 8-14 8-14z" transform="translate(-18 -6) scale(.7)" />
-        </>
-      );
-    case "nia":
+    case "handover":
       return (
         <>
           <polygon points="32,6 58,32 32,58 6,32" />
-          <line x1="32" y1="20" x2="32" y2="36" stroke={stroke} strokeWidth="3.2" strokeLinecap="round" />
-          <circle cx="32" cy="44" r="2.6" />
+          <polyline
+            points="20,32 42,32 36,26"
+            fill="none"
+            stroke={stroke}
+            strokeWidth="2.8"
+            strokeLinejoin="round"
+            strokeLinecap="round"
+          />
+          <polyline
+            points="42,32 36,38"
+            fill="none"
+            stroke={stroke}
+            strokeWidth="2.8"
+            strokeLinejoin="round"
+            strokeLinecap="round"
+          />
         </>
       );
   }
@@ -141,7 +146,7 @@ export function Qa7Drop({ className }: { className?: string }) {
   return (
     <img
       src="/brand/qa7-drop-shield.png"
-      alt="NanoAssure QA7 — Nano Drop"
+      alt="NANO7™ Asset Assurance Policy — Nano Drop"
       className={cn("qa7-drop", className)}
     />
   );
@@ -165,9 +170,11 @@ export function Qa7Banner({
             <h2 className="gold-text mt-1 font-display text-4xl tracking-wide md:text-6xl">
               {SYSTEMS.qa7.name}
             </h2>
+            <p className="mt-2 font-display text-xl text-gold-hi md:text-2xl">{SYSTEMS.qa7.policy}</p>
+            <p className="mt-2 max-w-xl text-sm uppercase tracking-[0.12em] text-neon">{SYSTEMS.qa7.sequence}</p>
             <p className="mt-3 max-w-xl text-lg text-muted">
-              Seven gates. One certificate. The Nano Drop is the mark — molecule to substrate,
-              proven before it is promised.
+              Seven gates. One policy. NANODATA Collection™ is the science inside Verify —
+              molecules locked to the substrate before Approve is signed.
             </p>
           </div>
         </div>
@@ -224,12 +231,12 @@ export function ProductAssurances({
 }) {
   return (
     <section className="mx-auto max-w-6xl px-5 py-12 md:py-16">
-      <p className="kicker">QA7 × NANODATA</p>
+      <p className="kicker">NANO7™ × NANODATA Collection</p>
       <h2 className="gold-text font-display text-3xl md:text-5xl">{heading}</h2>
       <p className="mt-3 max-w-3xl text-lg text-muted">
-        Every specified system carries a named NanoAssure QA7™ bond. The science underneath is
-        NANODATA Collection™ — a series of substrate tests that prove the molecules have locked
-        to the face, not dried as a film on top.
+        Every specified system carries a named NANO7™ bond. The science underneath is
+        NANODATA Collection™ — five substrate tests that prove the molecules have locked
+        to the face, not dried as a film on top. That series is Verify. Never merged with the policy.
       </p>
       <div className="mt-8 grid gap-4 md:grid-cols-2">
         {ASSURANCES.map((a) => {

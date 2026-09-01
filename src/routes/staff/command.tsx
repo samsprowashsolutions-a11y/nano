@@ -149,7 +149,7 @@ function CommandPost() {
 
       <div className="grid gap-3 sm:grid-cols-3 xl:grid-cols-6">
         <Kpi label="Vault items" value={c?.vault ?? 0} hint="Sam’s Safe" to="/staff/vault" />
-        <Kpi label="QA jobs" value={c?.jobs ?? 0} hint="Seven-step pathway" to="/staff/operations" />
+        <Kpi label="NANO7 jobs" value={c?.jobs ?? 0} hint="Asset Assurance Policy" to="/staff/operations" />
         <Kpi label="Inbox" value={c?.leads ?? 0} hint="Analysis requests" to="/staff/inbox" />
         <Kpi label="Warranties" value={c?.warranties ?? 0} hint="Hooked to profiles" to="/staff/warranty" />
         <Kpi label="Certificates" value={c?.certs ?? 0} hint="Verify IDs" to="/staff/verify" />
@@ -157,7 +157,7 @@ function CommandPost() {
       </div>
 
       <div className="grid gap-3 lg:grid-cols-3">
-        <Card title="Seven-step funnel" to="/staff/operations" action="Pathway">
+        <Card title="NANO7™ funnel" to="/staff/operations" action="Pathway">
           <ul className="space-y-1 text-sm">
             {funnel.map((s) => (
               <li key={s.code} className="flex items-center justify-between">
@@ -169,7 +169,7 @@ function CommandPost() {
               </li>
             ))}
           </ul>
-          <p className="mt-2 text-xs text-[#5c564c]">Separate from the Five-Step Data Test Set™. Never merged.</p>
+          <p className="mt-2 text-xs text-[#5c564c]">NANODATA Collection™ sits in Verify. Never merged.</p>
         </Card>
         <Card title="Open QA jobs" to="/staff/operations" action="View all">
           {jobs.length === 0 ? <p className="text-sm text-[#5c564c]">No pathways open.</p> : null}

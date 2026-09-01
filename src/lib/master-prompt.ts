@@ -26,7 +26,7 @@ You have missed information if ANY of these are absent, renamed, or contradicted
 [ ] People: Samantha Rae (Director), Jasmin Calma (Cultural & Academy), Kate (Operations)
 [ ] Aboriginal-led / Country acknowledgement
 [ ] Limited concurrent capacity (atelier rule: few assets, proven — not volume)
-[ ] Chrome icons + chrome effect used; NO visuals from the zip packs
+[ ] Public never instructs the client on how to apply any product. Method is staff / atelier only.
 [ ] Logo on black / carbon only — never a white mat or checkerboard
 [ ] Great Vibes script only for invitation / cover moments
 

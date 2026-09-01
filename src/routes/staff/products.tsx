@@ -15,6 +15,7 @@ function Products() {
           <h1 className="gold-text font-display text-3xl">Chemistry library</h1>
           <p className="text-sm text-muted">
             Each system carries a named NANO7™ bond. NANODATA Collection™ is the science inside Verify.
+            Application method is atelier-only — never published to the client.
           </p>
         </div>
       </header>

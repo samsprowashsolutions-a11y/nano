@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteShell } from "@/components/site/shell";
 import { Film } from "@/components/site/film";
-import { PRODUCTS, SOLUTIONS, assuranceFor, QA_TESTS, productMethod } from "@/lib/content";
+import { PRODUCTS, SOLUTIONS, assuranceFor, QA_TESTS } from "@/lib/content";
 import { Button } from "@/components/ui/button";
 import { ChromeShield } from "@/components/chrome-shield";
 
@@ -73,18 +73,8 @@ function Solutions() {
                   );
                 })()}
                 <p className="mt-2 text-sm text-aqua">{p.tds}</p>
-                {productMethod(p) ? (
-                  <ol className="mt-3 list-decimal space-y-1 pl-5 text-sm text-pearl">
-                    {productMethod(p)!.map((step) => (
-                      <li key={step}>{step}</li>
-                    ))}
-                  </ol>
-                ) : null}
                 <p className="mt-2 text-base text-muted">{p.substrate}</p>
-                <p className="mt-1 text-sm text-muted">
-                  {p.coats} · {p.coverage}
-                  {p.apas ? ` · ${p.apas}` : ""}
-                </p>
+                <p className="mt-3 text-sm italic text-gold">Applied by the atelier. Analysis by invitation.</p>
               </div>
             </div>
           ))}

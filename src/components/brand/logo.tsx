@@ -2,9 +2,9 @@ import { cn } from "@/lib/utils";
 
 export function BrandMark({ className, size = 48 }: { className?: string; size?: number }) {
   return (
-    <span className={cn("logo-chrome", className)}>
+    <span className={cn("inline-flex shrink-0", className)}>
       <img
-        src="/brand/sp-lockup-shield.jpg"
+        src="/brand/sp-shield-clear.png"
         alt=""
         width={size}
         height={size}
@@ -30,9 +30,9 @@ export function Wordmark({ compact = false }: { compact?: boolean }) {
 export function BrandLockup({ className }: { className?: string }) {
   return (
     <img
-      src="/brand/sp-lockup.jpg"
+      src="/brand/sp-lockup.png"
       alt="Sam's Prowash Solutions — Advanced Surface Protection"
-      className={cn("h-auto w-full object-contain", className)}
+      className={cn("h-auto object-contain", className)}
     />
   );
 }

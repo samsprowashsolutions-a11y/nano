@@ -133,7 +133,7 @@ function QrDesk() {
         </DeskCard>
 
         <div className="print-sheet metal-panel rounded-xl p-5 text-center">
-          <img src="/brand/sp-lockup.jpg" alt="" className="mx-auto mb-3 w-48" />
+          <img src="/brand/sp-lockup.png" alt="" className="mx-auto mb-3 w-48" />
           {png ? (
             <img src={png} alt="QR" className="mx-auto w-56 rounded-lg" />
           ) : (

@@ -4,7 +4,7 @@ import { AnalysisForm } from "@/components/site/analysis-form";
 import { BeforeAfter } from "@/components/site/before-after";
 import { Film } from "@/components/site/film";
 import { SiteShell } from "@/components/site/shell";
-import { ChromeIndex, ChromePlate, ChromeStrip, FieldChecklist } from "@/components/chrome-shield";
+import { ChromeStrip, FieldChecklist } from "@/components/chrome-shield";
 import { SOLUTIONS, TRUST } from "@/lib/content";
 import { BrandLockup, WaterGlassBand } from "@/components/brand/logo";
 import { NanoDataBand, Qa7Banner } from "@/components/qa/qa7";
@@ -159,14 +159,6 @@ function Home() {
         </p>
         <h2 className="gold-text mb-6 text-center font-display text-3xl">Five-test field checklist</h2>
         <FieldChecklist documentLook />
-      </section>
-
-      <section className="mx-auto max-w-6xl px-5 pb-20">
-        <ChromePlate>
-          <div className="p-6 md:p-10">
-            <ChromeIndex />
-          </div>
-        </ChromePlate>
       </section>
       <section className="relative min-h-[70vh] w-full overflow-hidden">
         <img

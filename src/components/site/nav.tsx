@@ -1,5 +1,5 @@
 import { Link, useRouterState } from "@tanstack/react-router";
-import { BrandLockup, BrandMark, Wordmark } from "@/components/brand/logo";
+import { BrandLockup } from "@/components/brand/logo";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { BRAND } from "@/lib/content";
@@ -22,9 +22,8 @@ export function SiteNav() {
   return (
     <header className="sticky top-0 z-40 border-b border-line-gold/70 bg-carbon/88 backdrop-blur-xl">
       <div className="mx-auto flex h-20 w-full max-w-[92rem] items-center justify-between gap-3 px-4 sm:h-24 sm:px-6">
-        <Link to="/" className="flex min-w-0 shrink-0 items-center gap-3 text-fg">
-          <BrandMark size={44} />
-          <Wordmark compact />
+        <Link to="/" className="flex min-w-0 shrink-0 items-center">
+          <BrandLockup className="h-12 w-auto max-w-[min(52vw,22rem)] sm:h-16" />
         </Link>
 
         <nav className="hidden min-w-0 items-center gap-0 lg:flex">
@@ -96,8 +95,7 @@ export function SiteFooter() {
         <div className="md:col-span-2">
           <BrandLockup className="max-w-md" />
           <p className="mt-5 max-w-md text-lg leading-relaxed text-muted">
-            {BRAND.parent}. {BRAND.positioning} Public pages do not publish prices. Internal
-            platforms are role-locked. Finance remains Director-only.
+            {BRAND.parent}. {BRAND.positioning} Public pages do not publish prices. Analysis is by invitation.
           </p>
           <p className="mt-4 text-base text-faint">
             ABN {BRAND.abn} · ACN {BRAND.acn}
@@ -109,7 +107,7 @@ export function SiteFooter() {
           <div className="kicker mb-4">Maison</div>
           <ul className="space-y-2 text-lg text-muted">
             <li><Link to="/solutions" className="hover:text-gold-hi">The collection</Link></li>
-            <li><Link to="/assurance" className="hover:text-gold-hi">Five-Step QA</Link></li>
+            <li><Link to="/assurance" className="hover:text-gold-hi">Assurance</Link></li>
             <li><Link to="/" hash="proof" className="hover:text-gold-hi">Before & after</Link></li>
             <li><Link to="/about" className="hover:text-gold-hi">The maison</Link></li>
           </ul>

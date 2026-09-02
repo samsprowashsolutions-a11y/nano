@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteShell } from "@/components/site/shell";
 import { PROCESS, SYSTEMS } from "@/lib/content";
 import { Button } from "@/components/ui/button";
-import { ChromeIndex, ChromePlate, FieldChecklist } from "@/components/chrome-shield";
+import { FieldChecklist } from "@/components/chrome-shield";
 import { NanoDataBand, ProductAssurances, Qa7Banner, Qa7Mark } from "@/components/qa/qa7";
 
 export const Route = createFileRoute("/assurance")({ component: Assurance });
@@ -46,14 +46,6 @@ function Assurance() {
           workface still initials adhesion, beading, UV, antimicrobial and durability.
         </p>
         <FieldChecklist documentLook />
-      </section>
-
-      <section className="mx-auto max-w-6xl px-5 pb-16">
-        <ChromePlate>
-          <div className="p-6 md:p-10">
-            <ChromeIndex />
-          </div>
-        </ChromePlate>
       </section>
 
       <section className="mx-auto max-w-6xl px-5 pb-20">

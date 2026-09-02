@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SWMS } from "@/lib/content";
-import { ChromeIndex, ChromePlate, ChromeStrip } from "@/components/chrome-shield";
+import { ChromePlate, ChromeStrip } from "@/components/chrome-shield";
 
 export const Route = createFileRoute("/staff/protocol")({ component: Protocol });
 
@@ -85,18 +85,6 @@ function Protocol() {
       <img
         src="/docs/swms.png"
         alt="NanoAssure Safe Work Method Statement — page 1 of 4"
-        className="w-full rounded-xl border border-chrome/20"
-      />
-
-      <ChromePlate>
-        <div className="p-6 md:p-8">
-          <ChromeIndex />
-        </div>
-      </ChromePlate>
-
-      <img
-        src="/docs/chrome-index.png"
-        alt="Index and Chrome Category System"
         className="w-full rounded-xl border border-chrome/20"
       />
 

@@ -138,7 +138,7 @@ function CommandPost() {
         </div>
         <video
           src="/brand/sp-lockup-film.mp4"
-          poster="/brand/sp-lockup.jpg"
+          poster="/brand/sp-lockup.png"
           autoPlay
           muted
           loop

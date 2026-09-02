@@ -117,7 +117,7 @@ export function FieldChecklist({
     <ChromePlate>
       <div className="chrome-doc p-5 md:p-8">
         <div className="mb-5 flex items-center gap-3 border-b border-gold-deep/40 pb-4">
-          <img src="/brand/sp-shield.png" alt="" className="h-14 w-14 object-contain" />
+          <img src="/brand/sp-shield-clear.png" alt="" className="h-14 w-14 object-contain" />
           <div>
             <p className="font-script text-2xl text-gold-deep md:text-3xl">Five Test Field Checklist</p>
             <p className="chrome-doc-kicker font-bold uppercase">

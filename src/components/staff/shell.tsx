@@ -47,11 +47,7 @@ export function StaffShell() {
         <header className="relative z-40 bg-[#11110f] text-[#f5e2a0]">
           <div className="flex items-center justify-between gap-4 px-4 py-3 md:px-6">
             <Link to="/staff/command" className="flex min-w-0 items-center gap-3">
-              <img src="/brand/sp-lockup-shield.jpg" alt="" className="h-12 w-12 object-contain" />
-              <div className="min-w-0">
-                <p className="font-display text-lg leading-none text-gold-hi">NanoAssure™</p>
-                <p className="text-[10px] uppercase tracking-[0.18em] text-aqua">Asset Protection</p>
-              </div>
+              <img src="/brand/sp-lockup.png" alt="Sam's Prowash Solutions" className="h-12 w-auto max-w-[16rem] object-contain md:h-14" />
             </Link>
             <div className="hidden text-center md:block">
               <h1 className="font-script text-3xl leading-none text-gold-hi lg:text-4xl">
@@ -89,7 +85,7 @@ export function StaffShell() {
             )}
           >
             <div className="flex items-center gap-3 border-b border-gold/20 px-4 py-4">
-              <img src="/brand/sp-lockup-shield.jpg" alt="" className="h-14 w-14 object-contain" />
+              <img src="/brand/sp-shield-clear.png" alt="" className="h-14 w-14 object-contain" />
               <div>
                 <p className="font-semibold text-[#2a241c]">Samantha Rae</p>
                 <p className="text-sm text-[#5c564c]">Director</p>

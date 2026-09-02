@@ -40,7 +40,7 @@ function Login() {
     <div className="carbon-field grid min-h-dvh place-items-center px-5 py-12">
       <ChromePlate className="w-full max-w-md">
         <div className="p-8 text-center">
-          <img src="/brand/sp-lockup-shield.jpg" alt="" className="mx-auto mb-4 w-24" />
+          <img src="/brand/sp-lockup.png" alt="Sam's Prowash Solutions" className="mx-auto mb-4 w-64" />
           <p className="kicker text-muted">By invitation · Staff only</p>
           <h1 className="gold-text mt-1 font-display text-3xl">Private Staff Access</h1>
           <p className="font-script mt-1 text-2xl text-gold">Atelier gate</p>

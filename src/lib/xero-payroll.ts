@@ -23,6 +23,7 @@ export type RateRow = {
   superPct: number;
   gstRegistered: boolean;
   drawings: boolean;
+  rosterHours: number;
 };
 
 export const SEED_RATES: RateRow[] = [
@@ -36,6 +37,7 @@ export const SEED_RATES: RateRow[] = [
     superPct: 0,
     gstRegistered: false,
     drawings: true,
+    rosterHours: 0,
   },
   {
     id: "kate",
@@ -47,6 +49,7 @@ export const SEED_RATES: RateRow[] = [
     superPct: 12,
     gstRegistered: false,
     drawings: false,
+    rosterHours: 76,
   },
   {
     id: "jas",
@@ -58,8 +61,62 @@ export const SEED_RATES: RateRow[] = [
     superPct: 12,
     gstRegistered: false,
     drawings: false,
+    rosterHours: 76,
   },
 ];
+
+/** Monday that starts the Darwin fortnight grid. */
+export const FORTNIGHT_EPOCH = "2026-08-24";
+export const ROSTER_DEFAULT = 76;
+
+export function darwinIsoToday(d = new Date()): string {
+  return new Intl.DateTimeFormat("en-CA", {
+    timeZone: "Australia/Darwin",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).format(d);
+}
+
+export function addDaysIso(iso: string, days: number): string {
+  const y = Number(iso.slice(0, 4));
+  const m = Number(iso.slice(5, 7));
+  const d = Number(iso.slice(8, 10));
+  const dt = new Date(Date.UTC(y, m - 1, d));
+  dt.setUTCDate(dt.getUTCDate() + days);
+  return dt.toISOString().slice(0, 10);
+}
+
+export function currentFortnight(today = darwinIsoToday()): { start: string; end: string } {
+  const toUtc = (iso: string) => Date.UTC(Number(iso.slice(0, 4)), Number(iso.slice(5, 7)) - 1, Number(iso.slice(8, 10)));
+  const days = Math.floor((toUtc(today) - toUtc(FORTNIGHT_EPOCH)) / 86_400_000);
+  const start = addDaysIso(FORTNIGHT_EPOCH, Math.floor(days / 14) * 14);
+  return { start, end: addDaysIso(start, 13) };
+}
+
+export function rosterHoursFor(person: RateRow): number {
+  if (person.drawings || person.kind === "director") return 0;
+  if (typeof person.rosterHours === "number") return person.rosterHours;
+  return person.kind === "employee" ? ROSTER_DEFAULT : 0;
+}
+
+export function hoursFromRoster(rates: RateRow[]): FortnightLine[] {
+  return rates.map((p) => ({ personId: p.id, hours: rosterHoursFor(p) }));
+}
+
+export function packReady(lines: BuiltLine[], balOk: boolean): { ok: boolean; blockers: string[] } {
+  const blockers: string[] = [];
+  const inc = lines.filter((l) => l.included);
+  if (!inc.length) blockers.push("Set $/hr and roster hours on Rates — Sam at $0 stays out.");
+  for (const l of inc) {
+    if (l.person.kind === "employee" && !l.person.xeroEmail.trim()) {
+      blockers.push(`${l.person.name} needs the exact Xero email.`);
+    }
+    if (!(l.person.hourly > 0)) blockers.push(`${l.person.name} needs a $/hr rate.`);
+  }
+  if (!balOk && inc.some((l) => l.person.kind === "employee")) blockers.push("Journal does not balance.");
+  return { ok: blockers.length === 0, blockers };
+}
 
 export type FortnightLine = {
   personId: string;

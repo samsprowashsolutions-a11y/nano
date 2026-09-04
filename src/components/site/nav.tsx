@@ -43,7 +43,7 @@ export function SiteNav() {
             to="/staff"
             className="rounded-full px-2.5 py-2 text-base font-semibold uppercase tracking-[0.06em] text-aqua/80 hover:text-aqua"
           >
-            Staff
+            Altier
           </Link>
           <Button asChild size="sm" className="ml-2 shrink-0">
             <Link to="/analysis">Analyse</Link>
@@ -74,7 +74,7 @@ export function SiteNav() {
               </Link>
             ))}
             <Link to="/staff" onClick={() => setOpen(false)} className="rounded-xl px-4 py-3 text-lg text-aqua">
-              Staff portal
+              Altier
             </Link>
             <Button asChild className="mt-2 w-full">
               <Link to="/analysis" onClick={() => setOpen(false)}>
@@ -113,11 +113,11 @@ export function SiteFooter() {
           </ul>
         </div>
         <div>
-          <div className="kicker mb-4">Desks</div>
+          <div className="kicker mb-4">Altier</div>
           <ul className="space-y-2 text-lg text-muted">
             <li><Link to="/analysis" className="hover:text-gold-hi">Analysis desk</Link></li>
             <li><Link to="/careers" className="hover:text-gold-hi">Careers</Link></li>
-            <li><Link to="/staff" className="hover:text-gold-hi">Staff portal</Link></li>
+            <li><Link to="/staff" className="hover:text-gold-hi">Altier</Link></li>
             <li>
               <a href={`mailto:${BRAND.analysisEmail}`} className="hover:text-gold-hi">
                 {BRAND.analysisEmail}

@@ -10,6 +10,7 @@ import { BRAND } from "@/lib/content";
 const NAV = [
   { to: "/staff/command", label: "Command Dashboard" },
   { to: "/staff/vault", label: "Sam’s Safe" },
+  { to: "/staff/payroll", label: "Payroll → Xero" },
   { to: "/staff/qr", label: "QR & Print" },
   { to: "/staff/clients", label: "Client Profiles" },
   { to: "/staff/warranty", label: "Warranty Desk" },

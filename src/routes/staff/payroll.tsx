@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { saveVaultItem } from "@/lib/server/atelier";
 import { Button } from "@/components/ui/button";
 import { Input, Label, Select } from "@/components/ui/input";
@@ -12,8 +12,12 @@ import {
   type RateRow,
   buildLines,
   contractorBillsCsv,
+  currentFortnight,
+  hoursFromRoster,
   journalBalances,
   packReadme,
+  packReady,
+  rosterHoursFor,
   timesheetsCsv,
   wagesJournalCsv,
 } from "@/lib/xero-payroll";
@@ -22,15 +26,52 @@ export const Route = createFileRoute("/staff/payroll")({ component: PayrollDesk 
 
 const RATES_KEY = "na.payroll.rates";
 const CHART_KEY = "na.payroll.chart";
+const AUTO_KEY = "na.payroll.auto";
+const FILED_KEY = "na.payroll.filed";
+const HOURS_KEY = "na.payroll.hours";
 
 function loadRates(): RateRow[] {
   try {
     const raw = localStorage.getItem(RATES_KEY);
-    if (raw) return JSON.parse(raw) as RateRow[];
+    if (raw) {
+      const rows = JSON.parse(raw) as RateRow[];
+      return rows.map((p) => ({
+        ...p,
+        rosterHours: typeof p.rosterHours === "number" ? p.rosterHours : rosterHoursFor(p),
+      }));
+    }
   } catch {
     /* seed */
   }
   return SEED_RATES;
+}
+
+function loadAuto(): boolean {
+  try {
+    const raw = localStorage.getItem(AUTO_KEY);
+    if (raw === "0") return false;
+  } catch {
+    /* on */
+  }
+  return true;
+}
+
+function loadFiled(): string {
+  try {
+    return localStorage.getItem(FILED_KEY) ?? "";
+  } catch {
+    return "";
+  }
+}
+
+function loadHours(rates: RateRow[], stamp: string): FortnightLine[] {
+  try {
+    const raw = localStorage.getItem(`${HOURS_KEY}.${stamp}`);
+    if (raw) return JSON.parse(raw) as FortnightLine[];
+  } catch {
+    /* roster */
+  }
+  return hoursFromRoster(rates);
 }
 
 function loadChart(): ChartCodes {
@@ -53,30 +94,21 @@ function download(name: string, body: string, type = "text/csv;charset=utf-8") {
   URL.revokeObjectURL(url);
 }
 
-function isoToday(): string {
-  return new Date().toISOString().slice(0, 10);
-}
-
-function isoMinus(days: number): string {
-  const d = new Date();
-  d.setDate(d.getDate() - days);
-  return d.toISOString().slice(0, 10);
-}
-
 function PayrollDesk() {
+  const opening = currentFortnight();
   const [tab, setTab] = useState<"rates" | "chart" | "fortnight">("fortnight");
   const [rates, setRates] = useState<RateRow[]>(loadRates);
   const [chart, setChart] = useState<ChartCodes>(loadChart);
-  const [start, setStart] = useState(isoMinus(13));
-  const [end, setEnd] = useState(isoToday());
-  const [hours, setHours] = useState<FortnightLine[]>(() => loadRates().map((p) => ({ personId: p.id, hours: 0 })));
-  const [approved, setApproved] = useState(false);
+  const [start, setStart] = useState(opening.start);
+  const [end, setEnd] = useState(opening.end);
+  const [hours, setHours] = useState<FortnightLine[]>(() => loadHours(loadRates(), `${opening.start}_to_${opening.end}`));
+  const [autoOn, setAutoOn] = useState(loadAuto);
   const [msg, setMsg] = useState("");
-  const [safeOn, setSafeOn] = useState(false);
+  const [safeOn, setSafeOn] = useState(() => loadFiled() === `${opening.start}_to_${opening.end}`);
+  const [busy, setBusy] = useState(false);
+  const ran = useRef("");
 
   const lines = useMemo(() => buildLines(rates, hours), [rates, hours]);
-  const employees = lines.filter((l) => l.included && l.person.kind === "employee");
-  const contractors = lines.filter((l) => l.included && l.person.kind === "contractor");
   const stamp = `${start}_to_${end}`;
   const narration = `SP NanoAssure wages ${start} to ${end}`;
 
@@ -85,6 +117,7 @@ function PayrollDesk() {
   const bills = useMemo(() => contractorBillsCsv(lines, chart, end), [lines, chart, end]);
   const readme = useMemo(() => packReadme(start, end, lines), [start, end, lines]);
   const bal = useMemo(() => journalBalances(journal), [journal]);
+  const ready = useMemo(() => packReady(lines, bal.ok), [lines, bal.ok]);
 
   function persistRates(next: RateRow[]) {
     setRates(next);
@@ -92,7 +125,7 @@ function PayrollDesk() {
     setHours((h) => {
       const ids = new Set(next.map((p) => p.id));
       const keep = h.filter((x) => ids.has(x.personId));
-      for (const p of next) if (!keep.some((x) => x.personId === p.id)) keep.push({ personId: p.id, hours: 0 });
+      for (const p of next) if (!keep.some((x) => x.personId === p.id)) keep.push({ personId: p.id, hours: rosterHoursFor(p) });
       return keep;
     });
   }
@@ -102,15 +135,31 @@ function PayrollDesk() {
     localStorage.setItem(CHART_KEY, JSON.stringify(next));
   }
 
-  function setHour(id: string, value: number) {
-    setHours((rows) => rows.map((r) => (r.personId === id ? { ...r, hours: value } : r)));
-    setApproved(false);
+  function persistHours(next: FortnightLine[]) {
+    setHours(next);
+    try {
+      localStorage.setItem(`${HOURS_KEY}.${stamp}`, JSON.stringify(next));
+    } catch {
+      /* private */
+    }
     setSafeOn(false);
   }
 
+  function setHour(id: string, value: number) {
+    persistHours(hours.map((r) => (r.personId === id ? { ...r, hours: value } : r)));
+  }
+
   function setPayg(id: string, value: number) {
-    setHours((rows) => rows.map((r) => (r.personId === id ? { ...r, paygOverride: value } : r)));
-    setApproved(false);
+    persistHours(hours.map((r) => (r.personId === id ? { ...r, paygOverride: value } : r)));
+  }
+
+  function toggleAuto(on: boolean) {
+    setAutoOn(on);
+    try {
+      localStorage.setItem(AUTO_KEY, on ? "1" : "0");
+    } catch {
+      /* private */
+    }
   }
 
   async function fileInSafe() {
@@ -120,23 +169,23 @@ function PayrollDesk() {
       `--- contractor-bills.csv ---\n${bills}`,
       `--- README.txt ---\n${readme}`,
     ].join("\n\n");
+    await saveVaultItem({
+      data: {
+        folder: "finance",
+        title: `Xero payroll pack ${start} – ${end}`,
+        period: `${start} / ${end}`,
+        supplier: "Sam's Prowash Solutions Pty Ltd",
+        notes: `AUTO pack for bookkeeper. Journal + timesheets + contractor bills. ${narration}`.slice(0, 1800),
+        fileName: `xero-pack-${stamp}.txt`,
+        fileData: `data:text/plain;base64,${btoa(unescape(encodeURIComponent(pack)))}`,
+      },
+    });
     try {
-      await saveVaultItem({
-        data: {
-          folder: "finance",
-          title: `Xero payroll pack ${start} – ${end}`,
-          period: `${start} / ${end}`,
-          supplier: "Sam's Prowash Solutions Pty Ltd",
-          notes: `Uploaded pack for bookkeeper. Journal + timesheets + contractor bills. ${narration}`.slice(0, 1800),
-          fileName: `xero-pack-${stamp}.txt`,
-          fileData: `data:text/plain;base64,${btoa(unescape(encodeURIComponent(pack)))}`,
-        },
-      });
-      setSafeOn(true);
-      setMsg("Pack locked in Sam’s Safe · Finance · Xero for the bookkeeper.");
-    } catch (err) {
-      setMsg(err instanceof Error ? err.message : "Safe mark failed. Stay signed in and retry.");
+      localStorage.setItem(FILED_KEY, stamp);
+    } catch {
+      /* private */
     }
+    setSafeOn(true);
   }
 
   function downloadPack() {
@@ -144,8 +193,39 @@ function PayrollDesk() {
     download(`timesheets-${stamp}.csv`, sheets);
     download(`contractor-bills-${stamp}.csv`, bills);
     download(`XERO-PACK-${stamp}.txt`, readme, "text/plain;charset=utf-8");
-    setMsg("Downloaded. No Xero login here — import the files in Xero.");
   }
+
+  async function runAuto(reason: "auto" | "manual") {
+    if (!ready.ok || busy) return;
+    setBusy(true);
+    try {
+      downloadPack();
+      await fileInSafe();
+      ran.current = stamp;
+      setMsg(
+        reason === "auto"
+          ? "Automatic pack ran. Files downloaded and locked in Sam’s Safe · Finance · Xero."
+          : "Pack ran. Files downloaded and locked in Sam’s Safe · Finance · Xero.",
+      );
+    } catch (err) {
+      setMsg(err instanceof Error ? err.message : "Pack run failed. Stay signed in and retry.");
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  useEffect(() => {
+    setHours(loadHours(rates, stamp));
+    setSafeOn(loadFiled() === stamp);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [stamp]);
+
+  useEffect(() => {
+    if (!autoOn || !ready.ok || busy) return;
+    if (ran.current === stamp || loadFiled() === stamp) return;
+    void runAuto("auto");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [autoOn, ready.ok, stamp, journal, sheets, bills]);
 
   return (
     <div className="mx-auto max-w-5xl space-y-6">
@@ -153,8 +233,8 @@ function PayrollDesk() {
         <p className="kicker">Gold · Director payroll</p>
         <h1 className="gold-text font-display text-3xl">Payroll → Xero pack</h1>
         <p className="mt-2 max-w-2xl text-lg text-muted">
-          After you build and approve the fortnight, download the files Xero actually imports. There is no Xero login
-          in this environment.
+          Automatic Darwin fortnight. Roster hours fill themselves. When rates and Xero emails are set, the desk
+          downloads the pack and files it in Sam’s Safe. There is no Xero login here — import the CSVs in Xero.
         </p>
       </header>
 
@@ -194,6 +274,7 @@ function PayrollDesk() {
                   <th className="pb-2">Kind</th>
                   <th className="pb-2">Xero email</th>
                   <th className="pb-2">$/hr</th>
+                  <th className="pb-2">Roster h</th>
                   <th className="pb-2">PAYG $</th>
                   <th className="pb-2">SG %</th>
                   <th className="pb-2">GST</th>
@@ -254,6 +335,19 @@ function PayrollDesk() {
                         onChange={(e) => {
                           const next = rates.slice();
                           next[i] = { ...p, hourly: Number(e.target.value) };
+                          persistRates(next);
+                        }}
+                      />
+                    </td>
+                    <td className="py-2">
+                      <Input
+                        type="number"
+                        step="0.25"
+                        disabled={p.kind === "director" || p.drawings}
+                        value={p.rosterHours ?? 0}
+                        onChange={(e) => {
+                          const next = rates.slice();
+                          next[i] = { ...p, rosterHours: Number(e.target.value) };
                           persistRates(next);
                         }}
                       />
@@ -330,6 +424,7 @@ function PayrollDesk() {
                   superPct: 12,
                   gstRegistered: false,
                   drawings: false,
+                  rosterHours: 76,
                 },
               ])
             }
@@ -369,14 +464,37 @@ function PayrollDesk() {
       {tab === "fortnight" ? (
         <>
           <section className="metal-panel space-y-4 rounded-xl p-5">
+            <div className="flex flex-wrap items-center gap-3">
+              <label className="flex items-center gap-2 text-sm">
+                <input
+                  type="checkbox"
+                  className="size-4 accent-gold"
+                  checked={autoOn}
+                  onChange={(e) => toggleAuto(e.target.checked)}
+                />
+                Automatic pack
+              </label>
+              <Button
+                type="button"
+                size="sm"
+                onClick={() => {
+                  const f = currentFortnight();
+                  setStart(f.start);
+                  setEnd(f.end);
+                  persistHours(loadHours(rates, `${f.start}_to_${f.end}`));
+                }}
+              >
+                This Darwin fortnight
+              </Button>
+            </div>
             <div className="grid gap-3 sm:grid-cols-2">
               <div>
                 <Label htmlFor="start">Fortnight start</Label>
-                <Input id="start" type="date" value={start} onChange={(e) => { setStart(e.target.value); setApproved(false); }} />
+                <Input id="start" type="date" value={start} onChange={(e) => { setStart(e.target.value); setSafeOn(false); }} />
               </div>
               <div>
                 <Label htmlFor="end">Fortnight end</Label>
-                <Input id="end" type="date" value={end} onChange={(e) => { setEnd(e.target.value); setApproved(false); }} />
+                <Input id="end" type="date" value={end} onChange={(e) => { setEnd(e.target.value); setSafeOn(false); }} />
               </div>
             </div>
             <div className="overflow-x-auto">
@@ -437,17 +555,22 @@ function PayrollDesk() {
               on top of gross. Contractors go to bills only.
             </p>
             <div className="flex flex-wrap gap-2">
-              <Button type="button" onClick={() => setApproved(true)} disabled={!employees.length && !contractors.length}>
-                Approve fortnight
-              </Button>
-              <Button type="button" onClick={downloadPack} disabled={!approved || !bal.ok}>
-                Download Xero pack
-              </Button>
-              <Button type="button" onClick={() => void fileInSafe()} disabled={!approved}>
-                Mark pack in Sam’s Safe
+              <Button type="button" onClick={() => void runAuto("manual")} disabled={!ready.ok || busy}>
+                {busy ? "Running…" : "Run automatic pack"}
               </Button>
             </div>
-            {approved ? <p className="text-sm text-aqua">Fortnight approved. Download, then file the pack for the bookkeeper.</p> : null}
+            {ready.ok ? (
+              <p className="text-sm text-aqua">
+                Ready. Auto {autoOn ? "on" : "off"}
+                {safeOn ? " · already filed this fortnight" : " · will download and file when you open this desk"}.
+              </p>
+            ) : (
+              <ul className="text-sm text-muted">
+                {ready.blockers.map((b) => (
+                  <li key={b}>{b}</li>
+                ))}
+              </ul>
+            )}
             {msg ? <p className="text-sm text-aqua">{msg}</p> : null}
             {safeOn ? <p className="text-sm text-gold-hi">Safe: Finance · Xero drawer holds this pack.</p> : null}
           </section>

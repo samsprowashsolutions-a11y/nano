@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { SEED_APPLICATIONS, SEED_EMPLOYEES, SEED_VACANCIES } from "@/lib/content";
 
 export const Route = createFileRoute("/staff/workforce")({ component: Workforce });
@@ -9,7 +9,13 @@ function Workforce() {
       <header>
         <p className="kicker">Teal · Operations framework</p>
         <h1 className="gold-text font-display text-3xl">Employment & Workforce</h1>
-        <p className="text-sm text-muted">Employees and subcontractors share this command with separate streams.</p>
+        <p className="text-sm text-muted">
+          Employees and subcontractors share this command with separate streams.{" "}
+          <Link to="/staff/payroll" className="text-gold-hi underline">
+            Payroll → Xero pack
+          </Link>
+          .
+        </p>
       </header>
       <div className="grid gap-3 sm:grid-cols-4">
         {[

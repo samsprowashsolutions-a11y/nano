@@ -52,10 +52,10 @@ export function StaffShell() {
             </Link>
             <div className="hidden text-center md:block">
               <h1 className="font-script text-3xl leading-none text-gold-hi lg:text-4xl">
-                Sam’s Command Portal
+                Altier
               </h1>
               <p className="mt-1 text-[10px] uppercase tracking-[0.22em] text-[#c4c6cc]">
-                Director desk · live command · Sam’s Safe
+                Command suite · Director desk · Sam’s Safe
               </p>
             </div>
             <div className="flex items-center gap-2">
@@ -96,7 +96,7 @@ export function StaffShell() {
               </div>
             </div>
             <p className="px-4 pt-4 text-[10px] font-bold uppercase tracking-[0.18em] text-[#8a6a18]">
-              Command navigation
+              Altier navigation
             </p>
             <nav className="flex-1 space-y-0.5 overflow-y-auto p-3">
               {NAV.map((n) => {
@@ -118,7 +118,7 @@ export function StaffShell() {
             </nav>
             <div className="m-3 rounded-2xl bg-linear-to-br from-purple to-[#3b1768] p-4 text-white">
               <p className="text-xs uppercase tracking-widest text-gold-hi">Active role</p>
-              <p className="font-display text-xl">Sam’s Desk</p>
+              <p className="font-display text-xl">Altier</p>
               <p className="text-sm text-white/80">Director · vault · command. Kate, Jas and crew desks next.</p>
             </div>
           </aside>
@@ -136,7 +136,7 @@ export function StaffShell() {
               <button type="button" onClick={() => setOpen(false)} aria-label="Close">
                 <X className="size-5" />
               </button>
-              <p className="font-script text-2xl text-gold">Sam’s desk</p>
+              <p className="font-script text-2xl text-gold">Altier</p>
             </div>
             <main className="flex-1 overflow-y-auto p-4 md:p-6">
               <Outlet />
@@ -145,7 +145,7 @@ export function StaffShell() {
         </div>
 
         <footer className="bg-[#11110f] px-4 py-3 text-center text-xs text-[#c4c6cc]">
-          SP NanoAssure™ · Secure connection · ABN {BRAND.abn} · ACN {BRAND.acn} · {BRAND.location} · v2026.09.01
+          SP NanoAssure™ · Altier · Secure connection · ABN {BRAND.abn} · ACN {BRAND.acn} · {BRAND.location} · v2026.09.01
         </footer>
       </div>
     </StaffGate>

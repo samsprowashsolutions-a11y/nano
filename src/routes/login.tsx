@@ -5,7 +5,9 @@ import { Button } from "@/components/ui/button";
 import { Input, Label } from "@/components/ui/input";
 import { ChromePlate } from "@/components/chrome-shield";
 
-export const Route = createFileRoute("/login")({ component: Login });
+export const Route = createFileRoute("/login")({
+  component: Login,
+});
 
 function Login() {
   const [err, setErr] = useState("");
@@ -41,9 +43,9 @@ function Login() {
       <ChromePlate className="w-full max-w-md">
         <div className="p-8 text-center">
           <img src="/brand/sp-lockup.png" alt="Sam's Prowash Solutions" className="mx-auto mb-4 w-64" />
-          <p className="kicker text-muted">By invitation · Staff only</p>
-          <h1 className="gold-text mt-1 font-display text-3xl">Private Staff Access</h1>
-          <p className="font-script mt-1 text-2xl text-gold">Atelier gate</p>
+          <p className="kicker text-muted">By invitation · Altier</p>
+          <h1 className="gold-text mt-1 font-display text-3xl">Private Altier Access</h1>
+          <p className="font-script mt-1 text-2xl text-gold">Altier gate</p>
           {!authEnabled ? (
             <p className="mt-6 text-sm text-muted">Sign-in is disabled.</p>
           ) : (
@@ -79,7 +81,7 @@ function Login() {
                 </div>
                 {err ? <p className="text-sm text-bad">{err}</p> : null}
                 <Button type="submit" className="w-full" disabled={busy}>
-                  {busy ? "Please wait…" : mode === "up" ? "Create crew account" : "Enter atelier"}
+                  {busy ? "Please wait…" : mode === "up" ? "Create crew account" : "Enter Altier"}
                 </Button>
               </form>
               <button

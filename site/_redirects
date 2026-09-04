@@ -1,5 +1,9 @@
 # Netlify · publish directory = site
-# /staff stays on the platform pack — never on the public maison.
+# Altier is the command suite name. Maison is the public face.
+# /staff stays as the technical path so existing links do not break.
 /staff              /platform/gallery.html   200
 /staff/             /platform/gallery.html   200
 /staff/*            /platform/gallery.html   200
+/altier             /platform/gallery.html   200
+/altier/            /platform/gallery.html   200
+/altier/*           /platform/gallery.html   200

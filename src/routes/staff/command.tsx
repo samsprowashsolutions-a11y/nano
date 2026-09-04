@@ -61,7 +61,6 @@ function Calculator() {
     if (v === "=") {
       try {
         const safe = expr.replace(/[^0-9+\-*/.]/g, "");
-        // eslint-disable-next-line no-new-func
         const out = Function(`"use strict"; return (${safe})`)();
         setExpr(String(out));
       } catch {
@@ -81,12 +80,7 @@ function Calculator() {
       <div className="mb-2 rounded-lg bg-[#11110f] px-3 py-2 text-right font-mono text-xl text-gold-hi">{expr}</div>
       <div className="grid grid-cols-4 gap-1">
         {keys.map((k) => (
-          <button
-            key={k}
-            type="button"
-            onClick={() => hit(k)}
-            className="rounded-md bg-[#f3eee4] py-2 text-sm font-semibold hover:bg-gold/20"
-          >
+          <button key={k} type="button" onClick={() => hit(k)} className="rounded-md bg-[#f3eee4] py-2 text-sm font-semibold hover:bg-gold/20">
             {k}
           </button>
         ))}
@@ -265,8 +259,8 @@ function CommandPost() {
             <Link to="/staff/clients" className="rounded-xl border border-gold/20 p-3 hover:bg-gold/10">
               <Users className="mb-1 size-4 text-gold" /> Client
             </Link>
-            <Link to="/staff/vault" className="rounded-xl border border-gold/20 p-3 hover:bg-gold/10">
-              <Upload className="mb-1 size-4 text-gold" /> Xero upload
+            <Link to="/staff/payroll" className="rounded-xl border border-gold/20 p-3 hover:bg-gold/10">
+              <Upload className="mb-1 size-4 text-gold" /> Payroll → Xero
             </Link>
           </div>
         </Card>

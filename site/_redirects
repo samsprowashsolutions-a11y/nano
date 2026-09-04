@@ -1,0 +1,5 @@
+# Netlify · publish directory = site
+# /staff stays on the platform pack — never on the public maison.
+/staff              /platform/gallery.html   200
+/staff/             /platform/gallery.html   200
+/staff/*            /platform/gallery.html   200

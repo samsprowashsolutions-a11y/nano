@@ -23,6 +23,7 @@ import { Route as StaffClientsRouteImport } from './routes/staff/clients'
 import { Route as StaffCommandRouteImport } from './routes/staff/command'
 import { Route as StaffInboxRouteImport } from './routes/staff/inbox'
 import { Route as StaffOperationsRouteImport } from './routes/staff/operations'
+import { Route as StaffPayrollRouteImport } from './routes/staff/payroll'
 import { Route as StaffProductsRouteImport } from './routes/staff/products'
 import { Route as StaffPromptRouteImport } from './routes/staff/prompt'
 import { Route as StaffProtocolRouteImport } from './routes/staff/protocol'
@@ -104,6 +105,11 @@ const StaffOperationsRoute = StaffOperationsRouteImport.update({
   path: '/operations',
   getParentRoute: () => StaffRoute,
 } as any)
+const StaffPayrollRoute = StaffPayrollRouteImport.update({
+  id: '/payroll',
+  path: '/payroll',
+  getParentRoute: () => StaffRoute,
+} as any)
 const StaffProductsRoute = StaffProductsRouteImport.update({
   id: '/products',
   path: '/products',
@@ -169,6 +175,7 @@ export interface FileRoutesByFullPath {
   '/staff/command': typeof StaffCommandRoute
   '/staff/inbox': typeof StaffInboxRoute
   '/staff/operations': typeof StaffOperationsRoute
+  '/staff/payroll': typeof StaffPayrollRoute
   '/staff/products': typeof StaffProductsRoute
   '/staff/prompt': typeof StaffPromptRoute
   '/staff/protocol': typeof StaffProtocolRoute
@@ -194,6 +201,7 @@ export interface FileRoutesByTo {
   '/staff/command': typeof StaffCommandRoute
   '/staff/inbox': typeof StaffInboxRoute
   '/staff/operations': typeof StaffOperationsRoute
+  '/staff/payroll': typeof StaffPayrollRoute
   '/staff/products': typeof StaffProductsRoute
   '/staff/prompt': typeof StaffPromptRoute
   '/staff/protocol': typeof StaffProtocolRoute
@@ -221,6 +229,7 @@ export interface FileRoutesById {
   '/staff/command': typeof StaffCommandRoute
   '/staff/inbox': typeof StaffInboxRoute
   '/staff/operations': typeof StaffOperationsRoute
+  '/staff/payroll': typeof StaffPayrollRoute
   '/staff/products': typeof StaffProductsRoute
   '/staff/prompt': typeof StaffPromptRoute
   '/staff/protocol': typeof StaffProtocolRoute
@@ -249,6 +258,7 @@ export interface FileRouteTypes {
     | '/staff/command'
     | '/staff/inbox'
     | '/staff/operations'
+    | '/staff/payroll'
     | '/staff/products'
     | '/staff/prompt'
     | '/staff/protocol'
@@ -274,6 +284,7 @@ export interface FileRouteTypes {
     | '/staff/command'
     | '/staff/inbox'
     | '/staff/operations'
+    | '/staff/payroll'
     | '/staff/products'
     | '/staff/prompt'
     | '/staff/protocol'
@@ -300,6 +311,7 @@ export interface FileRouteTypes {
     | '/staff/command'
     | '/staff/inbox'
     | '/staff/operations'
+    | '/staff/payroll'
     | '/staff/products'
     | '/staff/prompt'
     | '/staff/protocol'
@@ -426,6 +438,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof StaffOperationsRouteImport
       parentRoute: typeof StaffRoute
     }
+    '/staff/payroll': {
+      id: '/staff/payroll'
+      path: '/payroll'
+      fullPath: '/staff/payroll'
+      preLoaderRoute: typeof StaffPayrollRouteImport
+      parentRoute: typeof StaffRoute
+    }
     '/staff/products': {
       id: '/staff/products'
       path: '/products'
@@ -504,6 +523,7 @@ interface StaffRouteChildren {
   StaffCommandRoute: typeof StaffCommandRoute
   StaffInboxRoute: typeof StaffInboxRoute
   StaffOperationsRoute: typeof StaffOperationsRoute
+  StaffPayrollRoute: typeof StaffPayrollRoute
   StaffProductsRoute: typeof StaffProductsRoute
   StaffPromptRoute: typeof StaffPromptRoute
   StaffProtocolRoute: typeof StaffProtocolRoute
@@ -521,6 +541,7 @@ const StaffRouteChildren: StaffRouteChildren = {
   StaffCommandRoute: StaffCommandRoute,
   StaffInboxRoute: StaffInboxRoute,
   StaffOperationsRoute: StaffOperationsRoute,
+  StaffPayrollRoute: StaffPayrollRoute,
   StaffProductsRoute: StaffProductsRoute,
   StaffPromptRoute: StaffPromptRoute,
   StaffProtocolRoute: StaffProtocolRoute,

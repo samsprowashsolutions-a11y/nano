@@ -1,7 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { xeroProbe, type XeroProbe } from "@/lib/server/xero";
 import {
   TWILIO_FROM_KEY,
   TWILIO_SID_KEY,
@@ -30,9 +31,12 @@ function ConnectionsPlugin() {
   const [from, setFrom] = useState(() => readFlag(TWILIO_FROM_KEY));
   const [tick, setTick] = useState(0);
   const [note, setNote] = useState("Secrets never land in git. This bay stores public ids only.");
+  const [probe, setProbe] = useState<XeroProbe | null>(null);
+  const [busy, setBusy] = useState(false);
 
   const cards = useMemo(() => pluginCards(), [tick]);
-  const xero = xeroState(clientId);
+  const xeroLocal = xeroState(clientId);
+  const xero = probe?.state ?? xeroLocal;
   const sms = twilioState(sid, from);
 
   function persist(key: string, value: string, setter: (v: string) => void) {
@@ -42,14 +46,32 @@ function ConnectionsPlugin() {
     setTick((n) => n + 1);
   }
 
+  async function verifyXero() {
+    setBusy(true);
+    try {
+      const next = await xeroProbe();
+      setProbe(next);
+      setNote(next.reason ?? next.state);
+    } catch (err) {
+      setNote(err instanceof Error ? err.message : "Verify failed. Stay signed in.");
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  useEffect(() => {
+    void verifyXero();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <div className="mx-auto max-w-5xl space-y-6">
       <header>
         <p className="kicker">Gold · Altier</p>
         <h1 className="gold-text font-display text-3xl">Connections plugin</h1>
         <p className="mt-2 max-w-2xl text-lg text-muted">
-          Third-party bays for the director suite. Payroll pack stays automatic and CSV. No Xero login in this
-          environment. Tokens stay out of git, the public maison, and memory.
+          Xero Custom Connection uses client credentials on the suite host. Secret stays in env — never this page,
+          never git. Until LIVE, the payroll pack is still CSV import.
         </p>
       </header>
 
@@ -57,7 +79,9 @@ function ConnectionsPlugin() {
         {cards.map((c) => (
           <Link key={c.id} to={c.to} className="metal-panel rounded-xl p-4">
             <p className="text-xs uppercase tracking-widest text-muted">{c.name}</p>
-            <p className={`mt-1 font-mono text-sm ${badge(c.state)}`}>{c.state}</p>
+            <p className={`mt-1 font-mono text-sm ${badge(c.id === "xero" ? xero : c.state)}`}>
+              {c.id === "xero" ? xero : c.state}
+            </p>
             <p className="mt-2 text-sm text-muted">{c.desk}</p>
           </Link>
         ))}
@@ -66,17 +90,17 @@ function ConnectionsPlugin() {
       <section className="metal-panel space-y-3 rounded-xl p-5">
         <h2 className="font-display text-lg text-gold-hi">Xero Custom Connection</h2>
         <p className="text-sm text-muted">
-          Status <span className={badge(xero)}>{xero}</span>. A Custom Connection is a paid Xero org add-on. This
-          desk will not post journals until that connection is authorised on a server that can hold the secret.
-          Keep using Automatic pack → download CSVs → import in Xero (Journals → Accounting, Timesheets → Payroll
-          AU, Bills → Bills, BAS Excluded).
+          Status <span className={badge(xero)}>{xero}</span>
+          {probe?.orgName ? ` · ${probe.orgName}` : ""}. Paid Xero add-on. Token lasts 30 minutes and is requested
+          again — no refresh token. New connections (after 29 Apr 2026) use granular scopes. This desk posts a{" "}
+          <span className="text-gold-hi">DRAFT</span> manual journal only. You post it in Xero after review.
         </p>
         <label className="block text-sm text-muted">
-          Client id (this browser only)
+          Client id reminder (this browser)
           <Input
             className="mt-1"
             value={clientId}
-            placeholder="not required for CSV pack"
+            placeholder="optional — live id is XERO_CLIENT_ID on the host"
             autoComplete="off"
             onChange={(e) => persist(XERO_ID_KEY, e.target.value, setClientId)}
           />
@@ -93,12 +117,16 @@ function ConnectionsPlugin() {
         </label>
         <label className="block text-sm text-muted">
           Client secret
-          <Input className="mt-1" type="password" value="" readOnly placeholder="do not paste — stays in Xero My Apps" />
+          <Input className="mt-1" type="password" value="" readOnly placeholder="do not paste — XERO_CLIENT_SECRET on the host" />
         </label>
         <p className="text-xs text-muted">
-          {org ? `${org} · ` : ""}Client id {clientId ? "present" : "empty"}. Secret field is locked empty on purpose.
+          Host env: XERO_CLIENT_ID, XERO_CLIENT_SECRET, optional XERO_SCOPES (default accounting.manualjournals
+          accounting.settings). Suite env / Netlify env only.
         </p>
         <div className="flex flex-wrap gap-2">
+          <Button type="button" size="sm" onClick={() => void verifyXero()} disabled={busy}>
+            {busy ? "Checking…" : "Verify Custom Connection"}
+          </Button>
           <Link to="/staff/payroll">
             <Button type="button" size="sm">
               Open payroll pack
@@ -115,9 +143,8 @@ function ConnectionsPlugin() {
       <section className="metal-panel space-y-3 rounded-xl p-5">
         <h2 className="font-display text-lg text-gold-hi">Twilio SMS</h2>
         <p className="text-sm text-muted">
-          Status <span className={badge(sms)}>{sms}</span>. KPI is LIVE only after Account SID + Auth token return
-          200, a From sender is set, and Australia is enabled under geo permissions. This bay will not send. Do
-          not invent mobiles for Jas, Kate or crew.
+          Status <span className={badge(sms)}>{sms}</span>. Not this pass. SID + From may sit here. Auth token never
+          does.
         </p>
         <label className="block text-sm text-muted">
           Account SID
@@ -143,11 +170,6 @@ function ConnectionsPlugin() {
           Auth token
           <Input className="mt-1" type="password" value="" readOnly placeholder="do not paste — suite env only" />
         </label>
-        <p className="text-xs text-muted">
-          SID must start with AC. From must be +61 or MG. Trial accounts only deliver to verified destination
-          numbers. Commercial SMS sits under the Spam Act 2003 — consent, identify the business, include a way
-          off.
-        </p>
       </section>
 
       <section className="metal-panel space-y-3 rounded-xl p-5">
@@ -161,21 +183,10 @@ function ConnectionsPlugin() {
             <span>Maison analysis</span>
             <span className="text-[#0a6e78]">LIVE · analysis@nanoassure.net</span>
           </li>
-          <li className="flex justify-between gap-4">
-            <span>GitHub nano</span>
-            <span className="text-gold-hi">ENVIRONMENT WIRED · app does not hold a token</span>
-          </li>
         </ul>
-        <p className="text-xs text-muted">
-          GitHub push from this Grok session is an environment connection, not an Altier secret. Do not paste a
-          personal access token into this desk.
-        </p>
       </section>
 
       <p className="text-sm text-muted">{note}</p>
-      <button type="button" className="text-xs text-gold-hi underline" onClick={() => setNote("Checked. Still no secrets in storage.")}>
-        Confirm bay is clean
-      </button>
     </div>
   );
 }

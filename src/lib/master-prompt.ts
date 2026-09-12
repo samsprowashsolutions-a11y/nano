@@ -5,28 +5,28 @@ export const MASTER_PROMPT_REV = "QA-PROMPT-001 · Rev 1.0 · 2026-08-25 · Gold
 
 export const MASTER_PROMPT = `${MASTER_PROMPT_TITLE}
 ${MASTER_PROMPT_REV}
-Controlled. Staff only. Paste this entire document as project / custom instructions before any website, staff-portal, certificate, SWMS, or copy change. Do not summarise it away. If a fact is in this prompt, it must survive in the product.
+Controlled. Altier only. Paste this entire document as project / custom instructions before any website, Altier, certificate, SWMS, or copy change. Do not summarise it away. If a fact is in this prompt, it must survive in the product.
 
 ════════════════════════════════════
 0. COMPLETENESS GATE (run before you finish)
 ════════════════════════════════════
 You have missed information if ANY of these are absent, renamed, or contradicted:
-[ ] Dual surface: public maison (NanoAssure™) AND signed-in staff command (SP)
+[ ] Dual surface: public maison (NanoAssure™) AND signed-in Altier (SP)
 [ ] Legal entity, ABN, ACN, Darwin NT, both emails
 [ ] Positioning line verbatim + tagline triad verbatim
 [ ] Chrome Category System 01–05 with numbered chrome shields and metallic sheen
-[ ] NANODATA Collection™ (ClimaScan, SurfiQ, pHield, NanoBond, SolarStrest) — five-instrument science
+[ ] NANODATA Collection™ (ClimaScan, SurfIQ, pHield, NanoBond, SolarStrest) — five-instrument science
 [ ] Five Test Field Checklist (Adhesion, Beading/Sheeting, UV, Antimicrobial, Durability)
 [ ] NANO7™ Asset Assurance Policy: Inspect → Prepare → Apply → Verify → Record → Approve → Handover
 [ ] Full Nanoman chemistry library with TDS/SDS, coats, coverage, env windows
 [ ] SWMS as DRAFT UNREGISTERED master template — not a completed job SWMS
 [ ] Verify IDs NA-YYYYMMDD-XXXX, issued only after gates pass
 [ ] Public: no prices, no phone book, analysis-only pathway
-[ ] Staff: invitation-only; finance Director-only
+[ ] Altier: invitation-only; finance Director-only
 [ ] People: Samantha Rae (Director), Jasmin Calma (Cultural & Academy), Kate (Operations)
 [ ] Aboriginal-led / Country acknowledgement
 [ ] Limited concurrent capacity (atelier rule: few assets, proven — not volume)
-[ ] Public never instructs the client on how to apply any product. Method is staff / atelier only.
+[ ] Public never instructs the client on how to apply any product. Method is Altier only.
 [ ] Logo on black / carbon only — never a white mat or checkerboard
 [ ] Great Vibes script only for invitation / cover moments
 
@@ -42,7 +42,7 @@ Location: Darwin, Northern Territory, Australia (civic, commercial, body-corpora
 Web: www.nanoassure.net
 Public analysis desk: analysis@nanoassure.net
 Internal/general: samsprowashsolutions@gmail.com
-Package mark: SP · STAFF · v2026.08.23.5
+Package mark: SP · ALTIER · v2026.09.05
 
 Positioning (verbatim, always):
 “SP applies advanced surface protection to specification. NanoAssure™ proves it.”
@@ -62,7 +62,7 @@ Financials remain Director-only.
 
 Voice:
 Public = limited-edition atelier. Prestige, exclusive, by appointment, concierge. Carbon, champagne gold, mirror chrome, aqua/cyan chemistry, royal purple authority.
-Staff = controlled command. “By invitation · Staff only · Confidential.”
+Altier = controlled command. “By invitation · Altier only · Confidential.”
 Always write NanoAssure™ with the trademark mark in QA and certificate language.
 
 ════════════════════════════════════
@@ -76,7 +76,7 @@ Always write NanoAssure™ with the trademark mark in QA and certificate languag
 6. Great Vibes / script type only for invitation and cover moments — never body copy.
 7. Tagline triad stays intact.
 8. Verification IDs: NA-YYYYMMDD-XXXX. Issued only after NanoAssure gates pass.
-9. Access voice: By invitation · Staff only · Confidential.
+9. Access voice: By invitation · Altier only · Confidential.
 10. PUBLIC SITE NEVER publishes prices, rate cards, call-out menus, or a phone book. Analysis pathway only.
 11. Do NOT use photographs, films, or pasted document screenshots taken from the zip packs (NANOASSURE_SITE_DEPLOY.zip, SP_NanoAssure_FULL_PLATFORM_*.zip). Brand logos, chrome shields, and the live designed documents are allowed. Zip stock windows / droplet stills / Core QA PNG are forbidden.
 12. USE the chrome numbered shields (Carbon, Teal, Purple, Pearl, Gold) and the five-test chrome chevrons WITH the metallic sheen / conic chrome-plate effect. Recreate documents as live UI, do not paste scans as the primary interface.
@@ -101,7 +101,7 @@ Routes: /  /solutions  /assurance  /analysis  /careers  /verify  /about
 - Verify: public lookup of NA-YYYYMMDD-XXXX. Non-sensitive metadata only.
 
 STAFF COMMAND (signed in)
-Gateway: /staff
+Gateway: /staff (URL). Public name: Altier.
 Desks:
 - Employment & Workforce — recruit, onboard, licences, expiry, deployment. Employees and subcontractors are separate streams; onboarding separately controlled. White Card mandatory.
 - Operations Command — Five-test field checklist, Darwin workface, hold points.
@@ -109,7 +109,7 @@ Desks:
 - Protocol & SWMS — Carbon governance. Chrome index. SWMS master.
 - NanoAssure Verify — issue certificates after gates pass.
 - Analysis inbox — private analysis requests from the public maison.
-Internal tools the full platform also covers (keep in the prompt even if a desk is not yet built): Director portal (financials locked), Cultural Advisor, Training Academy, QR, Chemical Lab, Receipts, Field Staff, Staff Roster, Live Map, Messages, Emergency, Pay · GST · Super, Brand Rules, Daily Report, GPS + B.O.M. Darwin sync.
+Internal tools the full platform also covers (keep in the prompt even if a desk is not yet built): Director portal (financials locked), Cultural Advisor, Training Academy, QR, Chemical Lab, Receipts, Field crew, Altier roster, Live Map, Messages, Emergency, Pay · GST · Super, Brand Rules, Daily Report, GPS + B.O.M. Darwin sync.
 
 ════════════════════════════════════
 4. CHROME CATEGORY SYSTEM (Index)
@@ -132,10 +132,10 @@ Field-test rows sit on cream document plates when shown as QA-FORM-001.
 Lives inside NANO7™ at Verify. Chrome shield icons. Never merged with the Asset Assurance Policy.
 
 01  ClimaScan™     CARBON   Climate lock — environmental equilibrium at the workface.
-02  SurfiQ™        TEAL     Porosity read — will the face drink the film or hold a light coat?
+02  SurfIQ™        TEAL     Porosity read — will the face drink the film or hold a light coat?
 03  pHield™        PURPLE   Chemistry ready — pH / residual contamination.
 04  NanoBond™      PEARL    Molecular lock — the substrate has bonded to the specified molecules.
-05  SolarStrest™   GOLD     Exposure profile — solar, UV, heat for Darwin conditions.
+05  SolarStress™   GOLD     Exposure profile — solar, UV, heat for Darwin conditions.
 
 ════════════════════════════════════
 6. FIVE TEST FIELD CHECKLIST  (QA-FORM-001 · Rev 1.0)
@@ -151,7 +151,7 @@ Footer: Tested. Verified. Assured. · QA-FORM-001 · Rev 1.0
 04  Antimicrobial Test            PEARL    Verifies the surface actively inhibits microbial growth. Cleaner, healthier surfaces for longer.
 05  Durability & Abrasion Test    GOLD     Confirms long-term durability. Surface maintains performance under real-world use.
 
-Staff operations records: site, product, five hold-point checkboxes, applicator initials, notes.
+Altier operations records: site, product, five hold-point checkboxes, applicator initials, notes.
 
 ════════════════════════════════════
 7. NANO7™ ASSET ASSURANCE POLICY
@@ -234,7 +234,7 @@ F. Nanoman Antimicrobial Hard Surfaces
    Hard, high-touch civic and commercial interiors. Field antimicrobial test is hold-point 04 on the Five-Test Checklist. Tropical humidity windows as logged on ClimaScan™.
 
 G. Nanoman Anti-Bacterial Fabric
-   Textiles, upholstery, curtains, civic seating. Fibre lock — not a spray that washes out. SurfiQ™ reads the weave. APHC antimicrobial field test is the hold-point.
+   Textiles, upholstery, curtains, civic seating. Fibre lock — not a spray that washes out. SurfIQ™ reads the weave. APHC antimicrobial field test is the hold-point.
 
 H. Nanoman Antimicrobial (Mould)
    Wet areas, grout, ceilings, HVAC, tropical interiors. Distinct from hard-surface antimicrobial. ClimaScan™ humidity is the gate.
@@ -305,7 +305,7 @@ Forbidden: zip-pack stock photos (before/after house windows, droplet hero still
 ════════════════════════════════════
 Paste the entire document into:
 - Grok Project Instructions / Custom Instructions
-- Any rebuild of the public maison or staff command
+- Any rebuild of the public maison or Altier
 - Certificate, SWMS, careers, or chemistry updates
 
 Then give the task. The model must keep every named system, ID format, legal line, and chrome category. Prefer live designed documents over screenshots. Prefer chrome icons and effect over stock photography. When unsure, keep the fact and ask — do not drop it.

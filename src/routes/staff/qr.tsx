@@ -6,6 +6,7 @@ import { listQr, saveQr } from "@/lib/server/atelier";
 import { DeskCard, DeskHeader } from "@/components/staff/desk";
 import { Button } from "@/components/ui/button";
 import { Input, Label, Select } from "@/components/ui/input";
+import { BrandLockup } from "@/components/brand/logo";
 
 export const Route = createFileRoute("/staff/qr")({ component: QrDesk });
 
@@ -15,7 +16,7 @@ const KINDS = [
   { id: "client", label: "Client asset tag", hint: "Client / site" },
   { id: "analysis", label: "Private analysis desk", hint: "Opens /analysis" },
   { id: "collection", label: "The collection", hint: "Opens /solutions" },
-  { id: "staff", label: "Staff atelier gate", hint: "Opens /staff" },
+  { id: "staff", label: "Altier gate", hint: "Opens the Altier" },
   { id: "site", label: "Public maison", hint: "Opens home" },
   { id: "ops", label: "Ops daily brief", hint: "Brief title" },
   { id: "product", label: "Chemistry / TDS", hint: "Product name" },
@@ -133,7 +134,7 @@ function QrDesk() {
         </DeskCard>
 
         <div className="print-sheet metal-panel rounded-xl p-5 text-center">
-          <img src="/brand/sp-lockup.png" alt="" className="mx-auto mb-3 w-48" />
+          <BrandLockup className="mx-auto mb-3 h-24 w-auto max-w-[14rem]" />
           {png ? (
             <img src={png} alt="QR" className="mx-auto w-56 rounded-lg" />
           ) : (

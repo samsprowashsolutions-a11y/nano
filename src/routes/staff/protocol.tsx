@@ -1,94 +1,93 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useMemo, useState } from "react";
 import { SWMS } from "@/lib/content";
-import { ChromePlate, ChromeStrip } from "@/components/chrome-shield";
+import { SITE_ACCESS, SITE_HAZARD, SITE_SURFACES, SITE_SWMS } from "@/lib/brand-4";
+import { PackDisc } from "@/components/brand/pack-icon";
+import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/staff/protocol")({ component: Protocol });
 
 function Protocol() {
+  const [ticks, setTicks] = useState<Record<string, boolean>>({});
+  const done = useMemo(() => SITE_SWMS.filter((s) => ticks[s.id]).length, [ticks]);
+
   return (
     <div className="mx-auto max-w-5xl space-y-6">
       <header>
         <p className="kicker">Carbon · Governance</p>
-        <h1 className="gold-text font-display text-3xl">Protocol & SWMS</h1>
+        <h1 className="font-display text-3xl">Protocol & SWMS</h1>
         <p className="text-sm text-muted">
-          Master section. Project-specific completion required before issue. Governance under{" "}
-          {SWMS.authors}.
+          Master is {SWMS.status}. Tick the gates for the site you are on. Document {SWMS.documentId}.
         </p>
       </header>
 
-      <ChromePlate>
-        <div className="p-6 md:p-8">
-          <p className="font-script text-3xl text-gold">{SWMS.title}</p>
-          <p className="kicker mt-1">
-            NanoAssure™ Surface Technology
-          </p>
-          <dl className="mt-5 grid gap-2 text-sm md:grid-cols-2">
-            {[
-              ["Legal entity", SWMS.entity],
-              ["Status", SWMS.status],
-              ["Document ID", SWMS.documentId],
-              ["Approval", SWMS.approval],
-            ].map(([k, v]) => (
-              <div key={k} className="rounded-lg border border-border bg-carbon/40 px-4 py-3">
-                <dt className="kicker text-muted">{k}</dt>
-                <dd className="mt-1 font-semibold text-gold-hi">{v}</dd>
-              </div>
-            ))}
-          </dl>
-          <p className="mt-4 rounded-lg border border-gold/25 bg-gold/8 p-4 text-sm leading-relaxed text-pearl">
-            <span className="font-bold text-gold">Control note. </span>
-            {SWMS.control}
-          </p>
+      <article className="b4-card">
+        <div className="b4-head">
+          <PackDisc kind="clipboard" n="01" tone="navy" className="b4-sm" />
+          Per-site SWMS — complete on analysis / on site
         </div>
-      </ChromePlate>
-
-      <section className="metal-panel rounded-xl p-6">
-        <h2 className="font-script text-2xl text-gold">1. Project and Work Details</h2>
-        <div className="mt-4 overflow-x-auto">
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="text-left text-sm uppercase tracking-widest text-gold">
-                <th className="pb-2">Field</th>
-                <th className="pb-2">Project-specific entry</th>
-              </tr>
-            </thead>
-            <tbody>
-              {SWMS.fields.map((f) => (
-                <tr key={f} className="border-t border-border">
-                  <td className="py-2.5 text-pearl">{f}</td>
-                  <td className="py-2.5 text-muted">[TO BE COMPLETED]</td>
-                </tr>
+        <div className="grid gap-3 p-5 md:grid-cols-2">
+          <label className="text-sm font-bold">
+            Site
+            <input className="mt-1 h-11 w-full rounded-md border-2 border-[#d4af37] px-3" placeholder="Street, suburb" />
+          </label>
+          <label className="text-sm font-bold">
+            Surface
+            <select className="mt-1 h-11 w-full rounded-md border-2 border-[#d4af37] px-3">
+              {SITE_SURFACES.map((s) => (
+                <option key={s}>{s}</option>
               ))}
-            </tbody>
-          </table>
+            </select>
+          </label>
+          <label className="text-sm font-bold">
+            Access
+            <select className="mt-1 h-11 w-full rounded-md border-2 border-[#d4af37] px-3">
+              {SITE_ACCESS.map((s) => (
+                <option key={s}>{s}</option>
+              ))}
+            </select>
+          </label>
+          <label className="text-sm font-bold">
+            Hazard
+            <select className="mt-1 h-11 w-full rounded-md border-2 border-[#d4af37] px-3">
+              {SITE_HAZARD.map((s) => (
+                <option key={s}>{s}</option>
+              ))}
+            </select>
+          </label>
         </div>
-      </section>
-
-      <section className="metal-panel rounded-xl p-6">
-        <h2 className="font-script text-2xl text-gold">2. Scope and Controlled Work Sequence</h2>
-        <p className="mt-2 text-sm text-muted">
-          Master structure only. Delete non-applicable steps and add the actual project sequence after
-          site review.
-        </p>
-        <ol className="mt-4 space-y-2">
-          {SWMS.steps.map((s) => (
-            <li key={s.n} className="flex gap-3 rounded-lg border border-border p-3">
-              <span className="gold-cta grid size-8 shrink-0 place-items-center rounded-full text-sm font-bold">
-                {s.n}
-              </span>
-              <span className="text-sm text-pearl">{s.activity}</span>
-            </li>
+        <div className="grid gap-2 px-5 pb-5 sm:grid-cols-2">
+          {SITE_SWMS.map((s) => (
+            <label key={s.id} className={cn("b4-tick", ticks[s.id] && "is-on")}>
+              <input
+                type="checkbox"
+                checked={Boolean(ticks[s.id])}
+                onChange={() => setTicks((t) => ({ ...t, [s.id]: !t[s.id] }))}
+              />
+              {s.label}
+            </label>
           ))}
-        </ol>
-      </section>
+        </div>
+        <p className="px-5 pb-5 text-sm text-muted">
+          {done} of {SITE_SWMS.length} gates ticked for this site. Unticked items stay on hold. Master remains a draft until the job is complete.
+        </p>
+      </article>
 
-      <img
-        src="/docs/swms.png"
-        alt="NanoAssure Safe Work Method Statement — page 1 of 4"
-        className="w-full rounded-xl border border-chrome/20"
-      />
-
-      <ChromeStrip />
+      <article className="b4-card">
+        <div className="b4-head">Master template — not a finished job SWMS</div>
+        <div className="p-5 text-sm leading-relaxed">
+          <p><strong>{SWMS.entity}</strong> · {SWMS.authors}</p>
+          <p className="mt-2">{SWMS.control}</p>
+          <ol className="mt-4 space-y-2">
+            {SWMS.steps.map((s) => (
+              <li key={s.n} className="flex gap-3 rounded-lg border border-[#d4af37] p-3">
+                <PackDisc kind="check" n={s.n} tone="gold" className="b4-sm" />
+                <span>{s.activity}</span>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </article>
     </div>
   );
 }

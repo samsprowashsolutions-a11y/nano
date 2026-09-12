@@ -7,7 +7,7 @@ import { MASTER_PROMPT, MASTER_PROMPT_REV, MASTER_PROMPT_TITLE } from "@/lib/mas
 export const Route = createFileRoute("/staff/prompt")({ component: MasterPrompt });
 
 const GATES = [
-  "Dual surface: public maison + signed-in staff command",
+  "Dual surface: public maison + signed-in Altier",
   "ABN / ACN / Darwin NT / analysis@nanoassure.net",
   "Positioning line + tagline triad verbatim",
   "Chrome 01–05 shields with metallic sheen",
@@ -49,7 +49,7 @@ function MasterPrompt() {
         <div className="space-y-4 p-5 md:p-7">
           <p className="text-xl leading-relaxed text-pearl">
             Paste this entire prompt into Grok Project Instructions (or any rebuild) before changing
-            the maison, staff command, certificates, SWMS, or chemistry. It is the controlled source
+            the maison, Altier, certificates, SWMS, or chemistry. It is the controlled source
             of truth — legal identity, chrome system, both QA sets, seven-step process, TDS library,
             people, and the zip-visual ban.
           </p>

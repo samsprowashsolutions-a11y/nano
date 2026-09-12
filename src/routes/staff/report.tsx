@@ -5,12 +5,14 @@ import { listOpsReports, saveOpsReport } from "@/lib/server/atelier";
 import { DeskCard, DeskHeader } from "@/components/staff/desk";
 import { Button } from "@/components/ui/button";
 import { Input, Label, Textarea } from "@/components/ui/input";
+import { ClimaScanBom } from "@/components/staff/climascan-bom";
 
 export const Route = createFileRoute("/staff/report")({ component: OpsReport });
 
 function OpsReport() {
   const list = useQuery({ queryKey: ["ops"], queryFn: () => listOpsReports() });
   const [msg, setMsg] = useState("");
+  const [weather, setWeather] = useState("");
 
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -18,7 +20,7 @@ function OpsReport() {
     await saveOpsReport({
       data: {
         reportDate: String(fd.get("reportDate") || ""),
-        weather: String(fd.get("weather") || "") || undefined,
+        weather: weather || String(fd.get("weather") || "") || undefined,
         sites: String(fd.get("sites") || "") || undefined,
         completed: String(fd.get("completed") || "") || undefined,
         hazards: String(fd.get("hazards") || "") || undefined,
@@ -29,6 +31,7 @@ function OpsReport() {
     });
     setMsg("Daily report filed.");
     e.currentTarget.reset();
+    setWeather("");
     void list.refetch();
   }
 
@@ -48,7 +51,10 @@ function OpsReport() {
           </div>
           <div>
             <Label htmlFor="weather">Weather / ClimaScan™</Label>
-            <Input id="weather" name="weather" placeholder="Temp · RH · wind" />
+            <Input id="weather" name="weather" placeholder="Temp · RH · wind" value={weather} onChange={(e) => setWeather(e.target.value)} />
+          </div>
+          <div className="md:col-span-2">
+            <ClimaScanBom onFill={setWeather} />
           </div>
           <div className="md:col-span-2">
             <Label htmlFor="sites">Sites</Label>

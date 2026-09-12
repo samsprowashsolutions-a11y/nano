@@ -5,33 +5,17 @@ import { useCurrentUserState } from "@/lib/auth/use-current-user";
 import { cn } from "@/lib/utils";
 import { Bell, Mail, Menu, Search, X } from "lucide-react";
 import { useState } from "react";
-import { BRAND } from "@/lib/content";
-
-const NAV = [
-  { to: "/staff/command", label: "Command Dashboard" },
-  { to: "/staff/console", label: "Custom console" },
-  { to: "/staff/connections", label: "Connections plugin" },
-  { to: "/staff/vault", label: "Sam’s Safe" },
-  { to: "/staff/payroll", label: "Payroll → Xero" },
-  { to: "/staff/qr", label: "QR & Print" },
-  { to: "/staff/clients", label: "Client Profiles" },
-  { to: "/staff/warranty", label: "Warranty Desk" },
-  { to: "/staff/operations", label: "QA Pathway" },
-  { to: "/staff/report", label: "Ops Daily Report" },
-  { to: "/staff/products", label: "Chemistry Library" },
-  { to: "/staff/verify", label: "NanoAssure Verify" },
-  { to: "/staff/inbox", label: "Analysis Inbox" },
-  { to: "/staff/workforce", label: "Workforce (later desks)" },
-  { to: "/staff/protocol", label: "SWMS & Protocol" },
-  { to: "/staff/prompt", label: "Master Prompt" },
-] as const;
+import { GpsHeartbeat } from "@/components/staff/gps-heartbeat";
+import { PackFooterBar, PackMasthead, metaFor } from "@/components/staff/pack-frame";
+import { rev } from "@/lib/cache";
+import { NAV_CATS } from "@/lib/altier-nav";
 
 export function StaffGate({ children }: { children: ReactNode }) {
   const { user, isPending } = useCurrentUserState();
   if (isPending) {
     return (
-      <div className="sam-desk grid min-h-dvh place-items-center">
-        <div className="h-24 w-56 animate-pulse rounded-xl bg-gold/20" />
+      <div className="sam-desk pack-ice grid min-h-dvh place-items-center">
+        <div className="h-24 w-56 animate-pulse rounded-xl bg-[#d4af37]/30" />
       </div>
     );
   }
@@ -43,85 +27,94 @@ export function StaffShell() {
   const path = useRouterState({ select: (s) => s.location.pathname });
   const [open, setOpen] = useState(false);
   const now = new Date().toLocaleString("en-AU", { timeZone: "Australia/Darwin" });
+  const page = metaFor(path).n;
 
   return (
     <StaffGate>
-      <div className="sam-desk flex min-h-dvh flex-col">
-        <header className="relative z-40 bg-[#11110f] text-[#f5e2a0]">
-          <div className="flex items-center justify-between gap-4 px-4 py-3 md:px-6">
-            <Link to="/staff/command" className="flex min-w-0 items-center gap-3">
-              <img src="/brand/sp-lockup.png" alt="Sam's Prowash Solutions" className="h-12 w-auto max-w-[16rem] object-contain md:h-14" />
+      <div className="sam-desk pack-ice flex min-h-dvh flex-col">
+        <div className="relative z-40">
+          <PackMasthead path={path} now={now} />
+          <div className="flex items-center justify-end gap-2 border-b-2 border-[#d4af37] bg-white px-3 py-2 text-[#0c1f4a]">
+            <Link to="/staff/console" aria-label="Custom console" className="hidden sm:grid size-11 place-items-center rounded-full border-2 border-[#d4af37] bg-white">
+              <Search className="size-5" />
             </Link>
-            <div className="hidden text-center md:block">
-              <h1 className="font-script text-3xl leading-none text-gold-hi lg:text-4xl">
-                Altier
-              </h1>
-              <p className="mt-1 text-[10px] uppercase tracking-[0.22em] text-[#c4c6cc]">
-                Command suite · Director desk · Sam’s Safe
-              </p>
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="hidden rounded-full border border-gold/30 px-3 py-1 text-xs text-gold-hi lg:inline">
-                {now}
-              </span>
-              <Search className="hidden size-4 text-gold-hi sm:block" />
-              <Bell className="hidden size-4 text-gold-hi sm:block" />
-              <Mail className="hidden size-4 text-gold-hi sm:block" />
-              <UserButton />
-              <button
-                type="button"
-                className="grid size-10 place-items-center rounded-md border border-gold/30 md:hidden"
-                onClick={() => setOpen(true)}
-                aria-label="Open menu"
-              >
-                <Menu className="size-4" />
-              </button>
-            </div>
+            <Link to="/staff/report" aria-label="Ops daily" className="hidden sm:grid size-11 place-items-center rounded-full border-2 border-[#d4af37] bg-white">
+              <Bell className="size-5" />
+            </Link>
+            <Link to="/staff/inbox" aria-label="Analysis inbox" className="hidden sm:grid size-11 place-items-center rounded-full border-2 border-[#d4af37] bg-white">
+              <Mail className="size-5" />
+            </Link>
+            <UserButton />
+            <button
+              type="button"
+              className="grid size-11 place-items-center rounded-full border-2 border-[#d4af37] bg-white md:hidden"
+              onClick={() => setOpen(true)}
+              aria-label="Open menu"
+            >
+              <Menu className="size-5" />
+            </button>
           </div>
-        </header>
+        </div>
 
         <div className="flex min-h-0 flex-1">
           <aside
             className={cn(
-              "fixed inset-y-0 left-0 z-40 flex w-[17.5rem] flex-col border-r border-gold/25 bg-[#fbf7ef] pt-[4.5rem] transition-transform md:static md:translate-x-0 md:pt-0",
+              "fixed inset-y-0 left-0 z-40 flex w-[21.5rem] flex-col border-r-2 border-[#d4af37] bg-white transition-transform md:static md:translate-x-0",
               open ? "translate-x-0" : "-translate-x-full md:translate-x-0",
             )}
           >
-            <div className="flex items-center gap-3 border-b border-gold/20 px-4 py-4">
-              <img src="/brand/sp-shield-clear.png" alt="" className="h-14 w-14 object-contain" />
-              <div>
-                <p className="font-semibold text-[#2a241c]">Samantha Rae</p>
-                <p className="text-sm text-[#5c564c]">Director</p>
-                <span className="mt-1 inline-block rounded-full bg-purple px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-white">
+            <div className="flex items-center gap-3 border-b-2 border-[#d4af37] px-4 py-4">
+              <img src={rev("/brand/pack-sp.png")} alt="" className="h-16 w-16 object-contain" />
+              <div className="min-w-0 flex-1">
+                <p className="text-lg font-extrabold text-[#0c1f4a]">Samantha Rae</p>
+                <p className="text-base text-[#3d4a63]">Director</p>
+                <span className="mt-1 inline-block rounded-full bg-[#0c1f4a] px-2 py-0.5 text-[11px] font-bold uppercase tracking-wider text-[#e8c547]">
                   Super Admin
                 </span>
               </div>
+              <button
+                type="button"
+                className="grid size-11 place-items-center rounded-full border-2 border-[#d4af37] md:hidden"
+                onClick={() => setOpen(false)}
+                aria-label="Close menu"
+              >
+                <X className="size-5" />
+              </button>
             </div>
-            <p className="px-4 pt-4 text-[10px] font-bold uppercase tracking-[0.18em] text-[#8a6a18]">
-              Altier navigation
+            <p className="px-4 pt-4 text-[11px] font-extrabold uppercase tracking-[0.2em] text-[#0c1f4a]">
+              Altier · by category
             </p>
-            <nav className="flex-1 space-y-0.5 overflow-y-auto p-3">
-              {NAV.map((n) => {
-                const active = path === n.to || (n.to !== "/staff/command" && path.startsWith(n.to));
-                return (
-                  <Link
-                    key={n.to}
-                    to={n.to}
-                    onClick={() => setOpen(false)}
-                    className={cn(
-                      "block rounded-full px-4 py-2.5 text-base text-[#3a342c] hover:bg-gold/10",
-                      active && "bg-linear-to-r from-aqua/80 to-purple text-white shadow-md",
-                    )}
-                  >
-                    {n.label}
-                  </Link>
-                );
-              })}
+            <nav className="pack-nav flex-1 space-y-3 overflow-y-auto p-3">
+              {NAV_CATS.map((cat) => (
+                <div key={cat.id}>
+                  <p className="cat-label">
+                    <span>{cat.n}</span>
+                    {cat.title}
+                  </p>
+                  {cat.items.map((n) => {
+                    const active = path === n.to || (n.to !== "/staff/command" && path.startsWith(n.to));
+                    return (
+                      <Link
+                        key={n.to}
+                        to={n.to}
+                        onClick={() => setOpen(false)}
+                        className={cn(active && "is-on")}
+                      >
+                        <span className="n">{n.n}</span>
+                        {n.label}
+                      </Link>
+                    );
+                  })}
+                </div>
+              ))}
             </nav>
-            <div className="m-3 rounded-2xl bg-linear-to-br from-purple to-[#3b1768] p-4 text-white">
-              <p className="text-xs uppercase tracking-widest text-gold-hi">Active role</p>
-              <p className="font-display text-xl">Altier</p>
-              <p className="text-sm text-white/80">Director · vault · command. Kate, Jas and crew desks next.</p>
+            <div className="pack-head m-3 rounded-xl">
+              <span>
+                Active role · Altier
+                <span className="mt-1 block text-[11px] font-semibold tracking-wide text-[#dce6f8]">
+                  Director · vault · command
+                </span>
+              </span>
             </div>
           </aside>
           {open ? (
@@ -138,17 +131,16 @@ export function StaffShell() {
               <button type="button" onClick={() => setOpen(false)} aria-label="Close">
                 <X className="size-5" />
               </button>
-              <p className="font-script text-2xl text-gold">Altier</p>
+              <p className="text-lg font-extrabold text-[#0c1f4a]">Altier</p>
             </div>
             <main className="flex-1 overflow-y-auto p-4 md:p-6">
+              <GpsHeartbeat />
               <Outlet />
             </main>
           </div>
         </div>
 
-        <footer className="bg-[#11110f] px-4 py-3 text-center text-xs text-[#c4c6cc]">
-          SP NanoAssure™ · Altier · Secure connection · ABN {BRAND.abn} · ACN {BRAND.acn} · {BRAND.location} · v2026.09.01
-        </footer>
+        <PackFooterBar page={page} />
       </div>
     </StaffGate>
   );

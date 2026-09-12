@@ -1,155 +1,177 @@
-import { useId, type ReactNode } from "react";
+import { useId, useState, type ReactNode } from "react";
 import { Link } from "@tanstack/react-router";
 import { cn } from "@/lib/utils";
+import { rev } from "@/lib/cache";
 import {
   ASSURANCES,
-  NANODATA_SCIENCE,
   PROCESS,
   PRODUCTS,
   QA_TESTS,
-  SYSTEMS,
+  SURFACE_LIFE,
   type Qa7Icon,
 } from "@/lib/content";
-import { ChromeShield } from "@/components/chrome-shield";
+import { PROCESS_TONE } from "@/lib/brand-4";
+import { B4Pick, type PackKind } from "@/components/brand/pack-icon";
+import { ChromeDisc, METAL } from "@/components/chrome-disc";
 
 function GoldGlyph({ kind }: { kind: Qa7Icon }) {
-  const stroke = "currentColor";
+  const s = { fill: "none" as const, stroke: "currentColor", strokeWidth: 2.6, strokeLinecap: "round" as const, strokeLinejoin: "round" as const };
   switch (kind) {
     case "inspect":
       return (
-        <>
-          <polygon points="32,6 56,20 56,44 32,58 8,44 8,20" />
-          <circle cx="32" cy="32" r="10" fill="none" stroke={stroke} strokeWidth="2.4" />
-          <circle cx="32" cy="32" r="3.2" />
-        </>
+        <g {...s}>
+          <path d="M8 32c7-16 41-16 48 0M8 32c7 16 41 16 48 0" />
+          <circle cx="32" cy="32" r="8.5" />
+          <circle cx="32" cy="32" r="3.2" fill="currentColor" stroke="none" />
+        </g>
       );
     case "prepare":
       return (
-        <>
-          <rect x="12" y="16" width="40" height="32" rx="5" />
-          <path d="M18 28h28" fill="none" stroke={stroke} strokeWidth="2.4" />
-          <path d="M18 36c8-8 20-8 28 0" fill="none" stroke={stroke} strokeWidth="2.4" />
-        </>
+        <g {...s}>
+          <path d="M12 46h40" />
+          <path d="M16 40c9-12 23-12 32 0" />
+          <rect x="22" y="12" width="20" height="20" rx="3" />
+          <path d="M26 20h12M26 26h8" />
+        </g>
       );
     case "apply":
       return (
-        <>
-          <path d="M32 8c0 0 14 16 14 26a14 14 0 1 1-28 0C18 24 32 8 32 8z" />
-        </>
+        <g {...s}>
+          <path d="M32 8c0 0 15 16 15 28a15 15 0 1 1-30 0C17 24 32 8 32 8z" fill="currentColor" fillOpacity="0.18" />
+        </g>
       );
     case "verify":
       return (
-        <>
-          <polygon points="32,4 60,32 32,60 4,32" />
-          <circle cx="32" cy="32" r="3.4" />
-          <circle cx="32" cy="18" r="2.2" />
-          <circle cx="46" cy="32" r="2.2" />
-          <circle cx="32" cy="46" r="2.2" />
-          <circle cx="18" cy="32" r="2.2" />
-        </>
+        <g {...s}>
+          <polygon points="32,8 54,32 32,56 10,32" fill="currentColor" fillOpacity="0.14" />
+          <circle cx="32" cy="32" r="3.4" fill="currentColor" stroke="none" />
+          <circle cx="32" cy="20" r="2.2" fill="currentColor" stroke="none" />
+          <circle cx="44" cy="32" r="2.2" fill="currentColor" stroke="none" />
+          <circle cx="32" cy="44" r="2.2" fill="currentColor" stroke="none" />
+          <circle cx="20" cy="32" r="2.2" fill="currentColor" stroke="none" />
+        </g>
       );
     case "record":
       return (
-        <>
-          <path d="M16 10h24l10 10v36H16z" />
-          <path d="M40 10v10h10" fill="none" stroke={stroke} strokeWidth="2.2" />
-          <path d="M22 32h20M22 40h16" fill="none" stroke={stroke} strokeWidth="2.2" />
-        </>
+        <g {...s}>
+          <path d="M18 12h22l10 10v32H18z" fill="currentColor" fillOpacity="0.14" />
+          <path d="M40 12v10h10" />
+          <path d="M24 32h16M24 40h12" />
+        </g>
       );
     case "approve":
       return (
-        <>
-          <circle cx="32" cy="32" r="24" />
-          <circle cx="32" cy="32" r="16" fill="none" stroke={stroke} strokeWidth="2" />
-          <polygon points="32,16 35,28 48,28 37,36 41,48 32,40 23,48 27,36 16,28 29,28" />
-        </>
+        <g {...s}>
+          <circle cx="32" cy="32" r="20" />
+          <circle cx="32" cy="32" r="13.5" />
+          <polygon points="32,16 35,28 48,28 37,36 41,48 32,40 23,48 27,36 16,28 29,28" fill="currentColor" fillOpacity="0.35" />
+        </g>
       );
     case "handover":
       return (
-        <>
-          <polygon points="32,6 58,32 32,58 6,32" />
-          <polyline
-            points="20,32 42,32 36,26"
-            fill="none"
-            stroke={stroke}
-            strokeWidth="2.8"
-            strokeLinejoin="round"
-            strokeLinecap="round"
-          />
-          <polyline
-            points="42,32 36,38"
-            fill="none"
-            stroke={stroke}
-            strokeWidth="2.8"
-            strokeLinejoin="round"
-            strokeLinecap="round"
-          />
-        </>
+        <g {...s}>
+          <path d="M12 32h30" strokeWidth="3" />
+          <polyline points="32,22 48,32 32,42" strokeWidth="3" />
+          <circle cx="14" cy="32" r="5" fill="currentColor" stroke="none" />
+        </g>
       );
   }
 }
+
+const GATE_NEON: Record<Qa7Icon, string> = {
+  inspect: "#e9d5ff",
+  prepare: "#93c5fd",
+  apply: "#86efac",
+  verify: "#fde047",
+  record: "#fca5a5",
+  approve: "#67e8f9",
+  handover: "#ffc040",
+};
 
 export function Qa7Mark({
   kind,
   className,
   title,
+  n,
 }: {
   kind: Qa7Icon;
   className?: string;
   title?: string;
+  n?: string;
 }) {
   const uid = useId().replace(/:/g, "");
-  const g = `qa7g-${uid}`;
-  const clip = `qa7c-${uid}`;
-  const glow = `qa7n-${uid}`;
+  const step = PROCESS.find((p) => p.icon === kind);
+  const tone = step?.tone ?? "gold";
+  const m = METAL[tone];
+  const clip = `n7c-${uid}`;
+  const glow = `n7n-${uid}`;
+  const neon = GATE_NEON[kind];
+  const glyphY = n ? 92 : 80;
   return (
-    <svg viewBox="0 0 64 64" className={cn("qa7-mark", className)} aria-hidden={!title} role={title ? "img" : undefined}>
-      {title ? <title>{title}</title> : null}
+    <ChromeDisc tone={tone} variant="nano7" neon={neon} className={cn("qa7-mark", className)} title={title ?? kind}>
       <defs>
-        <linearGradient id={g} x1="12%" y1="8%" x2="90%" y2="92%">
-          <stop offset="0%" stopColor="var(--color-gold-deep)" />
-          <stop offset="32%" stopColor="var(--color-gold-glow)" />
-          <stop offset="52%" stopColor="var(--color-gold-hi)" />
-          <stop offset="78%" stopColor="var(--color-gold)" />
-          <stop offset="100%" stopColor="#6a4a12" />
-        </linearGradient>
         <clipPath id={clip}>
-          <rect x="32" y="0" width="32" height="64" />
+          <rect x="80" y="16" width="58" height="128" />
         </clipPath>
-        <filter id={glow} x="-20%" y="-20%" width="140%" height="140%">
-          <feGaussianBlur stdDeviation="1.4" result="b" />
+        <filter id={glow} x="-30%" y="-30%" width="160%" height="160%">
+          <feGaussianBlur stdDeviation="1.15" result="b" />
           <feMerge>
             <feMergeNode in="b" />
             <feMergeNode in="SourceGraphic" />
           </feMerge>
         </filter>
       </defs>
-      <g fill={`url(#${g})`} stroke={`url(#${g})`} strokeWidth="1.4" strokeLinejoin="round">
-        <GoldGlyph kind={kind} />
-      </g>
+      {n ? (
+        <text
+          x="80"
+          y="58"
+          textAnchor="middle"
+          fill={m.glyph}
+          stroke={tone === "yellow" || tone === "gold" ? "#6e5214" : m.lo}
+          strokeWidth="0.6"
+          style={{ fontFamily: "ui-monospace, monospace", fontSize: 16, fontWeight: 800, letterSpacing: "0.08em" }}
+        >
+          {n}
+        </text>
+      ) : null}
       <g
-        fill="none"
-        stroke="var(--color-neon)"
-        strokeWidth="2.6"
+        transform={`translate(80 ${glyphY}) scale(${n ? 0.86 : 1.08}) translate(-32 -32)`}
+        fill={m.ink}
+        stroke={m.ink}
+        strokeWidth="1.6"
         strokeLinejoin="round"
-        clipPath={`url(#${clip})`}
-        filter={`url(#${glow})`}
-        className="qa7-neon"
+        strokeLinecap="round"
+        color={m.ink}
       >
         <GoldGlyph kind={kind} />
       </g>
-    </svg>
+      <g clipPath={`url(#${clip})`} filter={`url(#${glow})`} color={neon}>
+        <g
+          transform={`translate(80 ${glyphY}) scale(${n ? 0.86 : 1.08}) translate(-32 -32)`}
+          fill="none"
+          stroke={neon}
+          strokeWidth="2.8"
+          strokeLinejoin="round"
+          strokeLinecap="round"
+        >
+          <GoldGlyph kind={kind} />
+        </g>
+      </g>
+    </ChromeDisc>
+  );
+}
+
+export function N7Seal({ className }: { className?: string }) {
+  const src = rev("/brand/n7-seal.png");
+  return (
+    <span className={cn("n7-seal", className)}>
+      <img src={src} alt="NANO7™ Seven Step Pathway" />
+    </span>
   );
 }
 
 export function Qa7Drop({ className }: { className?: string }) {
-  return (
-    <img
-      src="/brand/qa7-drop-shield.png"
-      alt="NANO7™ Asset Assurance Policy — Nano Drop"
-      className={cn("qa7-drop", className)}
-    />
-  );
+  return <N7Seal className={className} />;
 }
 
 export function Qa7Banner({
@@ -159,125 +181,193 @@ export function Qa7Banner({
   compact?: boolean;
   className?: string;
 }) {
+  const [open, setOpen] = useState<(typeof PROCESS)[number]["code"]>("INS");
+  const active = PROCESS.find((p) => p.code === open) ?? PROCESS[0];
   return (
-    <section className={cn("qa7-banner", className)}>
-      <div className={cn("relative mx-auto max-w-6xl px-5", compact ? "py-8" : "py-12 md:py-16")}>
-        <div className="flex flex-col items-center gap-6 md:flex-row md:items-center md:gap-10">
-          <Qa7Drop className={compact ? "h-36 w-auto md:h-44" : "h-44 w-auto md:h-64"} />
+    <section className={cn("qa7-banner chrome-break", className)}>
+      <div className={cn("relative mx-auto max-w-6xl px-5", compact ? "py-10 md:py-12" : "py-12 md:py-16")}>
+        <div className="flex flex-col items-center gap-8 md:flex-row md:items-center md:gap-12">
+          <div className={cn("n7-well", !compact && "n7-well-lg")}>
+            <N7Seal />
+          </div>
           <div className="min-w-0 text-center md:text-left">
-            <p className="kicker text-neon">{SYSTEMS.qa7.kicker}</p>
-            <p className="font-script mt-1 text-4xl text-gold md:text-6xl">{SYSTEMS.qa7.script}</p>
-            <h2 className="gold-text mt-1 font-display text-4xl tracking-wide md:text-6xl">
-              {SYSTEMS.qa7.name}
+            <p className="kicker chrome-kicker">Chrome · NanoAssure™ breakaway</p>
+            <h2 className="chrome-text mt-4 font-display text-4xl leading-none tracking-wide md:text-6xl">
+              NANO7™
             </h2>
-            <p className="mt-2 font-display text-xl text-gold-hi md:text-2xl">{SYSTEMS.qa7.policy}</p>
-            <p className="mt-2 max-w-xl text-sm uppercase tracking-[0.12em] text-neon">{SYSTEMS.qa7.sequence}</p>
-            <p className="mt-3 max-w-xl text-lg text-muted">
-              Seven gates. One policy. NANODATA Collection™ is the science inside Verify —
-              molecules locked to the substrate before Approve is signed.
+            <p className="mt-4 max-w-xl text-lg leading-relaxed text-pearl md:text-xl">
+              Seven checks on every job. Tap a step. If a check fails, we stop — we do not sign off.
             </p>
+            {compact ? (
+              <Link to="/assurance" className="glass-btn mt-6 inline-flex">
+                See the seven steps
+              </Link>
+            ) : null}
           </div>
         </div>
-        <ol className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-7">
-          {PROCESS.map((p) => (
-            <li key={p.code} className="qa7-step text-center">
-              <Qa7Mark kind={p.icon} className="mx-auto h-16 w-16 md:h-20 md:w-20" title={p.name} />
-              <p className="mt-2 font-mono text-sm text-neon">{p.n} · {p.code}</p>
-              <p className="font-display text-lg text-gold-hi">{p.short}</p>
-              <p className="text-sm leading-snug text-muted">{p.name}</p>
-            </li>
-          ))}
-        </ol>
+        {compact ? (
+          <ol className="qa7-steps mt-8 grid grid-cols-2 gap-3 sm:grid-cols-4 xl:grid-cols-7">
+            {PROCESS.map((p) => (
+              <li key={p.code}>
+                <B4Pick
+                  kind={p.icon as PackKind}
+                  n={p.n}
+                  name={p.name}
+                  tone={PROCESS_TONE[p.icon]}
+                />
+              </li>
+            ))}
+          </ol>
+        ) : (
+          <>
+            <ol className="qa7-steps mt-10 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-7">
+              {PROCESS.map((p) => (
+                <li key={p.code}>
+                  <B4Pick
+                    kind={p.icon as PackKind}
+                    n={p.n}
+                    name={p.name}
+                    hint={p.short}
+                    tone={PROCESS_TONE[p.icon]}
+                    on={open === p.code}
+                    onClick={() => setOpen(p.code)}
+                  />
+                </li>
+              ))}
+            </ol>
+            <article className="b4-card mt-6">
+              <div className="b4-head">Step {active.n} of 07 · {active.name}</div>
+              <div className="p-6 md:p-8">
+                <p className="text-xl leading-relaxed">{active.plain}</p>
+              </div>
+            </article>
+          </>
+        )}
       </div>
     </section>
   );
 }
 
 export function NanoDataBand({ className }: { className?: string }) {
+  const [open, setOpen] = useState<(typeof QA_TESTS)[number]["key"]>("climascan");
+  const active = QA_TESTS.find((t) => t.key === open) ?? QA_TESTS[0];
   return (
-    <section className={cn("mx-auto max-w-6xl px-5 py-12 md:py-16", className)}>
-      <div className="mb-8 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-        <div>
-          <p className="kicker">{SYSTEMS.nanodata.kicker}</p>
-          <p className="font-script text-3xl text-gold md:text-4xl">{SYSTEMS.nanodata.script}</p>
-          <h2 className="gold-text font-display text-3xl md:text-5xl">{SYSTEMS.nanodata.name}</h2>
+    <section className={cn("nanodata-banner chrome-break", className)}>
+      <div className="mx-auto max-w-6xl px-5 py-12 md:py-16">
+        <p className="kicker chrome-kicker">Chrome · five lab checks inside step 04 · Verify</p>
+        <h2 className="chrome-text mt-4 font-display text-4xl leading-none md:text-6xl">NANODATA Collection™</h2>
+        <p className="mt-4 max-w-3xl text-lg leading-relaxed text-pearl">
+          Before we approve a job we run five substrate tests. They prove the coating locked to the surface — not dried on top.
+        </p>
+
+        <p className="mt-10 text-sm uppercase tracking-[0.16em] text-aqua">Tap a test</p>
+        <div className="qa7-steps mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-5">
+          {QA_TESTS.map((t) => (
+            <B4Pick
+              key={t.key}
+              kind={
+                t.key === "climascan"
+                  ? "droplet"
+                  : t.key === "surfiq"
+                    ? "layers"
+                    : t.key === "phield"
+                      ? "ph"
+                      : t.key === "nanobond"
+                        ? "bond"
+                        : "sun"
+              }
+              n={t.n}
+              name={t.name}
+              hint={t.short}
+              tone={t.key === "climascan" ? "cyan" : t.key === "surfiq" ? "teal" : t.key === "phield" ? "purple" : t.key === "nanobond" ? "gold" : "orange"}
+              on={open === t.key}
+              onClick={() => setOpen(t.key)}
+            />
+          ))}
         </div>
-        <p className="max-w-xl text-muted">{SYSTEMS.nanodata.role}</p>
-      </div>
-      <p className="mb-8 max-w-4xl text-lg leading-relaxed text-pearl">{NANODATA_SCIENCE}</p>
-      <div className="grid gap-3 sm:grid-cols-5">
-        {QA_TESTS.map((t) => (
-          <article key={t.n} className="metal-panel rounded-xl p-4 text-center">
-            <ChromeShield tone={t.tone} className="mx-auto mb-2 h-20 w-[4.5rem]" />
-            <p className="font-mono text-xs text-aqua">{t.n}</p>
-            <p className="font-semibold text-gold-hi">{t.name}</p>
-            <p className="text-sm uppercase tracking-wider text-aqua">{t.short}</p>
-            <p className="mt-2 text-sm leading-snug text-muted">{t.science}</p>
-          </article>
-        ))}
+
+        <article className="b4-card mt-8">
+          <div className="b4-head">Test {active.n} of 05 · {active.name}</div>
+          <div className="p-6 md:p-8">
+            <p className="text-lg leading-relaxed">{active.science}</p>
+          </div>
+        </article>
       </div>
     </section>
   );
 }
 
-function testsFor(keys: string[]) {
-  return QA_TESTS.filter((t) => keys.includes(t.key));
+export function SurfaceLifeBand({ className }: { className?: string }) {
+  return (
+    <section className={cn("mx-auto max-w-6xl px-5 py-12 md:py-16", className)}>
+      <p className="kicker">How the surface lives</p>
+      <h2 className="gold-text font-display text-3xl md:text-5xl">Cleaner longer. Less maintenance.</h2>
+      <p className="mt-4 max-w-2xl text-lg text-muted">
+        The film is the atelier’s work. This is what the asset does after handover — never a
+        client application method.
+      </p>
+      <ol className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        {SURFACE_LIFE.map((s) => (
+          <li key={s.n} className="rounded-2xl border border-gold/25 bg-carbon-2 p-5">
+            <p className="font-mono text-xs tracking-[0.16em] text-neon">{s.n}</p>
+            <h3 className="mt-2 font-display text-2xl leading-tight text-gold-hi">{s.name}</h3>
+            <p className="mt-2 text-muted">{s.detail}</p>
+          </li>
+        ))}
+      </ol>
+    </section>
+  );
 }
 
 export function ProductAssurances({
-  heading = "Named assurance · each system",
+  heading = "What we coat",
 }: {
   heading?: string;
 }) {
   return (
     <section className="mx-auto max-w-6xl px-5 py-12 md:py-16">
-      <p className="kicker">NANO7™ × NANODATA Collection</p>
-      <h2 className="gold-text font-display text-3xl md:text-5xl">{heading}</h2>
+      <p className="kicker chrome-kicker">Chrome · NanoAssure™ surfaces</p>
+      <h2 className="chrome-text font-display text-3xl md:text-5xl">{heading}</h2>
       <p className="mt-3 max-w-3xl text-lg text-muted">
-        Every specified system carries a named NANO7™ bond. The science underneath is
-        NANODATA Collection™ — five substrate tests that prove the molecules have locked
-        to the face, not dried as a film on top. That series is Verify. Never merged with the policy.
+        Each surface has its own named bond. Open a card to see the product on the collection page.
       </p>
-      <div className="mt-8 grid gap-4 md:grid-cols-2">
-        {ASSURANCES.map((a) => {
+      <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        {ASSURANCES.map((a, i) => {
           const product = PRODUCTS.find((p) => p.id === a.productId);
-          const tests = testsFor(a.tests);
+          const n = String(i + 1).padStart(2, "0");
+          const hash = product
+            ? product.id.includes("glass")
+              ? "glass"
+              : product.id.includes("stone")
+                ? "stone"
+                : product.id.includes("ag-")
+                  ? "graffiti"
+                  : product.id.includes("chrome") || product.id.includes("metal")
+                    ? "metal"
+                    : product.id.includes("mould")
+                      ? "mould"
+                      : product.id.includes("fabric")
+                        ? "fabric"
+                        : product.id.includes("antimicrobial")
+                          ? "antimicrobial"
+                          : undefined
+            : undefined;
           return (
-            <article key={a.mark} className="overflow-hidden rounded-2xl border border-gold/25 bg-carbon-2">
-              {product ? (
-                <img src={product.image} alt="" className="aspect-[21/9] w-full object-cover" />
-              ) : null}
-              <div className="p-5">
-                <p className="font-mono text-xs tracking-[0.14em] text-neon">{a.mark}</p>
-                <h3 className="font-display text-2xl text-gold-hi">{a.name}</h3>
-                {product ? <p className="text-sm text-aqua">{product.name}</p> : null}
-                <p className="mt-2 text-base leading-relaxed text-pearl">{a.science}</p>
-                <div className="mt-3 flex flex-wrap gap-2">
-                  {tests.map((t) => (
-                    <span
-                      key={t.key}
-                      className="inline-flex items-center gap-1 rounded-full border border-chrome/20 px-2 py-1"
-                    >
-                      <ChromeShield tone={t.tone} className="h-6 w-5" />
-                      <span className="text-xs font-semibold text-gold-hi">{t.name}</span>
-                    </span>
-                  ))}
-                </div>
-                <ul className="mt-3 space-y-1 text-sm text-muted">
-                  {a.notes.map((n) => (
-                    <li key={n}>— {n}</li>
-                  ))}
-                </ul>
-              </div>
-            </article>
+            <Link
+              key={a.mark}
+              to="/solutions"
+              hash={hash}
+              className="glass-btn glass-btn-tile"
+            >
+              {product ? <img src={product.image} alt="" className="glass-btn-photo" /> : null}
+              <span className="glass-btn-label">
+                {n} · {a.name}
+                <span className="glass-btn-hint">{product?.name ?? a.mark}</span>
+              </span>
+            </Link>
           );
         })}
       </div>
-      <p className="mt-8 text-center">
-        <Link to="/analysis" className="text-gold hover:text-gold-hi">
-          Request analysis →
-        </Link>
-      </p>
     </section>
   );
 }
@@ -287,10 +377,9 @@ export function Qa7StepRow({ children }: { children?: ReactNode }) {
     <ol className="grid gap-3 sm:grid-cols-7">
       {PROCESS.map((p) => (
         <li key={p.code} className="metal-panel rounded-xl p-3 text-center">
-          <Qa7Mark kind={p.icon} className="mx-auto h-14 w-14" title={p.name} />
-          <p className="mt-2 font-mono text-xs text-neon">{p.n} · {p.code}</p>
-          <p className="font-display text-lg text-gold-hi">{p.short}</p>
-          <p className="text-sm leading-snug text-muted">{p.name}</p>
+          <Qa7Mark kind={p.icon} n={p.n} className="mx-auto h-20 w-20" title={`${p.n} ${p.name}`} />
+          <p className="mt-2 font-mono text-xs tracking-[0.14em] text-neon">{p.n}</p>
+          <p className="mt-1 font-display text-lg leading-tight text-gold-hi">{p.name}</p>
           {children}
         </li>
       ))}

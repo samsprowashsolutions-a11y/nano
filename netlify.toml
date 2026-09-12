@@ -1,0 +1,14 @@
+[build.environment]
+  NODE_VERSION = "22"
+
+[[redirects]]
+  from = "https://nanoassure.net/*"
+  to = "https://www.nanoassure.net/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "http://nanoassure.net/*"
+  to = "https://www.nanoassure.net/:splat"
+  status = 301
+  force = true

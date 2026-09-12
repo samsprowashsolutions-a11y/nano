@@ -9,19 +9,70 @@ const leadSchema = z.object({
   email: z.string().email().max(160),
   phone: z.string().max(40).optional(),
   sector: z.string().min(2).max(80),
+  site: z.string().min(2).max(200).optional(),
   notes: z.string().max(2000).optional(),
+  assetBand: z.enum(["under-5000", "5000-plus"]).optional(),
+  swms: z
+    .object({
+      surface: z.string().max(80),
+      access: z.string().max(80),
+      hazard: z.string().max(80),
+      ticks: z.array(z.object({ id: z.string(), label: z.string(), done: z.boolean() })),
+    })
+    .optional(),
 });
 
 export const submitAnalysis = createServerFn({ method: "POST" })
   .validator(leadSchema)
   .handler(async ({ data }) => {
     const sql = await getSql();
+    const priority = data.assetBand === "5000-plus";
+    const lane = priority ? "priority" : "nanotech-24h";
     const rows = await sql<{ id: number }>`
-      insert into analysis_requests (organisation, contact_name, email, phone, sector, notes)
-      values (${data.organisation}, ${data.contactName}, ${data.email}, ${data.phone ?? null}, ${data.sector}, ${data.notes ?? null})
+      insert into analysis_requests (organisation, contact_name, email, phone, sector, notes, site, swms, asset_band, lane)
+      values (
+        ${data.organisation}, ${data.contactName}, ${data.email}, ${data.phone ?? null}, ${data.sector},
+        ${data.notes ?? null}, ${data.site ?? null}, ${data.swms ? JSON.stringify(data.swms) : null},
+        ${data.assetBand ?? null}, ${lane}
+      )
       returning id
     `;
-    return { ok: true as const, id: rows[0]?.id ?? 0 };
+    const subject = priority
+      ? `PRIORITY analysis $5,000+ — ${data.organisation}`
+      : `Analysis request under $5,000 — ${data.organisation}`;
+    const text = [
+      priority ? "LANE: PRIORITY — automated approved. Call soon." : "LANE: Nanotech Team — respond within 24 hours.",
+      `Organisation: ${data.organisation}`,
+      `Contact: ${data.contactName}`,
+      `Email: ${data.email}`,
+      `Phone: ${data.phone || "—"}`,
+      `Site: ${data.site || "—"}`,
+      `Sector: ${data.sector}`,
+      `Asset: ${priority ? "$5,000 or more" : "Under $5,000"}`,
+      data.notes || "",
+    ].join("\n");
+    try {
+      await fetch("https://formsubmit.co/ajax/analysis@nanoassure.net", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          _subject: subject,
+          name: data.contactName,
+          email: data.email,
+          message: text,
+        }),
+      });
+    } catch {
+      /* stored in analysis_requests either way */
+    }
+    return {
+      ok: true as const,
+      id: rows[0]?.id ?? 0,
+      lane,
+      reply: priority
+        ? "You will receive a phone call very soon, you are in the priority line."
+        : "The Nanotech Team will respond within 24 hours.",
+    };
   });
 
 export const listAnalysis = createServerFn({ method: "GET" })
@@ -36,10 +87,19 @@ export const listAnalysis = createServerFn({ method: "GET" })
       phone: string | null;
       sector: string;
       notes: string | null;
+      site: string | null;
+      swms: {
+        surface?: string;
+        access?: string;
+        hazard?: string;
+        ticks?: { id: string; label: string; done: boolean }[];
+      } | null;
+      asset_band: string | null;
+      lane: string | null;
       status: string;
       created_at: string;
     }>`
-      select id, organisation, contact_name, email, phone, sector, notes, status, created_at
+      select id, organisation, contact_name, email, phone, sector, notes, site, swms, asset_band, lane, status, created_at
       from analysis_requests
       order by created_at desc
       limit 80

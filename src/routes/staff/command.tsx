@@ -2,19 +2,18 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { type FormEvent, useMemo, useState } from "react";
 import { commandSnapshot, saveSitePost, togglePost } from "@/lib/server/atelier";
+import { controlSnapshot } from "@/lib/server/control";
+import { getGpsDesk } from "@/lib/server/gps";
+import { commandNeeds } from "@/lib/field-flow";
 import { PROCESS } from "@/lib/content";
+import { PROCESS_TONE } from "@/lib/brand-4";
+import { PlatformList } from "@/components/staff/platform-list";
+import { PackCard, PackHex, PackInfo, PackPillar, PackStatus } from "@/components/staff/pack-frame";
+import { PackDisc } from "@/components/brand/pack-icon";
+import type { PackKind } from "@/components/brand/pack-icon";
 import { Button } from "@/components/ui/button";
 import { Input, Select, Textarea } from "@/components/ui/input";
-import {
-  Bell,
-  Calculator as CalcIcon,
-  FileScan,
-  QrCode,
-  ShieldCheck,
-  Upload,
-  Users,
-  Wallet,
-} from "lucide-react";
+import { Bell, FileScan, QrCode, ShieldCheck, Upload, Users, Wallet } from "lucide-react";
 
 export const Route = createFileRoute("/staff/command")({ component: CommandPost });
 
@@ -30,27 +29,11 @@ function Kpi({
   to: string;
 }) {
   return (
-    <Link to={to} className="kpi-chip p-4">
-      <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-[#8a6a18]">{label}</p>
-      <p className="font-display text-4xl text-[#2a241c]">{value}</p>
-      <p className="text-sm text-[#5c564c]">{hint}</p>
+    <Link to={to} className="pack-kpi">
+      <p className="lab">{label}</p>
+      <p className="val">{value}</p>
+      <p className="hint">{hint}</p>
     </Link>
-  );
-}
-
-function Card({ title, action, to, children }: { title: string; action?: string; to?: string; children: React.ReactNode }) {
-  return (
-    <section className="portal-card p-4">
-      <div className="mb-3 flex items-center justify-between gap-2">
-        <h2 className="text-sm font-bold uppercase tracking-[0.12em] text-[#8a6a18]">{title}</h2>
-        {to ? (
-          <Link to={to} className="text-xs font-semibold text-purple">
-            {action ?? "Open"}
-          </Link>
-        ) : null}
-      </div>
-      {children}
-    </section>
   );
 }
 
@@ -72,35 +55,46 @@ function Calculator() {
   }
   const keys = ["7", "8", "9", "/", "4", "5", "6", "*", "1", "2", "3", "-", "0", ".", "C", "+"];
   return (
-    <div className="portal-card p-4">
-      <div className="mb-2 flex items-center gap-2 text-[#8a6a18]">
-        <CalcIcon className="size-4" />
-        <p className="text-sm font-bold uppercase tracking-[0.12em]">Calculator</p>
-      </div>
-      <div className="mb-2 rounded-lg bg-[#11110f] px-3 py-2 text-right font-mono text-xl text-gold-hi">{expr}</div>
-      <div className="grid grid-cols-4 gap-1">
+    <PackCard title="Calculator">
+      <div className="mb-2 rounded-lg bg-[#0c1f4a] px-3 py-2 text-right font-mono text-xl text-[#fff8d4]">{expr}</div>
+      <div className="pack-calc-keys grid grid-cols-4 gap-1">
         {keys.map((k) => (
-          <button key={k} type="button" onClick={() => hit(k)} className="rounded-md bg-[#f3eee4] py-2 text-sm font-semibold hover:bg-gold/20">
+          <button key={k} type="button" onClick={() => hit(k)}>
             {k}
           </button>
         ))}
-        <button type="button" onClick={() => hit("=")} className="col-span-4 rounded-md bg-gold py-2 text-sm font-bold text-carbon">
+        <button type="button" onClick={() => hit("=")} className="col-span-4 !bg-[#d4af37] !text-[#1a1208]">
           =
         </button>
       </div>
-    </div>
+    </PackCard>
   );
 }
 
+const HOW = [
+  { kind: "check" as PackKind, title: "Only approved combinations proceed", copy: "Products, substrates and claims must all be approved." },
+  { kind: "hold" as PackKind, title: "Unsupported claims remain on HOLD", copy: "Do not use performance claims that are not approved." },
+  { kind: "search" as PackKind, title: "Current documents must be checked", copy: "Confirm latest TDS, SDS and substrate information." },
+  { kind: "people" as PackKind, title: "External materials need sign-off", copy: "All external marketing and technical materials require approval." },
+  { kind: "target" as PackKind, title: "Field teams follow approved pathways only", copy: "Use the approved pathways. Do not deviate without authorisation." },
+];
+
 function CommandPost() {
   const snap = useQuery({ queryKey: ["command"], queryFn: () => commandSnapshot() });
+  const ctrl = useQuery({ queryKey: ["control"], queryFn: () => controlSnapshot() });
+  const gps = useQuery({ queryKey: ["gps-desk"], queryFn: () => getGpsDesk() });
   const [msg, setMsg] = useState("");
   const c = snap.data?.counts;
   const jobs = snap.data?.recentJobs ?? [];
   const funnel = useMemo(() => {
     const steps = PROCESS.map((p) => ({
       code: p.code,
-      n: jobs.filter((j) => j[p.key as keyof typeof j] === "passed").length,
+      name: p.name,
+      n: p.n,
+      icon: p.icon,
+      key: p.key,
+      tone: PROCESS_TONE[p.icon] ?? "navy",
+      passed: jobs.filter((j) => j[p.key as keyof typeof j] === "passed").length,
     }));
     return steps;
   }, [jobs]);
@@ -121,24 +115,128 @@ function CommandPost() {
     void snap.refetch();
   }
 
+  const holds = (ctrl.data?.holds ?? []).filter((h) => h.status !== "released").slice(0, 6);
+  const projects = ctrl.data?.projects ?? [];
+  const needs = commandNeeds({
+    jobs: c?.jobs ?? 0,
+    vault: c?.vault ?? 0,
+    ops: c?.ops ?? 0,
+    leads: c?.leads ?? 0,
+    openHolds: ctrl.data?.openHolds ?? 0,
+    pendingReview: ctrl.data?.pendingReview ?? 0,
+    gpsLive: Boolean(gps.data?.live),
+  });
+
   return (
-    <div className="space-y-4">
-      <div className="hidden items-end justify-between md:flex">
-        <div>
-          <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#8a6a18]">
-            Executive director operations · live command dashboard
-          </p>
-          <h1 className="font-script text-5xl text-gold">Sam’s Desk</h1>
+    <div className="space-y-5">
+      {needs.length ? (
+        <div className="need-do-banner">
+          <span className="need-do-tag">Still to do</span>
+          <p className="mt-2 text-lg font-extrabold text-[#9a3412]">Orange means not filled. Tap it. Do that next.</p>
+          <ul className="mt-3 grid gap-2 sm:grid-cols-2">
+            {needs.map((n) => (
+              <li key={n.id}>
+                <Link to={n.to} className="need-do flex items-start justify-between gap-3 p-3 no-underline">
+                  <span>
+                    <b className="block text-lg text-[#9a3412]">{n.label}</b>
+                    <span className="text-base text-[#9a3412]">{n.do}</span>
+                  </span>
+                  <span className="text-sm font-extrabold uppercase tracking-wide text-[#c2410c]">Open</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
         </div>
-        <video
-          src="/brand/sp-lockup-film.mp4"
-          poster="/brand/sp-lockup.png"
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="h-16 w-auto rounded-lg"
-        />
+      ) : null}
+
+      <div className="grid gap-4 lg:grid-cols-[1.7fr_.9fr]">
+        <PackCard title="What this desk delivers" n="01">
+          <div className="grid gap-3 sm:grid-cols-2">
+            {[
+              ["Complete overview", "Jobs, HOLDs, analysis and vault in one live board."],
+              ["Real evidence", "NANODATA field records stay internal until released."],
+              ["Clear decisions", "GO · AMEND · HOLD on every opportunity."],
+              ["Approval first", "TDS / SDS and claim gates before anything leaves Altier."],
+            ].map(([t, d]) => (
+              <div key={t} className="flex gap-3">
+                <PackDisc kind="shield" tone="navy" />
+                <div>
+                  <p className="font-extrabold uppercase tracking-wide text-[#0c1f4a]">{t}</p>
+                  <p className="text-sm text-[#3d4a63]">{d}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </PackCard>
+        <PackCard title="How to use this page">
+          <ul>
+            {HOW.map((h) => (
+              <li key={h.title} className="pack-row">
+                <PackDisc kind={h.kind} tone={h.kind === "hold" ? "gold" : "navy"} />
+                <div>
+                  <p className="font-extrabold text-[#0c1f4a]">{h.title}</p>
+                  <p className="text-sm text-[#3d4a63]">{h.copy}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </PackCard>
+      </div>
+
+      <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+        <PackPillar n="01" title="Entry pathway" copy="Analysis requests over $5,000 enter the priority line." tone="cyan" />
+        <PackPillar n="02" title="Upsell potential" copy="Broader site reviews identify additional substrates." tone="purple" />
+        <PackPillar n="03" title="Operational capacity" copy="Scale with people, GPS hours and NANO7 gates." tone="navy" />
+        <PackPillar n="04" title="Long-term value" copy="Evidence in the vault builds warranty and tender packs." tone="gold" />
+      </div>
+
+      <div className="grid gap-4 lg:grid-cols-3">
+        <PackCard title="Operational workflow" n="08" to="/staff/operations" action="Pathway">
+          {funnel.map((s) => (
+            <div key={s.code} className="pack-step">
+              <PackDisc kind={s.icon as PackKind} n={s.n} tone={s.tone} />
+              <div className="min-w-0 flex-1">
+                <p className="font-extrabold uppercase tracking-wide text-[#0c1f4a]">
+                  {s.n} {s.name}
+                </p>
+                <p className="text-sm text-[#3d4a63]">{s.code} · passed {s.passed}</p>
+              </div>
+            </div>
+          ))}
+        </PackCard>
+        <PackCard title="Core registers" to="/staff/gates" action="Gates">
+          {[
+            ["TDS / SDS register", "/staff/compliance", "doc"],
+            ["Application register", "/staff/operations", "clipboard"],
+            ["HOLD register", "/staff/gates", "hold"],
+            ["Training register", "/staff/workforce", "people"],
+            ["Approval log", "/staff/jobs", "check"],
+            ["Asset analysis log", "/staff/inbox", "chart"],
+            ["Client feedback", "/staff/clients", "handshake"],
+          ].map(([name, to, kind]) => (
+            <Link key={name} to={to} className="pack-row hover:bg-[#f7fbff]">
+              <PackDisc kind={kind as PackKind} tone={kind === "hold" ? "gold" : "navy"} />
+              <span className="font-semibold text-[#0c1f4a]">{name}</span>
+            </Link>
+          ))}
+        </PackCard>
+        <PackCard title="Accountability">
+          {[
+            ["Sam — strategic control", "Governance, commercial direction, final authority."],
+            ["Kate — operations coordination", "Day-to-day registers, workflow, OPPS ALL CLEAR gate."],
+            ["Jas — field desk", "Site records, photos, client sign-off."],
+            ["Approval before external claims", "Nothing leaves Altier without released evidence."],
+            ["Vault-controlled documents", "Sam’s Safe is the authoritative record."],
+          ].map(([t, d]) => (
+            <div key={t} className="pack-row">
+              <PackDisc kind="people" tone="navy" />
+              <div>
+                <p className="font-extrabold text-[#0c1f4a]">{t}</p>
+                <p className="text-sm text-[#3d4a63]">{d}</p>
+              </div>
+            </div>
+          ))}
+        </PackCard>
       </div>
 
       <div className="grid gap-3 sm:grid-cols-3 xl:grid-cols-6">
@@ -150,79 +248,136 @@ function CommandPost() {
         <Kpi label="Ops briefs" value={c?.ops ?? 0} hint="Daily reports" to="/staff/report" />
       </div>
 
-      <div className="grid gap-3 lg:grid-cols-3">
-        <Card title="NANO7™ funnel" to="/staff/operations" action="Pathway">
-          <ul className="space-y-1 text-sm">
-            {funnel.map((s) => (
-              <li key={s.code} className="flex items-center justify-between">
-                <span className="font-mono text-purple">{s.code}</span>
-                <span className="h-2 w-24 rounded-full bg-[#efe6d4]">
-                  <span className="block h-2 rounded-full bg-linear-to-r from-aqua to-purple" style={{ width: `${Math.min(100, s.n * 20 + 8)}%` }} />
-                </span>
-                <span>{s.n}</span>
-              </li>
-            ))}
-          </ul>
-          <p className="mt-2 text-xs text-[#5c564c]">NANODATA Collection™ sits in Verify. Never merged.</p>
-        </Card>
-        <Card title="Open QA jobs" to="/staff/operations" action="View all">
-          {jobs.length === 0 ? <p className="text-sm text-[#5c564c]">No pathways open.</p> : null}
-          {jobs.map((j) => (
-            <p key={j.id} className="border-b border-gold/15 py-2 text-sm">
-              <span className="font-semibold">{j.client_name}</span>
-              <span className="block text-[#5c564c]">{j.site} · {j.product}</span>
-            </p>
-          ))}
-        </Card>
-        <Card title="Analysis inbox" to="/staff/inbox" action="Open">
-          {(snap.data?.inbox ?? []).length === 0 ? <p className="text-sm text-[#5c564c]">No requests.</p> : null}
-          {(snap.data?.inbox ?? []).map((l) => (
-            <p key={l.id} className="border-b border-gold/15 py-2 text-sm">
-              {l.organisation}
-              <span className="block text-[#5c564c]">{l.contact_name} · {l.status}</span>
-            </p>
-          ))}
-        </Card>
+      <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+        <Kpi label="NANO7 projects" value={ctrl.data?.projects.length ?? 0} hint="Controlled gates" to="/staff/gates" />
+        <Kpi label="Technical HOLD" value={ctrl.data?.openHolds ?? 0} hint="Blocks progression" to="/staff/gates" />
+        <Kpi label="NANODATA pending" value={ctrl.data?.pendingReview ?? 0} hint="Field evidence review" to="/staff/gates" />
+        <Kpi label="OCR captured" value={ctrl.data?.ocr.length ?? 0} hint="Not verified until review" to="/staff/gates" />
       </div>
 
-      <div className="grid gap-3 lg:grid-cols-3">
-        <Card title="Sam’s Safe" to="/staff/vault" action="Open vault">
+      <PackCard title="Technical approval matrix" n="09" to="/staff/gates" action="Open gates">
+        <p className="mb-3 text-sm text-[#3d4a63]">Product, substrate and claim approval gates. Working control — does not replace manufacturer documents.</p>
+        <div className="overflow-x-auto">
+          <table className="pack-table">
+            <thead>
+              <tr>
+                <th>Opportunity</th>
+                <th>Pathway</th>
+                <th>Substrate</th>
+                <th>Stage</th>
+                <th>Approval</th>
+              </tr>
+            </thead>
+            <tbody>
+              {projects.length === 0 && jobs.length === 0 ? (
+                <tr>
+                  <td colSpan={5} className="text-[#3d4a63]">
+                    No live opportunities. New analysis requests land here after express interest.
+                  </td>
+                </tr>
+              ) : null}
+              {projects.map((p) => (
+                <tr key={`p-${p.id}`}>
+                  <td>
+                    <p className="font-extrabold text-[#0c1f4a]">{p.client_name}</p>
+                    <p className="text-xs text-[#3d4a63]">{p.site} · {p.vault_ref}</p>
+                  </td>
+                  <td>{p.project_ref}</td>
+                  <td>{p.surface ?? "To be confirmed"}</td>
+                  <td className="font-mono">{p.current_stage}</td>
+                  <td>
+                    {p.hold_open ? (
+                      <PackStatus state="hold">HOLD · review required</PackStatus>
+                    ) : p.current_stage === "HND" ? (
+                      <PackStatus state="go">Released</PackStatus>
+                    ) : (
+                      <PackStatus state="amend">Approval required</PackStatus>
+                    )}
+                  </td>
+                </tr>
+              ))}
+              {jobs.slice(0, 6).map((j) => (
+                <tr key={`j-${j.id}`}>
+                  <td>
+                    <p className="font-extrabold text-[#0c1f4a]">{j.client_name}</p>
+                    <p className="text-xs text-[#3d4a63]">{j.site}</p>
+                  </td>
+                  <td>{j.product}</td>
+                  <td>—</td>
+                  <td>NANO7</td>
+                  <td>
+                    <PackStatus state="pending">In pathway</PackStatus>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </PackCard>
+
+      <PackCard title="HOLD register" n="19" to="/staff/alerts" action="Alerts">
+        {holds.length === 0 ? (
+          <p className="text-sm text-[#3d4a63]">No open HOLD items. Release only after required approvals.</p>
+        ) : (
+          <div className="overflow-x-auto">
+            <table className="pack-table">
+              <thead>
+                <tr>
+                  <th>Item</th>
+                  <th>Reason</th>
+                  <th>Owner</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {holds.map((h) => (
+                  <tr key={h.id}>
+                    <td className="font-mono text-xs">{h.vault_ref}</td>
+                    <td>{h.reason}</td>
+                    <td>{h.owner_name}</td>
+                    <td>
+                      <PackStatus state="hold">{h.status}</PackStatus>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </PackCard>
+
+      <div className="grid gap-4 lg:grid-cols-3">
+        <PackCard title="Sam’s Safe" to="/staff/vault" action="Open vault">
           <div className="grid grid-cols-2 gap-2 text-sm">
-            {[
-              ["Tax", "tax"],
-              ["BAS", "bas"],
-              ["Super", "super"],
-              ["Xero / Finance", "finance"],
-              ["Receipts", "receipt"],
-            ].map(([label]) => (
-              <Link key={label} to="/staff/vault" className="rounded-xl border border-gold/20 px-3 py-2 hover:bg-gold/10">
-                <Wallet className="mb-1 size-4 text-gold" />
+            {["Tax", "BAS", "Super", "Xero / Finance", "Receipts"].map((label) => (
+              <Link key={label} to="/staff/vault" className="rounded-xl border-2 border-[#d4af37] px-3 py-2 hover:bg-[#fff6d0]">
+                <Wallet className="mb-1 size-4 text-[#c9a227]" />
                 {label}
               </Link>
             ))}
           </div>
           {(snap.data?.recentVault ?? []).slice(0, 3).map((v) => (
             <p key={v.id} className="mt-2 text-sm">
-              <span className="uppercase text-aqua">{v.folder}</span> · {v.title}
+              <span className="uppercase text-[#0a6e78]">{v.folder}</span> · {v.title}
             </p>
           ))}
-        </Card>
-        <Card title="Website ↔ atelier interchange">
+        </PackCard>
+        <PackCard title="Website ↔ Altier interchange">
           <form onSubmit={onPublish} className="space-y-2">
             <Select name="channel" required defaultValue="public">
               <option value="public">Public website</option>
-              <option value="atelier">Atelier gallery</option>
+              <option value="atelier">Altier gallery</option>
             </Select>
             <Input name="title" required placeholder="Title" />
             <Textarea name="body" required placeholder="Brief" className="min-h-20" />
             <label className="flex items-center gap-2 text-sm">
-              <input type="checkbox" name="published" className="size-4 accent-gold" defaultChecked />
+              <input type="checkbox" name="published" className="size-4 accent-[#d4af37]" defaultChecked />
               Publish now
             </label>
             <Button type="submit" size="sm">
               Send
             </Button>
-            {msg ? <p className="text-sm text-aqua">{msg}</p> : null}
+            {msg ? <p className="text-sm text-[#0a6e78]">{msg}</p> : null}
           </form>
           <div className="mt-3 space-y-1">
             {(snap.data?.posts ?? []).slice(0, 4).map((p) => (
@@ -230,7 +385,7 @@ function CommandPost() {
                 <span>{p.title}</span>
                 <button
                   type="button"
-                  className="text-purple"
+                  className="font-bold uppercase tracking-wide text-[#0c1f4a]"
                   onClick={async () => {
                     await togglePost({ data: { id: p.id, published: !p.published } });
                     void snap.refetch();
@@ -241,49 +396,60 @@ function CommandPost() {
               </div>
             ))}
           </div>
-        </Card>
-        <Card title="Quick actions">
+        </PackCard>
+        <PackCard title="Quick actions">
           <div className="grid grid-cols-2 gap-2 text-sm">
-            <Link to="/staff/vault" className="rounded-xl border border-gold/20 p-3 hover:bg-gold/10">
-              <FileScan className="mb-1 size-4 text-gold" /> Receipt scan
+            <Link to="/staff/vault" className="rounded-xl border-2 border-[#d4af37] p-3 hover:bg-[#fff6d0]">
+              <FileScan className="mb-1 size-4 text-[#c9a227]" /> Receipt scan
             </Link>
-            <Link to="/staff/qr" className="rounded-xl border border-gold/20 p-3 hover:bg-gold/10">
-              <QrCode className="mb-1 size-4 text-gold" /> Print QR
+            <Link to="/staff/qr" className="rounded-xl border-2 border-[#d4af37] p-3 hover:bg-[#fff6d0]">
+              <QrCode className="mb-1 size-4 text-[#c9a227]" /> Print QR
             </Link>
-            <Link to="/staff/report" className="rounded-xl border border-gold/20 p-3 hover:bg-gold/10">
-              <Bell className="mb-1 size-4 text-gold" /> Ops daily
+            <Link to="/staff/report" className="rounded-xl border-2 border-[#d4af37] p-3 hover:bg-[#fff6d0]">
+              <Bell className="mb-1 size-4 text-[#c9a227]" /> Ops daily
             </Link>
-            <Link to="/staff/warranty" className="rounded-xl border border-gold/20 p-3 hover:bg-gold/10">
-              <ShieldCheck className="mb-1 size-4 text-gold" /> Warranty
+            <Link to="/staff/warranty" className="rounded-xl border-2 border-[#d4af37] p-3 hover:bg-[#fff6d0]">
+              <ShieldCheck className="mb-1 size-4 text-[#c9a227]" /> Warranty
             </Link>
-            <Link to="/staff/clients" className="rounded-xl border border-gold/20 p-3 hover:bg-gold/10">
-              <Users className="mb-1 size-4 text-gold" /> Client
+            <Link to="/staff/clients" className="rounded-xl border-2 border-[#d4af37] p-3 hover:bg-[#fff6d0]">
+              <Users className="mb-1 size-4 text-[#c9a227]" /> Client
             </Link>
-            <Link to="/staff/payroll" className="rounded-xl border border-gold/20 p-3 hover:bg-gold/10">
-              <Upload className="mb-1 size-4 text-gold" /> Payroll → Xero
+            <Link to="/staff/payroll" className="rounded-xl border-2 border-[#d4af37] p-3 hover:bg-[#fff6d0]">
+              <Upload className="mb-1 size-4 text-[#c9a227]" /> Payroll → Xero
+            </Link>
+            <Link to="/staff/gps" className="rounded-xl border-2 border-[#d4af37] p-3 hover:bg-[#fff6d0]">
+              <Wallet className="mb-1 size-4 text-[#c9a227]" /> GPS log
             </Link>
           </div>
-        </Card>
+        </PackCard>
       </div>
 
-      <div className="grid gap-3 lg:grid-cols-[2fr_1fr]">
-        <Card title="System status">
-          <ul className="space-y-2 text-sm">
+      <div className="grid gap-4 lg:grid-cols-[2fr_1fr]">
+        <PackCard title="System status">
+          <ul>
             {[
-              ["Database", "Operational"],
-              ["Verify register", "Operational"],
-              ["Sam’s Safe", "Locked · Director"],
-              ["Public maison", "Live"],
-            ].map(([k, v]) => (
-              <li key={k} className="flex justify-between">
-                <span>{k}</span>
-                <span className="text-[#0a6e78]">{v}</span>
+              ["Database", "Operational", "go"],
+              ["Verify register", "Operational", "go"],
+              ["Sam’s Safe", "Locked · Director", "amend"],
+              ["Public maison", "Live", "go"],
+            ].map(([k, v, s]) => (
+              <li key={k} className="pack-row justify-between">
+                <span className="font-semibold">{k}</span>
+                <PackStatus state={s as "go" | "amend"}>{v}</PackStatus>
               </li>
             ))}
           </ul>
-        </Card>
+        </PackCard>
         <Calculator />
       </div>
+
+      <PackCard title="01–23 · The list" n="01" to="/staff/platform" action="Full index">
+        <PlatformList variant="command" />
+      </PackCard>
+
+      <PackInfo>
+        This desk is a working control page and does not replace current manufacturer documents. Items on HOLD must not be presented externally as approved until formally released.
+      </PackInfo>
     </div>
   );
 }

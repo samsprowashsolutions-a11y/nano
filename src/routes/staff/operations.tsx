@@ -81,7 +81,7 @@ function Operations() {
       <div className="grid gap-3 sm:grid-cols-7">
         {PROCESS.map((p) => (
           <article key={p.code} className="metal-panel rounded-xl p-3 text-center">
-            <Qa7Mark kind={p.icon} className="mx-auto h-14 w-14" title={p.name} />
+            <Qa7Mark kind={p.icon} n={p.n} className="mx-auto h-16 w-16" title={`${p.n} ${p.name}`} />
             <p className="font-mono text-xs text-neon">{p.n} · {p.code}</p>
             <p className="font-display text-lg text-gold-hi">{p.short}</p>
             <p className="mt-1 text-sm leading-snug text-muted">{p.name}</p>
@@ -152,7 +152,7 @@ function Operations() {
                     return (
                       <div key={p.code} className="rounded-xl border border-chrome/15 p-4">
                         <div className="mb-2 flex items-center gap-3">
-                          <Qa7Mark kind={p.icon} className="h-12 w-12" title={p.name} />
+                          <Qa7Mark kind={p.icon} n={p.n} className="h-14 w-14" title={`${p.n} ${p.name}`} />
                           <div>
                             <p className="font-mono text-xs text-aqua">{p.n} · {p.code}</p>
                             <p className="font-display text-xl text-gold-hi">{p.name}</p>

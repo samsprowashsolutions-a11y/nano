@@ -1,13 +1,20 @@
-import type { CSSProperties, ReactNode } from "react";
+import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 import { CHROME, FIELD_TESTS, type ChromeTone } from "@/lib/content";
+import { ChromeIcon, FieldTestMark } from "@/components/chrome-disc";
+import { rev } from "@/lib/cache";
 
 const GLOW: Record<ChromeTone, string> = {
   carbon: "drop-shadow-[0_10px_18px_rgba(0,0,0,.55)] drop-shadow-[0_0_14px_rgba(200,206,214,.35)]",
   teal: "drop-shadow-[0_10px_18px_rgba(0,0,0,.45)] drop-shadow-[0_0_18px_rgba(0,208,224,.55)]",
-  purple: "drop-shadow-[0_10px_18px_rgba(0,0,0,.45)] drop-shadow-[0_0_18px_rgba(122,50,200,.55)]",
+  purple: "drop-shadow-[0_10px_18px_rgba(0,0,0,.45)] drop-shadow-[0_0_18px_rgba(168,85,247,.55)]",
   pearl: "drop-shadow-[0_10px_18px_rgba(0,0,0,.4)] drop-shadow-[0_0_16px_rgba(232,228,220,.4)]",
   gold: "drop-shadow-[0_10px_18px_rgba(0,0,0,.45)] drop-shadow-[0_0_18px_rgba(232,184,56,.55)]",
+  blue: "drop-shadow-[0_10px_18px_rgba(0,0,0,.45)] drop-shadow-[0_0_18px_rgba(59,130,246,.55)]",
+  green: "drop-shadow-[0_10px_18px_rgba(0,0,0,.45)] drop-shadow-[0_0_18px_rgba(34,197,94,.55)]",
+  yellow: "drop-shadow-[0_10px_18px_rgba(0,0,0,.45)] drop-shadow-[0_0_18px_rgba(234,179,8,.55)]",
+  red: "drop-shadow-[0_10px_18px_rgba(0,0,0,.45)] drop-shadow-[0_0_18px_rgba(239,68,68,.55)]",
+  aqua: "drop-shadow-[0_10px_18px_rgba(0,0,0,.45)] drop-shadow-[0_0_18px_rgba(34,211,238,.55)]",
 };
 
 export function ChromeShield({
@@ -21,15 +28,12 @@ export function ChromeShield({
   alt?: string;
 }) {
   const meta = CHROME.find((c) => c.tone === tone);
-  const src = `/chrome/${tone}.webp`;
   return (
-    <span
-      className={cn("chrome-icon", GLOW[tone], className)}
-      style={{ "--chrome-mask": `url(${src})` } as CSSProperties}
-    >
-      <img src={src} alt={alt ?? `${meta?.name ?? tone} chrome shield`} draggable={false} />
-      <span className="chrome-icon-sheen" aria-hidden />
-    </span>
+    <ChromeIcon
+      tone={tone}
+      alt={alt ?? `${meta?.name ?? tone} chrome ${meta?.id ?? ""}`.trim()}
+      className={cn(GLOW[tone], className)}
+    />
   );
 }
 
@@ -56,9 +60,13 @@ export function ChromeStrip({ className }: { className?: string }) {
     <div className={cn("chrome-strip", className)}>
       {CHROME.map((c) => (
         <div key={c.id} className="text-center">
-          <ChromeShield tone={c.tone} className="mx-auto h-16 w-14 sm:h-20 sm:w-[4.5rem]" />
-          <p className="mt-1 font-mono text-base tracking-[0.12em] text-aqua">{c.id}</p>
-          <p className="text-base font-semibold uppercase tracking-wider text-gold-hi">{c.name}</p>
+          <span className="relative mx-auto inline-grid place-items-center">
+            <ChromeShield tone={c.tone} className="h-16 w-16 sm:h-[4.75rem] sm:w-[4.75rem]" />
+            <span className="pointer-events-none absolute inset-[18%] grid place-items-center font-mono text-[0.7rem] font-bold tracking-[0.14em] text-white drop-shadow-[0_1px_3px_rgba(0,0,0,.85)] sm:text-sm">
+              {c.id}
+            </span>
+          </span>
+          <p className="mt-2 text-sm font-semibold uppercase tracking-wider text-gold-hi">{c.name}</p>
         </div>
       ))}
     </div>
@@ -74,16 +82,9 @@ export function FieldTestRow({
   control?: ReactNode;
   as?: "article" | "label";
 }) {
-  const src = `/chrome/test-${test.n}.webp`;
   return (
     <Tag className="field-test-row">
-      <span
-        className="chrome-icon field-test-chrome"
-        style={{ "--chrome-mask": `url(${src})` } as CSSProperties}
-      >
-        <img src={src} alt="" draggable={false} />
-        <span className="chrome-icon-sheen" aria-hidden />
-      </span>
+      <FieldTestMark n={test.n} name={test.name} tone={test.tone} className="field-test-chrome" />
       <span className="min-w-0 flex-1">
         <span className="block text-lg font-semibold tracking-[0.04em] text-gold-hi">{test.name}</span>
         <span className="mt-1 block text-lg leading-snug text-muted">{test.detail}</span>
@@ -117,12 +118,10 @@ export function FieldChecklist({
     <ChromePlate>
       <div className="chrome-doc p-5 md:p-8">
         <div className="mb-5 flex items-center gap-3 border-b border-gold-deep/40 pb-4">
-          <img src="/brand/sp-shield-clear.png" alt="" className="h-14 w-14 object-contain" />
+          <img src={rev("/brand/sp-shield-gold.png")} alt="" className="h-14 w-14 object-contain" />
           <div>
             <p className="font-script text-2xl text-gold-deep md:text-3xl">Five Test Field Checklist</p>
-            <p className="chrome-doc-kicker font-bold uppercase">
-              NanoAssure™ Surface Technology
-            </p>
+            <p className="chrome-doc-kicker font-bold uppercase">NanoAssure™ Surface Technology</p>
           </div>
         </div>
         {body}
@@ -146,7 +145,7 @@ export function ChromeIndex({ compact = false }: { compact?: boolean }) {
           <h2 className="font-script mt-2 text-4xl text-gold md:text-5xl">Index & Chrome Category System</h2>
           <p className="mx-auto mt-3 max-w-md text-lg leading-relaxed text-muted md:mx-0">
             Every controlled document lives in a five-tone chrome category — carbon through gold —
-            the same language as the staff atelier.
+            the same language as the Altier.
           </p>
         </div>
       ) : null}
@@ -159,7 +158,7 @@ export function ChromeIndex({ compact = false }: { compact?: boolean }) {
               compact && "flex-col text-center",
             )}
           >
-            <ChromeShield tone={c.tone} className={compact ? "h-16 w-14" : "h-24 w-[5.25rem] shrink-0"} />
+            <ChromeShield tone={c.tone} className={compact ? "h-16 w-16" : "h-24 w-24 shrink-0"} />
             <div className={compact ? "" : "min-w-0"}>
               <p className="font-display text-xl leading-tight text-gold-hi">
                 <span className="mr-2 font-mono text-sm text-aqua">{c.id}</span>

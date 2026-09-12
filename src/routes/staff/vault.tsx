@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { type FormEvent, useState } from "react";
 import { listVault, saveVaultItem } from "@/lib/server/atelier";
+import { captureOcr } from "@/lib/server/control";
 import { DeskCard, FOLDERS, fileToDataUrl } from "@/components/staff/desk";
 import { ChromeShield } from "@/components/chrome-shield";
 import { Button } from "@/components/ui/button";
@@ -35,7 +36,19 @@ function Vault() {
         fileData: scan?.data,
       },
     });
-    setMsg("Locked in Sam’s Safe.");
+    if (scan) {
+      const ocr = await captureOcr({
+        data: {
+          useCase: folder === "receipt" ? "receipt" : "document",
+          rawText: String(fd.get("notes") || "") || undefined,
+          sourceFile: scan.name,
+          fileData: scan.data,
+        },
+      });
+      setMsg(`Locked in Sam’s Safe. Vault ref ${ocr.vaultRef} — captured, not verified.`);
+    } else {
+      setMsg("Locked in Sam’s Safe.");
+    }
     setScan(null);
     e.currentTarget.reset();
     void items.refetch();
@@ -59,7 +72,7 @@ function Vault() {
             onClick={() => setFolder(f.id)}
             className={`metal-panel rounded-xl p-4 text-left ${folder === f.id ? "border-gold/50 bg-gold/10" : ""}`}
           >
-            <ChromeShield tone={f.tone} className="mb-2 h-10 w-8" />
+            <ChromeShield tone={f.tone} className="mb-2 h-14 w-auto" />
             <p className="font-semibold text-gold-hi">{f.title}</p>
             <p className="mt-1 text-sm text-muted">{f.copy}</p>
           </button>

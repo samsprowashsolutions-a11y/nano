@@ -1,19 +1,19 @@
 import { Link, useRouterState } from "@tanstack/react-router";
-import { BrandLockup } from "@/components/brand/logo";
+import { BrandLockup, NavLockup } from "@/components/brand/logo";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { BRAND } from "@/lib/content";
-import { ChromeStrip } from "@/components/chrome-shield";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 
 const LINKS = [
-  { to: "/solutions", label: "Collection" },
-  { to: "/assurance", label: "Assurance" },
+  { to: "/solutions", label: "Surfaces" },
+  { to: "/assurance", label: "NANO7" },
   { to: "/analysis", label: "Analysis" },
+  { to: "/about", label: "About" },
   { to: "/careers", label: "Careers" },
-  { to: "/verify", label: "Verify" },
-];
+  { to: "/verify", label: "Verify ID" },
+] as const;
 
 export function SiteNav() {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
@@ -23,7 +23,7 @@ export function SiteNav() {
     <header className="sticky top-0 z-40 border-b border-line-gold/70 bg-carbon/88 backdrop-blur-xl">
       <div className="mx-auto flex h-20 w-full max-w-[92rem] items-center justify-between gap-3 px-4 sm:h-24 sm:px-6">
         <Link to="/" className="flex min-w-0 shrink-0 items-center">
-          <BrandLockup className="h-12 w-auto max-w-[min(52vw,22rem)] sm:h-16" />
+          <NavLockup className="h-12 sm:h-16" />
         </Link>
 
         <nav className="hidden min-w-0 items-center gap-0 lg:flex">
@@ -40,13 +40,13 @@ export function SiteNav() {
             </Link>
           ))}
           <Link
-            to="/staff"
+            to="/altier"
             className="rounded-full px-2.5 py-2 text-base font-semibold uppercase tracking-[0.06em] text-aqua/80 hover:text-aqua"
           >
             Altier
           </Link>
           <Button asChild size="sm" className="ml-2 shrink-0">
-            <Link to="/analysis">Analyse</Link>
+            <Link to="/analysis">Express interest</Link>
           </Button>
         </nav>
 
@@ -73,7 +73,7 @@ export function SiteNav() {
                 {l.label}
               </Link>
             ))}
-            <Link to="/staff" onClick={() => setOpen(false)} className="rounded-xl px-4 py-3 text-lg text-aqua">
+            <Link to="/altier" onClick={() => setOpen(false)} className="rounded-xl px-4 py-3 text-lg text-aqua">
               Altier
             </Link>
             <Button asChild className="mt-2 w-full">
@@ -93,7 +93,7 @@ export function SiteFooter() {
     <footer className="border-t border-line-gold/40 bg-carbon">
       <div className="mx-auto grid max-w-6xl gap-10 px-4 py-14 sm:px-6 md:grid-cols-4">
         <div className="md:col-span-2">
-          <BrandLockup className="max-w-md" />
+          <BrandLockup className="h-28 w-auto max-w-[18rem]" />
           <p className="mt-5 max-w-md text-lg leading-relaxed text-muted">
             {BRAND.parent}. {BRAND.positioning} Public pages do not publish prices. Analysis is by invitation.
           </p>
@@ -101,15 +101,19 @@ export function SiteFooter() {
             ABN {BRAND.abn} · ACN {BRAND.acn}
             <br />
             {BRAND.location}
+            <br />
+            <a href={BRAND.origin} className="hover:text-gold-hi">
+              {BRAND.web}
+            </a>
           </p>
         </div>
         <div>
           <div className="kicker mb-4">Maison</div>
           <ul className="space-y-2 text-lg text-muted">
-            <li><Link to="/solutions" className="hover:text-gold-hi">The collection</Link></li>
-            <li><Link to="/assurance" className="hover:text-gold-hi">Assurance</Link></li>
+            <li><Link to="/solutions" className="hover:text-gold-hi">Surfaces</Link></li>
+            <li><Link to="/assurance" className="hover:text-gold-hi">NANO7™</Link></li>
             <li><Link to="/" hash="proof" className="hover:text-gold-hi">Before & after</Link></li>
-            <li><Link to="/about" className="hover:text-gold-hi">The maison</Link></li>
+            <li><Link to="/about" className="hover:text-gold-hi">About</Link></li>
           </ul>
         </div>
         <div>
@@ -117,7 +121,7 @@ export function SiteFooter() {
           <ul className="space-y-2 text-lg text-muted">
             <li><Link to="/analysis" className="hover:text-gold-hi">Analysis desk</Link></li>
             <li><Link to="/careers" className="hover:text-gold-hi">Careers</Link></li>
-            <li><Link to="/staff" className="hover:text-gold-hi">Altier</Link></li>
+            <li><Link to="/altier" className="hover:text-gold-hi">Altier</Link></li>
             <li>
               <a href={`mailto:${BRAND.analysisEmail}`} className="hover:text-gold-hi">
                 {BRAND.analysisEmail}
@@ -127,7 +131,6 @@ export function SiteFooter() {
         </div>
       </div>
       <div className="border-t border-line px-4 py-6">
-        <ChromeStrip className="mx-auto mb-6 max-w-lg opacity-90" />
         <p className="text-center text-base leading-relaxed text-faint">
         {BRAND.parent} acknowledges the Traditional Owners and Custodians of Country throughout the
         Northern Territory and pays respect to Elders past and present.

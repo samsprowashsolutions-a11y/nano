@@ -1,38 +1,67 @@
 import { cn } from "@/lib/utils";
+import { rev } from "@/lib/cache";
 
+/** Gold SP shield — Sam's Prowash Solutions crest. */
 export function BrandMark({ className, size = 48 }: { className?: string; size?: number }) {
   return (
     <span className={cn("inline-flex shrink-0", className)}>
       <img
-        src="/brand/sp-shield-clear.png"
-        alt=""
+        src={rev("/brand/sp-shield-gold.png")}
+        alt="Sam's Prowash Solutions"
         width={size}
         height={size}
-        className="object-contain"
+        className="h-full w-auto object-contain"
       />
     </span>
   );
 }
 
-export function Wordmark({ compact = false }: { compact?: boolean }) {
+/** Chrome NanoAssure™ shield — NA monogram + NanoAssure script. */
+export function NanoAssureMark({ className }: { className?: string }) {
   return (
-    <div className="leading-none">
-      <div className="font-display text-2xl text-gold-hi sm:text-3xl">NanoAssure™</div>
-      {!compact ? (
-        <div className="mt-1 text-sm font-semibold uppercase tracking-[0.14em] text-aqua">
-          Asset Protection
-        </div>
-      ) : null}
-    </div>
+    <img
+      src={rev("/brand/na-shield-chrome.png")}
+      alt="NanoAssure™"
+      className={cn("h-auto w-auto object-contain", className)}
+    />
   );
 }
 
+/** Compact header: SP crest only. Name lives in the lockup art, never beside it. */
+export function NavLockup({ className }: { className?: string }) {
+  return (
+    <span className={cn("inline-flex items-center", className)}>
+      <img
+        src={rev("/brand/sp-shield-gold.png")}
+        alt="Sam's Prowash Solutions"
+        className="h-full w-auto object-contain"
+      />
+    </span>
+  );
+}
+
+/** Full SP lockup — crest + Sam's Prowash Solutions. Do not add extra type on top. */
 export function BrandLockup({ className }: { className?: string }) {
   return (
     <img
-      src="/brand/sp-lockup.png"
+      src={rev("/brand/sp-lockup.png")}
       alt="Sam's Prowash Solutions — Advanced Surface Protection"
-      className={cn("h-auto object-contain", className)}
+      className={cn("h-auto w-auto object-contain", className)}
+    />
+  );
+}
+
+export function Wordmark({ compact = false }: { compact?: boolean }) {
+  return <BrandLockup className={compact ? "h-10" : "h-16 sm:h-20"} />;
+}
+
+/** SP + NanoAssure crests together. */
+export function HousePair({ className }: { className?: string }) {
+  return (
+    <img
+      src={rev("/brand/house-pair.png")}
+      alt="Sam's Prowash Solutions and NanoAssure™"
+      className={cn("h-auto w-auto object-contain", className)}
     />
   );
 }
@@ -47,7 +76,7 @@ export function WaterGlassBand({
   return (
     <figure className={cn("relative w-full overflow-hidden", className)}>
       <img
-        src="/media/water-glass-banner.jpg"
+        src={rev("/media/water-glass-banner.jpg")}
         alt="Water beading on glass"
         className={cn(
           "block w-full object-cover",

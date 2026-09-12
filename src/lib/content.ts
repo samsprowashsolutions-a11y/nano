@@ -7,11 +7,56 @@ export const BRAND = {
   analysisEmail: "analysis@nanoassure.net",
   generalEmail: "samsprowashsolutions@gmail.com",
   web: "www.nanoassure.net",
+  origin: "https://www.nanoassure.net",
   tagline: "Advanced surface protection. Stronger communities. Better futures.",
   positioning: "SP applies advanced surface protection to specification. NanoAssure™ proves it.",
 } as const;
 
-export type ChromeTone = "carbon" | "teal" | "purple" | "pearl" | "gold";
+/** Public house rules — never application method, never trade. */
+export const HOUSE = {
+  invite:
+    "Invitation is a house selection. Express interest is a request, not a quote and not access.",
+  personal:
+    "Specified systems may be considered for personal and residential assets after selection. The atelier still applies. It is not a DIY kit.",
+  commercial:
+    "There is no commercial product line for the client to buy and run. Large commercial work proceeds only after Applicator All Clear.",
+  allClear:
+    "Applicator All Clear is the commercial gate. Until it is issued, a large project stays in analysis. It is not a how-to and not a product sale.",
+  upgrade:
+    "Selected principals with capacity may be invited to a limited upgrade pathway. Money does not skip the house. Access is granted, not taken.",
+  trade:
+    "Method, batch, coverage and chemistry stay in the atelier. The maison shows what the asset receives — never how it is put on.",
+} as const;
+
+export const PUBLIC_ROLES = [
+  {
+    name: "Samantha Rae",
+    role: "Director",
+    duty: "House selection, specification, invitation, command. Approves what may be said and what may proceed.",
+  },
+  {
+    name: "Jasmin Calma",
+    role: "Director — culture & academy",
+    duty: "Country, community, training pathway. People are ready before a site is opened.",
+  },
+  {
+    name: "Kate · OPPS",
+    role: "Operations",
+    duty: "Field command and OPPS ALL CLEAR for handover print. Does not replace Applicator All Clear on commercial work.",
+  },
+  {
+    name: "Authorised applicator",
+    role: "Atelier",
+    duty: "Applies only after the house has selected the asset and, on large commercial, Applicator All Clear is on file. Never teaches the client the method.",
+  },
+  {
+    name: "The client",
+    role: "Principal",
+    duty: "Express interest. Receive the invitation if selected. Keep the asset available for inspection. Do not apply the chemistry.",
+  },
+] as const;
+
+export type ChromeTone = "carbon" | "teal" | "purple" | "pearl" | "gold" | "blue" | "green" | "yellow" | "red" | "aqua";
 
 export const CHROME: { id: string; name: string; tone: ChromeTone; role: string }[] = [
   { id: "01", name: "Carbon", tone: "carbon", role: "Core foundational documents and essential governance records." },
@@ -32,11 +77,11 @@ export const SOLUTIONS = [
   { id: "glass", title: "Glass & ceramic", copy: "Facades, showers, mirrors, splashbacks. Self-cleaning assist with a controlled hydrophobic bond.", image: "/media/beads-macro.jpg" },
   { id: "stone", title: "Stone & brick", copy: "Porous mineral — sandstone, brick, concrete, marble. Invisible barrier against staining and weather.", image: "/media/civic-stone.jpg" },
   { id: "graffiti", title: "Anti-graffiti armour", copy: "Porous and non-porous systems. Markers cannot bond. CSIRO-tested APAS 1441 on porous.", image: "/media/masonry-protected.jpg" },
-  { id: "metal", title: "Metal & chrome", copy: "Polished chrome, stainless and plated metal. A specified light film, applied by the atelier. Water beads because the molecules locked — not because a polish was left on top.", image: "/media/chrome-fittings.jpg" },
-  { id: "antimicrobial", title: "Antimicrobial hard surfaces", copy: "Microbiostatic defence for high-touch civic and commercial interiors under tropical humidity.", image: "/media/antimicrobial-lobby.jpg" },
+  { id: "metal", title: "Metal & chrome", copy: "Polished chrome, stainless and plated metal. A specified light film, applied by the atelier. Water beads because the molecules locked — not because a polish was left on top.", image: "/media/chrome-stainless.jpg" },
+  { id: "antimicrobial", title: "Antimicrobial hard surfaces", copy: "Microbiostatic defence for high-touch civic and commercial interiors under tropical humidity.", image: "/media/application.jpg" },
   { id: "mould", title: "Antimicrobial mould", copy: "Wet-area and tropical-interior mould pathway. Humidity is logged. The film stays; the spores do not.", image: "/media/antimicrobial-mould.jpg" },
   { id: "fabric", title: "Anti-bacterial fabric", copy: "Textiles, upholstery and civic seating. Molecules lock to the fibre — not a spray that washes out.", image: "/media/antibacterial-fabric.jpg" },
-  { id: "solar", title: "Solar & high UV", copy: "Presentation life for arrays and exposed glass under tropical sun — SolarStrest™ context.", image: "/media/solar-array.jpg" },
+  { id: "solar", title: "Solar & high UV", copy: "Presentation life for arrays and exposed glass under tropical sun — SolarStress™ context.", image: "/media/solar-array.jpg" },
 ] as const;
 
 export const SYSTEMS = {
@@ -49,7 +94,7 @@ export const SYSTEMS = {
     steps: 7,
     kicker: "The headliner · seven-gate policy",
     script: "Asset Assurance Policy",
-    role: "Headliner pathway. The Nano Drop is the system mark. Seven gold metallic gates with a half neon outline — never the same as NANODATA shields.",
+    role: "Headliner pathway. The N7 seal is the system mark — Seven Step Pathway. Seven metallic gates: purple · blue · green · yellow · red · aqua · gold. Half neon outline. Never the same as NANODATA shields.",
   },
   nanodata: {
     mark: "ND5",
@@ -74,54 +119,62 @@ export const QA_TESTS: {
   {
     n: "01",
     name: "ClimaScan™",
-    short: "Climate lock",
+    short: "Environmental temperature and humidity",
     key: "climascan",
     tone: "carbon",
-    detail: "Environmental equilibrium at the workface before the window is approved.",
+    detail: "Environmental temperature and humidity.",
     science:
       "Temperature, humidity and weather at the asset. The chemistry only bonds in a real window — never in hope.",
   },
   {
     n: "02",
-    name: "SurfiQ™",
-    short: "Porosity read",
+    name: "SurfIQ™",
+    short: "Surface porosity and absorption",
     key: "surfiq",
     tone: "teal",
-    detail: "Surface porosity / absorption profile — is the substrate ready to accept the system?",
+    detail: "Surface porosity and absorption.",
     science:
       "Reads whether the face will drink the film into capillaries or hold a light coat. Coverage is specified from this number, not from a brochure.",
   },
   {
     n: "03",
     name: "pHield™",
-    short: "Chemistry ready",
+    short: "Substrate pH and chemical-residue check",
     key: "phield",
     tone: "purple",
-    detail: "Surface pH / neutralisation status so the bond is not fighting contamination.",
+    detail: "Substrate pH and chemical-residue check.",
     science:
       "Residual alkali, cleaner film or contamination will fight the molecules. pHield™ confirms the face is chemically ready to receive them.",
   },
   {
     n: "04",
     name: "NanoBond™",
-    short: "Molecular lock",
+    short: "Coating bond integrity",
     key: "nanobond",
     tone: "pearl",
-    detail: "Application-integrity audit. Confirmation the film has set as specified.",
+    detail: "Coating bond integrity.",
     science:
       "The molecular audit. NanoBond™ scientifically assures the specified molecules have bonded to the substrate — not dried as a film sitting on top.",
   },
   {
     n: "05",
-    name: "SolarStrest™",
-    short: "Exposure profile",
+    name: "SolarStress™",
+    short: "UV resistance and durability",
     key: "solarstrest",
     tone: "gold",
-    detail: "Solar, UV, heat and exposure-risk profile for tropical presentation life.",
+    detail: "UV resistance and durability.",
     science:
       "Darwin sun, heat and UV are part of the specification. The bond is written for the climate the asset actually lives in.",
   },
 ];
+
+/** How the film lives on the asset — benefits, never application method. */
+export const SURFACE_LIFE = [
+  { n: "01", name: "Bonds to the surface", detail: "The specified molecules lock to the substrate. Not a polish sitting on top." },
+  { n: "02", name: "Water lifts", detail: "Moisture cannot wet the face. Beads form. Contaminants lose their grip." },
+  { n: "03", name: "Dirt releases", detail: "Grime, salt and urban film have nothing to hold. The face stays presentation-ready." },
+  { n: "04", name: "Stays clean & clear", detail: "Cleaner longer. Less maintenance. Extended asset life — the assurance, not a DIY kit." },
+] as const;
 
 export const FIELD_TESTS: { n: string; name: string; detail: string; tone: ChromeTone; key: string }[] = [
   { n: "01", name: "Adhesion Test", detail: "Confirms the coating has bonded correctly to the surface. No peeling, lifting or delamination.", tone: "carbon", key: "adhesion" },
@@ -141,9 +194,10 @@ export const PROCESS = [
     n: "01",
     name: "Inspect",
     short: "The read",
-    tone: "carbon" as ChromeTone,
+    tone: "purple" as ChromeTone,
     hold: "Inspection is invitation-only. No public quote.",
     detail: "Confidential workface read: substrate, exposure, access, chemistry window. The asset is seen before anything is specified.",
+    plain: "We inspect the surface first. Nothing is quoted until we have seen it.",
   },
   {
     code: "PRE",
@@ -152,9 +206,10 @@ export const PROCESS = [
     n: "02",
     name: "Prepare",
     short: "The face",
-    tone: "teal" as ChromeTone,
+    tone: "blue" as ChromeTone,
     hold: "Nothing is applied to a dirty, wet or unready face.",
     detail: "Specification to TDS. Pre-Cleaner where required. Exclusion zone. The workface is made ready — not hoped ready.",
+    plain: "We get the surface ready. Clean, dry, chemically right — then we coat.",
   },
   {
     code: "APL",
@@ -163,9 +218,10 @@ export const PROCESS = [
     n: "03",
     name: "Apply",
     short: "The film",
-    tone: "purple" as ChromeTone,
+    tone: "green" as ChromeTone,
     hold: "The atelier applies. The client does not.",
     detail: "Controlled application by NanoAssure™, to manufacturer TDS. Cure window protected. Method stays in the atelier.",
+    plain: "Our team applies the coating. You never do it yourself.",
   },
   {
     code: "VER",
@@ -174,9 +230,10 @@ export const PROCESS = [
     n: "04",
     name: "Verify",
     short: "The science",
-    tone: "pearl" as ChromeTone,
+    tone: "yellow" as ChromeTone,
     hold: "NANODATA Collection™ lives here. Never merged with NANO7™.",
-    detail: "ClimaScan™ · SurfiQ™ · pHield™ · NanoBond™ · SolarStrest™, then the field five-test. Molecules locked — or the job holds.",
+    detail: "ClimaScan™ · SurfIQ™ · pHield™ · NanoBond™ · SolarStress™, then the field five-test. Molecules locked — or the job holds.",
+    plain: "We test that the coating actually bonded. If it did not, the job holds.",
   },
   {
     code: "REC",
@@ -185,9 +242,10 @@ export const PROCESS = [
     n: "05",
     name: "Record",
     short: "The file",
-    tone: "gold" as ChromeTone,
+    tone: "red" as ChromeTone,
     hold: "If it is not written, it was not done.",
     detail: "Ops daily, photos, NANODATA values, initials. The client profile and Sam’s Safe receive the pack.",
+    plain: "We file photos, tests and notes. If it is not written, it was not done.",
   },
   {
     code: "APP",
@@ -196,9 +254,10 @@ export const PROCESS = [
     n: "06",
     name: "Approve",
     short: "The seal",
-    tone: "teal" as ChromeTone,
+    tone: "aqua" as ChromeTone,
     hold: "Certificate only after Verify and Record pass.",
     detail: "NanoAssure™ certificate NA-YYYYMMDD-XXXX. Director/atelier sign-off. QR is printed for the asset.",
+    plain: "We sign the certificate only after the tests pass.",
   },
   {
     code: "HND",
@@ -210,6 +269,7 @@ export const PROCESS = [
     tone: "gold" as ChromeTone,
     hold: "The job is not finished at the van door.",
     detail: "Warranty, verify ID and documents go to the client profile. Watch window after cure. Alerts reopen Verify, never a silent patch.",
+    plain: "You receive the documents, warranty and verify ID. That is handover.",
   },
 ] as const;
 
@@ -296,7 +356,7 @@ export const PRODUCTS = [
     dryTimes: "Per TDS",
     apas: "",
     certNote: "Field antimicrobial test is hold-point 04 on the Five-Test Checklist.",
-    image: "/media/antimicrobial-lobby.jpg",
+    image: "/media/application.jpg",
   },
   {
     id: "ab-fabric",
@@ -338,7 +398,7 @@ export const PRODUCTS = [
     dryTimes: "Untouched 30–60 min (longer in humidity) · optimal after 24 h · keep dry",
     apas: "",
     certNote: "Applied per Nanoman TDS-04a. Light film only. Residue means too much was applied.",
-    image: "/media/chrome-fittings.jpg",
+    image: "/media/chrome-stainless.jpg",
     method: [
       "Prepare — completely clean, dry, free of grease, polish oils, salt and fingerprints. Pre-Cleaner is the last wipe. No abrasive cloths on polished chrome.",
       "Condition — 5–35°C. Shade. Not in direct sun. Not on hot metal. Shake; re-shake every 15–20 minutes so the nanoparticles stay suspended.",
@@ -370,8 +430,8 @@ export const ASSURANCES: {
       "ClimaScan™ — thin-film window. Cool, dry, RH in spec.",
       "pHield™ — Pre-Cleaner leaves a neutral, residue-free face.",
       "NanoBond™ — silica-to-silica molecular lock. Beading is the field proof.",
-      "SolarStrest™ — UV and heat on Darwin glass, ceramic and facades.",
-      "SurfiQ™ confirms the glass is non-porous so coverage stays at 8–10 ml/m².",
+      "SolarStress™ — UV and heat on Darwin glass, ceramic and facades.",
+      "SurfIQ™ confirms the glass is non-porous so coverage stays at 8–10 ml/m².",
     ],
   },
   {
@@ -382,11 +442,11 @@ export const ASSURANCES: {
       "The chemistry is drunk into the stone. NANODATA Collection™ proves the capillaries accepted the molecules before we call it protected.",
     tests: ["climascan", "surfiq", "phield", "nanobond", "solarstrest"],
     notes: [
-      "SurfiQ™ — porosity sets 50–80 ml/m². Polished stone is wiped of excess.",
+      "SurfIQ™ — porosity sets 50–80 ml/m². Polished stone is wiped of excess.",
       "pHield™ — mineral alkali must be neutral before the bond.",
       "NanoBond™ — silane/siloxane lock inside the capillary, not a skin on top.",
       "ClimaScan™ — no rain in the 12–24 h window.",
-      "SolarStrest™ — weather and UV on civic masonry.",
+      "SolarStress™ — weather and UV on civic masonry.",
     ],
   },
   {
@@ -397,11 +457,11 @@ export const ASSURANCES: {
       "A single coat enters the masonry. Markers cannot bond because the pores are already occupied — APAS 1441 on file.",
     tests: ["climascan", "surfiq", "phield", "nanobond", "solarstrest"],
     notes: [
-      "SurfiQ™ — absorption at 80–100 ml/m². Single coat only.",
+      "SurfIQ™ — absorption at 80–100 ml/m². Single coat only.",
       "pHield™ — masonry pH must not fight the film.",
       "NanoBond™ — molecular occupation of the pore. The graffiti has nowhere to sit.",
       "ClimaScan™ — surface absolutely dry, 5–35°C.",
-      "SolarStrest™ — exterior UV on civic walls.",
+      "SolarStress™ — exterior UV on civic walls.",
     ],
   },
   {
@@ -409,14 +469,14 @@ export const ASSURANCES: {
     mark: "N7-GRAFF-N",
     name: "Graffiti Film Bond",
     science:
-      "A light film on metal, powder-coat and GRP. SurfiQ™ first proves the face will not drink — then NanoBond™ locks a 10–12 ml coat.",
+      "A light film on metal, powder-coat and GRP. SurfIQ™ first proves the face will not drink — then NanoBond™ locks a 10–12 ml coat.",
     tests: ["climascan", "surfiq", "phield", "nanobond", "solarstrest"],
     notes: [
-      "SurfiQ™ — confirms non-absorbent. If it drinks, this is the wrong system.",
+      "SurfIQ™ — confirms non-absorbent. If it drinks, this is the wrong system.",
       "ClimaScan™ — substrate +5 to +30°C, RH 30–80%.",
       "pHield™ — clean, dry, chemically ready.",
       "NanoBond™ — light-film molecular lock. No peel, no lift.",
-      "SolarStrest™ — UV on cladding and transport finishes.",
+      "SolarStress™ — UV on cladding and transport finishes.",
     ],
   },
   {
@@ -442,7 +502,7 @@ export const ASSURANCES: {
     tests: ["climascan", "surfiq", "phield"],
     notes: [
       "ClimaScan™ — cool, dry workface before the cleaner.",
-      "SurfiQ™ — residue-free confirmation after the wipe.",
+      "SurfIQ™ — residue-free confirmation after the wipe.",
       "pHield™ — neutralisation. The coating’s NanoBond™ comes next.",
     ],
   },
@@ -454,7 +514,7 @@ export const ASSURANCES: {
       "The molecules lock to the fibre. NANODATA Collection™ reads absorbency first — then NanoBond™ proves the treatment is in the weave, not sitting as a spray that washes out.",
     tests: ["climascan", "surfiq", "nanobond"],
     notes: [
-      "SurfiQ™ — weave and absorbency set coverage. Upholstery is not glass.",
+      "SurfIQ™ — weave and absorbency set coverage. Upholstery is not glass.",
       "ClimaScan™ — tropical humidity is logged before return to service.",
       "NanoBond™ — fibre lock. The antibacterial field test is the APHC hold-point.",
     ],
@@ -470,7 +530,7 @@ export const ASSURANCES: {
       "ClimaScan™ — humidity is the gate. The face is dry when the atelier applies.",
       "pHield™ — residual cleaner or alkali will fight the bond.",
       "NanoBond™ — molecular lock on the wet-area substrate.",
-      "SolarStrest™ — heat and exposure on bathrooms, plant rooms and exteriors.",
+      "SolarStress™ — heat and exposure on bathrooms, plant rooms and exteriors.",
       "APHC field antimicrobial test is the hold-point. This is not the hard-surface pathway.",
     ],
   },
@@ -483,11 +543,11 @@ export const ASSURANCES: {
     tests: ["climascan", "surfiq", "phield", "nanobond", "solarstrest"],
     notes: [
       "Applied by the atelier. Method is not published to the client.",
-      "SurfiQ™ — confirms non-absorbent chrome. If it drinks, this is the wrong system.",
+      "SurfIQ™ — confirms non-absorbent chrome. If it drinks, this is the wrong system.",
       "ClimaScan™ — the climate window is logged before the film is specified.",
       "pHield™ — polish oils, salt and fingerprints are gone before the bond.",
       "NanoBond™ — light-film molecular lock. No haze, no peel.",
-      "SolarStrest™ — Darwin UV, heat and marine salt on architectural chrome.",
+      "SolarStress™ — Darwin UV, heat and marine salt on architectural chrome.",
     ],
   },
 ];
@@ -501,7 +561,7 @@ export function productMethod(p: (typeof PRODUCTS)[number]) {
 }
 
 export const NANODATA_SCIENCE =
-  "Before Approve is signed, the workface walks NANODATA Collection™ — a series of substrate tests that scientifically assure the specified molecules have bonded to the substrate. ClimaScan™ confirms environmental equilibrium. SurfiQ™ reads porosity so the chemistry can enter capillaries or sit as a specified light coat. pHield™ confirms the face is chemically ready. NanoBond™ is the molecular audit: proof the coating has locked to the substrate, not merely dried on top. SolarStrest™ logs UV, heat and exposure so the bond is written for Darwin conditions. Five instruments. One science. It lives inside NANO7™ at Verify. Never merged with the Asset Assurance Policy.";
+  "Before Approve is signed, the workface walks NANODATA Collection™ — a series of substrate tests that scientifically assure the specified molecules have bonded to the substrate. ClimaScan™ confirms environmental equilibrium. SurfIQ™ reads porosity so the chemistry can enter capillaries or sit as a specified light coat. pHield™ confirms the face is chemically ready. NanoBond™ is the molecular audit: proof the coating has locked to the substrate, not merely dried on top. SolarStress™ logs UV, heat and exposure so the bond is written for Darwin conditions. Five instruments. One science. It lives inside NANO7™ at Verify. Never merged with the Asset Assurance Policy.";
 
 export const SWMS = {
   title: "Safe Work Method Statement",

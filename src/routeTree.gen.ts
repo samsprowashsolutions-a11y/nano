@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as AltierRouteImport } from './routes/altier'
 import { Route as AnalysisRouteImport } from './routes/analysis'
 import { Route as AssuranceRouteImport } from './routes/assurance'
 import { Route as CareersRouteImport } from './routes/careers'
@@ -19,13 +20,24 @@ import { Route as SolutionsRouteImport } from './routes/solutions'
 import { Route as StaffRouteImport } from './routes/staff'
 import { Route as VerifyRouteImport } from './routes/verify'
 import { Route as StaffIndexRouteImport } from './routes/staff/index'
+import { Route as StaffAdminRouteImport } from './routes/staff/admin'
+import { Route as StaffAlertsRouteImport } from './routes/staff/alerts'
+import { Route as StaffAnalyticsRouteImport } from './routes/staff/analytics'
+import { Route as StaffBulletinRouteImport } from './routes/staff/bulletin'
 import { Route as StaffClientsRouteImport } from './routes/staff/clients'
 import { Route as StaffCommandRouteImport } from './routes/staff/command'
+import { Route as StaffComplianceRouteImport } from './routes/staff/compliance'
 import { Route as StaffConnectionsRouteImport } from './routes/staff/connections'
 import { Route as StaffConsoleRouteImport } from './routes/staff/console'
+import { Route as StaffCrewRouteImport } from './routes/staff/crew'
+import { Route as StaffDocumentsRouteImport } from './routes/staff/documents'
+import { Route as StaffGatesRouteImport } from './routes/staff/gates'
+import { Route as StaffGpsRouteImport } from './routes/staff/gps'
 import { Route as StaffInboxRouteImport } from './routes/staff/inbox'
+import { Route as StaffJobsRouteImport } from './routes/staff/jobs'
 import { Route as StaffOperationsRouteImport } from './routes/staff/operations'
 import { Route as StaffPayrollRouteImport } from './routes/staff/payroll'
+import { Route as StaffPlatformRouteImport } from './routes/staff/platform'
 import { Route as StaffProductsRouteImport } from './routes/staff/products'
 import { Route as StaffPromptRouteImport } from './routes/staff/prompt'
 import { Route as StaffProtocolRouteImport } from './routes/staff/protocol'
@@ -34,6 +46,7 @@ import { Route as StaffReportRouteImport } from './routes/staff/report'
 import { Route as StaffVaultRouteImport } from './routes/staff/vault'
 import { Route as StaffVerifyRouteImport } from './routes/staff/verify'
 import { Route as StaffWarrantyRouteImport } from './routes/staff/warranty'
+import { Route as StaffWhsRouteImport } from './routes/staff/whs'
 import { Route as StaffWorkforceRouteImport } from './routes/staff/workforce'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 
@@ -45,6 +58,11 @@ const IndexRoute = IndexRouteImport.update({
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AltierRoute = AltierRouteImport.update({
+  id: '/altier',
+  path: '/altier',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AnalysisRoute = AnalysisRouteImport.update({
@@ -87,6 +105,26 @@ const StaffIndexRoute = StaffIndexRouteImport.update({
   path: '/',
   getParentRoute: () => StaffRoute,
 } as any)
+const StaffAdminRoute = StaffAdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => StaffRoute,
+} as any)
+const StaffAlertsRoute = StaffAlertsRouteImport.update({
+  id: '/alerts',
+  path: '/alerts',
+  getParentRoute: () => StaffRoute,
+} as any)
+const StaffAnalyticsRoute = StaffAnalyticsRouteImport.update({
+  id: '/analytics',
+  path: '/analytics',
+  getParentRoute: () => StaffRoute,
+} as any)
+const StaffBulletinRoute = StaffBulletinRouteImport.update({
+  id: '/bulletin',
+  path: '/bulletin',
+  getParentRoute: () => StaffRoute,
+} as any)
 const StaffClientsRoute = StaffClientsRouteImport.update({
   id: '/clients',
   path: '/clients',
@@ -95,6 +133,11 @@ const StaffClientsRoute = StaffClientsRouteImport.update({
 const StaffCommandRoute = StaffCommandRouteImport.update({
   id: '/command',
   path: '/command',
+  getParentRoute: () => StaffRoute,
+} as any)
+const StaffComplianceRoute = StaffComplianceRouteImport.update({
+  id: '/compliance',
+  path: '/compliance',
   getParentRoute: () => StaffRoute,
 } as any)
 const StaffConnectionsRoute = StaffConnectionsRouteImport.update({
@@ -107,9 +150,34 @@ const StaffConsoleRoute = StaffConsoleRouteImport.update({
   path: '/console',
   getParentRoute: () => StaffRoute,
 } as any)
+const StaffCrewRoute = StaffCrewRouteImport.update({
+  id: '/crew',
+  path: '/crew',
+  getParentRoute: () => StaffRoute,
+} as any)
+const StaffDocumentsRoute = StaffDocumentsRouteImport.update({
+  id: '/documents',
+  path: '/documents',
+  getParentRoute: () => StaffRoute,
+} as any)
+const StaffGatesRoute = StaffGatesRouteImport.update({
+  id: '/gates',
+  path: '/gates',
+  getParentRoute: () => StaffRoute,
+} as any)
+const StaffGpsRoute = StaffGpsRouteImport.update({
+  id: '/gps',
+  path: '/gps',
+  getParentRoute: () => StaffRoute,
+} as any)
 const StaffInboxRoute = StaffInboxRouteImport.update({
   id: '/inbox',
   path: '/inbox',
+  getParentRoute: () => StaffRoute,
+} as any)
+const StaffJobsRoute = StaffJobsRouteImport.update({
+  id: '/jobs',
+  path: '/jobs',
   getParentRoute: () => StaffRoute,
 } as any)
 const StaffOperationsRoute = StaffOperationsRouteImport.update({
@@ -120,6 +188,11 @@ const StaffOperationsRoute = StaffOperationsRouteImport.update({
 const StaffPayrollRoute = StaffPayrollRouteImport.update({
   id: '/payroll',
   path: '/payroll',
+  getParentRoute: () => StaffRoute,
+} as any)
+const StaffPlatformRoute = StaffPlatformRouteImport.update({
+  id: '/platform',
+  path: '/platform',
   getParentRoute: () => StaffRoute,
 } as any)
 const StaffProductsRoute = StaffProductsRouteImport.update({
@@ -162,6 +235,11 @@ const StaffWarrantyRoute = StaffWarrantyRouteImport.update({
   path: '/warranty',
   getParentRoute: () => StaffRoute,
 } as any)
+const StaffWhsRoute = StaffWhsRouteImport.update({
+  id: '/whs',
+  path: '/whs',
+  getParentRoute: () => StaffRoute,
+} as any)
 const StaffWorkforceRoute = StaffWorkforceRouteImport.update({
   id: '/workforce',
   path: '/workforce',
@@ -172,3 +250,648 @@ const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
   path: '/api/auth/$',
   getParentRoute: () => rootRouteImport,
 } as any)
+
+export interface FileRoutesByFullPath {
+  '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/altier': typeof AltierRoute
+  '/analysis': typeof AnalysisRoute
+  '/assurance': typeof AssuranceRoute
+  '/careers': typeof CareersRoute
+  '/login': typeof LoginRoute
+  '/solutions': typeof SolutionsRoute
+  '/staff': typeof StaffRouteWithChildren
+  '/verify': typeof VerifyRoute
+  '/staff/admin': typeof StaffAdminRoute
+  '/staff/alerts': typeof StaffAlertsRoute
+  '/staff/analytics': typeof StaffAnalyticsRoute
+  '/staff/bulletin': typeof StaffBulletinRoute
+  '/staff/clients': typeof StaffClientsRoute
+  '/staff/command': typeof StaffCommandRoute
+  '/staff/compliance': typeof StaffComplianceRoute
+  '/staff/connections': typeof StaffConnectionsRoute
+  '/staff/console': typeof StaffConsoleRoute
+  '/staff/crew': typeof StaffCrewRoute
+  '/staff/documents': typeof StaffDocumentsRoute
+  '/staff/gates': typeof StaffGatesRoute
+  '/staff/gps': typeof StaffGpsRoute
+  '/staff/inbox': typeof StaffInboxRoute
+  '/staff/jobs': typeof StaffJobsRoute
+  '/staff/operations': typeof StaffOperationsRoute
+  '/staff/payroll': typeof StaffPayrollRoute
+  '/staff/platform': typeof StaffPlatformRoute
+  '/staff/products': typeof StaffProductsRoute
+  '/staff/prompt': typeof StaffPromptRoute
+  '/staff/protocol': typeof StaffProtocolRoute
+  '/staff/qr': typeof StaffQrRoute
+  '/staff/report': typeof StaffReportRoute
+  '/staff/vault': typeof StaffVaultRoute
+  '/staff/verify': typeof StaffVerifyRoute
+  '/staff/warranty': typeof StaffWarrantyRoute
+  '/staff/whs': typeof StaffWhsRoute
+  '/staff/workforce': typeof StaffWorkforceRoute
+  '/staff/': typeof StaffIndexRoute
+  '/api/auth/$': typeof ApiAuthSplatRoute
+}
+export interface FileRoutesByTo {
+  '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/altier': typeof AltierRoute
+  '/analysis': typeof AnalysisRoute
+  '/assurance': typeof AssuranceRoute
+  '/careers': typeof CareersRoute
+  '/login': typeof LoginRoute
+  '/solutions': typeof SolutionsRoute
+  '/verify': typeof VerifyRoute
+  '/staff/admin': typeof StaffAdminRoute
+  '/staff/alerts': typeof StaffAlertsRoute
+  '/staff/analytics': typeof StaffAnalyticsRoute
+  '/staff/bulletin': typeof StaffBulletinRoute
+  '/staff/clients': typeof StaffClientsRoute
+  '/staff/command': typeof StaffCommandRoute
+  '/staff/compliance': typeof StaffComplianceRoute
+  '/staff/connections': typeof StaffConnectionsRoute
+  '/staff/console': typeof StaffConsoleRoute
+  '/staff/crew': typeof StaffCrewRoute
+  '/staff/documents': typeof StaffDocumentsRoute
+  '/staff/gates': typeof StaffGatesRoute
+  '/staff/gps': typeof StaffGpsRoute
+  '/staff/inbox': typeof StaffInboxRoute
+  '/staff/jobs': typeof StaffJobsRoute
+  '/staff/operations': typeof StaffOperationsRoute
+  '/staff/payroll': typeof StaffPayrollRoute
+  '/staff/platform': typeof StaffPlatformRoute
+  '/staff/products': typeof StaffProductsRoute
+  '/staff/prompt': typeof StaffPromptRoute
+  '/staff/protocol': typeof StaffProtocolRoute
+  '/staff/qr': typeof StaffQrRoute
+  '/staff/report': typeof StaffReportRoute
+  '/staff/vault': typeof StaffVaultRoute
+  '/staff/verify': typeof StaffVerifyRoute
+  '/staff/warranty': typeof StaffWarrantyRoute
+  '/staff/whs': typeof StaffWhsRoute
+  '/staff/workforce': typeof StaffWorkforceRoute
+  '/staff': typeof StaffIndexRoute
+  '/api/auth/$': typeof ApiAuthSplatRoute
+}
+export interface FileRoutesById {
+  __root__: typeof rootRouteImport
+  '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/altier': typeof AltierRoute
+  '/analysis': typeof AnalysisRoute
+  '/assurance': typeof AssuranceRoute
+  '/careers': typeof CareersRoute
+  '/login': typeof LoginRoute
+  '/solutions': typeof SolutionsRoute
+  '/staff': typeof StaffRouteWithChildren
+  '/verify': typeof VerifyRoute
+  '/staff/admin': typeof StaffAdminRoute
+  '/staff/alerts': typeof StaffAlertsRoute
+  '/staff/analytics': typeof StaffAnalyticsRoute
+  '/staff/bulletin': typeof StaffBulletinRoute
+  '/staff/clients': typeof StaffClientsRoute
+  '/staff/command': typeof StaffCommandRoute
+  '/staff/compliance': typeof StaffComplianceRoute
+  '/staff/connections': typeof StaffConnectionsRoute
+  '/staff/console': typeof StaffConsoleRoute
+  '/staff/crew': typeof StaffCrewRoute
+  '/staff/documents': typeof StaffDocumentsRoute
+  '/staff/gates': typeof StaffGatesRoute
+  '/staff/gps': typeof StaffGpsRoute
+  '/staff/inbox': typeof StaffInboxRoute
+  '/staff/jobs': typeof StaffJobsRoute
+  '/staff/operations': typeof StaffOperationsRoute
+  '/staff/payroll': typeof StaffPayrollRoute
+  '/staff/platform': typeof StaffPlatformRoute
+  '/staff/products': typeof StaffProductsRoute
+  '/staff/prompt': typeof StaffPromptRoute
+  '/staff/protocol': typeof StaffProtocolRoute
+  '/staff/qr': typeof StaffQrRoute
+  '/staff/report': typeof StaffReportRoute
+  '/staff/vault': typeof StaffVaultRoute
+  '/staff/verify': typeof StaffVerifyRoute
+  '/staff/warranty': typeof StaffWarrantyRoute
+  '/staff/whs': typeof StaffWhsRoute
+  '/staff/workforce': typeof StaffWorkforceRoute
+  '/staff/': typeof StaffIndexRoute
+  '/api/auth/$': typeof ApiAuthSplatRoute
+}
+export interface FileRouteTypes {
+  fileRoutesByFullPath: FileRoutesByFullPath
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/altier'
+    | '/analysis'
+    | '/assurance'
+    | '/careers'
+    | '/login'
+    | '/solutions'
+    | '/staff'
+    | '/verify'
+    | '/staff/admin'
+    | '/staff/alerts'
+    | '/staff/analytics'
+    | '/staff/bulletin'
+    | '/staff/clients'
+    | '/staff/command'
+    | '/staff/compliance'
+    | '/staff/connections'
+    | '/staff/console'
+    | '/staff/crew'
+    | '/staff/documents'
+    | '/staff/gates'
+    | '/staff/gps'
+    | '/staff/inbox'
+    | '/staff/jobs'
+    | '/staff/operations'
+    | '/staff/payroll'
+    | '/staff/platform'
+    | '/staff/products'
+    | '/staff/prompt'
+    | '/staff/protocol'
+    | '/staff/qr'
+    | '/staff/report'
+    | '/staff/vault'
+    | '/staff/verify'
+    | '/staff/warranty'
+    | '/staff/whs'
+    | '/staff/workforce'
+    | '/staff/'
+    | '/api/auth/$'
+  fileRoutesByTo: FileRoutesByTo
+  to:
+    | '/'
+    | '/about'
+    | '/altier'
+    | '/analysis'
+    | '/assurance'
+    | '/careers'
+    | '/login'
+    | '/solutions'
+    | '/verify'
+    | '/staff/admin'
+    | '/staff/alerts'
+    | '/staff/analytics'
+    | '/staff/bulletin'
+    | '/staff/clients'
+    | '/staff/command'
+    | '/staff/compliance'
+    | '/staff/connections'
+    | '/staff/console'
+    | '/staff/crew'
+    | '/staff/documents'
+    | '/staff/gates'
+    | '/staff/gps'
+    | '/staff/inbox'
+    | '/staff/jobs'
+    | '/staff/operations'
+    | '/staff/payroll'
+    | '/staff/platform'
+    | '/staff/products'
+    | '/staff/prompt'
+    | '/staff/protocol'
+    | '/staff/qr'
+    | '/staff/report'
+    | '/staff/vault'
+    | '/staff/verify'
+    | '/staff/warranty'
+    | '/staff/whs'
+    | '/staff/workforce'
+    | '/staff'
+    | '/api/auth/$'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/altier'
+    | '/analysis'
+    | '/assurance'
+    | '/careers'
+    | '/login'
+    | '/solutions'
+    | '/staff'
+    | '/verify'
+    | '/staff/admin'
+    | '/staff/alerts'
+    | '/staff/analytics'
+    | '/staff/bulletin'
+    | '/staff/clients'
+    | '/staff/command'
+    | '/staff/compliance'
+    | '/staff/connections'
+    | '/staff/console'
+    | '/staff/crew'
+    | '/staff/documents'
+    | '/staff/gates'
+    | '/staff/gps'
+    | '/staff/inbox'
+    | '/staff/jobs'
+    | '/staff/operations'
+    | '/staff/payroll'
+    | '/staff/platform'
+    | '/staff/products'
+    | '/staff/prompt'
+    | '/staff/protocol'
+    | '/staff/qr'
+    | '/staff/report'
+    | '/staff/vault'
+    | '/staff/verify'
+    | '/staff/warranty'
+    | '/staff/whs'
+    | '/staff/workforce'
+    | '/staff/'
+    | '/api/auth/$'
+  fileRoutesById: FileRoutesById
+}
+export interface RootRouteChildren {
+  IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
+  AltierRoute: typeof AltierRoute
+  AnalysisRoute: typeof AnalysisRoute
+  AssuranceRoute: typeof AssuranceRoute
+  CareersRoute: typeof CareersRoute
+  LoginRoute: typeof LoginRoute
+  SolutionsRoute: typeof SolutionsRoute
+  StaffRoute: typeof StaffRouteWithChildren
+  VerifyRoute: typeof VerifyRoute
+  ApiAuthSplatRoute: typeof ApiAuthSplatRoute
+}
+
+declare module '@tanstack/react-router' {
+  interface FileRoutesByPath {
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/altier': {
+      id: '/altier'
+      path: '/altier'
+      fullPath: '/altier'
+      preLoaderRoute: typeof AltierRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/analysis': {
+      id: '/analysis'
+      path: '/analysis'
+      fullPath: '/analysis'
+      preLoaderRoute: typeof AnalysisRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/assurance': {
+      id: '/assurance'
+      path: '/assurance'
+      fullPath: '/assurance'
+      preLoaderRoute: typeof AssuranceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/careers': {
+      id: '/careers'
+      path: '/careers'
+      fullPath: '/careers'
+      preLoaderRoute: typeof CareersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/solutions': {
+      id: '/solutions'
+      path: '/solutions'
+      fullPath: '/solutions'
+      preLoaderRoute: typeof SolutionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/staff': {
+      id: '/staff'
+      path: '/staff'
+      fullPath: '/staff'
+      preLoaderRoute: typeof StaffRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/verify': {
+      id: '/verify'
+      path: '/verify'
+      fullPath: '/verify'
+      preLoaderRoute: typeof VerifyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/staff/': {
+      id: '/staff/'
+      path: '/'
+      fullPath: '/staff/'
+      preLoaderRoute: typeof StaffIndexRouteImport
+      parentRoute: typeof StaffRoute
+    }
+    '/staff/admin': {
+      id: '/staff/admin'
+      path: '/admin'
+      fullPath: '/staff/admin'
+      preLoaderRoute: typeof StaffAdminRouteImport
+      parentRoute: typeof StaffRoute
+    }
+    '/staff/alerts': {
+      id: '/staff/alerts'
+      path: '/alerts'
+      fullPath: '/staff/alerts'
+      preLoaderRoute: typeof StaffAlertsRouteImport
+      parentRoute: typeof StaffRoute
+    }
+    '/staff/analytics': {
+      id: '/staff/analytics'
+      path: '/analytics'
+      fullPath: '/staff/analytics'
+      preLoaderRoute: typeof StaffAnalyticsRouteImport
+      parentRoute: typeof StaffRoute
+    }
+    '/staff/bulletin': {
+      id: '/staff/bulletin'
+      path: '/bulletin'
+      fullPath: '/staff/bulletin'
+      preLoaderRoute: typeof StaffBulletinRouteImport
+      parentRoute: typeof StaffRoute
+    }
+    '/staff/clients': {
+      id: '/staff/clients'
+      path: '/clients'
+      fullPath: '/staff/clients'
+      preLoaderRoute: typeof StaffClientsRouteImport
+      parentRoute: typeof StaffRoute
+    }
+    '/staff/command': {
+      id: '/staff/command'
+      path: '/command'
+      fullPath: '/staff/command'
+      preLoaderRoute: typeof StaffCommandRouteImport
+      parentRoute: typeof StaffRoute
+    }
+    '/staff/compliance': {
+      id: '/staff/compliance'
+      path: '/compliance'
+      fullPath: '/staff/compliance'
+      preLoaderRoute: typeof StaffComplianceRouteImport
+      parentRoute: typeof StaffRoute
+    }
+    '/staff/connections': {
+      id: '/staff/connections'
+      path: '/connections'
+      fullPath: '/staff/connections'
+      preLoaderRoute: typeof StaffConnectionsRouteImport
+      parentRoute: typeof StaffRoute
+    }
+    '/staff/console': {
+      id: '/staff/console'
+      path: '/console'
+      fullPath: '/staff/console'
+      preLoaderRoute: typeof StaffConsoleRouteImport
+      parentRoute: typeof StaffRoute
+    }
+    '/staff/crew': {
+      id: '/staff/crew'
+      path: '/crew'
+      fullPath: '/staff/crew'
+      preLoaderRoute: typeof StaffCrewRouteImport
+      parentRoute: typeof StaffRoute
+    }
+    '/staff/documents': {
+      id: '/staff/documents'
+      path: '/documents'
+      fullPath: '/staff/documents'
+      preLoaderRoute: typeof StaffDocumentsRouteImport
+      parentRoute: typeof StaffRoute
+    }
+    '/staff/gates': {
+      id: '/staff/gates'
+      path: '/gates'
+      fullPath: '/staff/gates'
+      preLoaderRoute: typeof StaffGatesRouteImport
+      parentRoute: typeof StaffRoute
+    }
+    '/staff/gps': {
+      id: '/staff/gps'
+      path: '/gps'
+      fullPath: '/staff/gps'
+      preLoaderRoute: typeof StaffGpsRouteImport
+      parentRoute: typeof StaffRoute
+    }
+    '/staff/inbox': {
+      id: '/staff/inbox'
+      path: '/inbox'
+      fullPath: '/staff/inbox'
+      preLoaderRoute: typeof StaffInboxRouteImport
+      parentRoute: typeof StaffRoute
+    }
+    '/staff/jobs': {
+      id: '/staff/jobs'
+      path: '/jobs'
+      fullPath: '/staff/jobs'
+      preLoaderRoute: typeof StaffJobsRouteImport
+      parentRoute: typeof StaffRoute
+    }
+    '/staff/operations': {
+      id: '/staff/operations'
+      path: '/operations'
+      fullPath: '/staff/operations'
+      preLoaderRoute: typeof StaffOperationsRouteImport
+      parentRoute: typeof StaffRoute
+    }
+    '/staff/payroll': {
+      id: '/staff/payroll'
+      path: '/payroll'
+      fullPath: '/staff/payroll'
+      preLoaderRoute: typeof StaffPayrollRouteImport
+      parentRoute: typeof StaffRoute
+    }
+    '/staff/platform': {
+      id: '/staff/platform'
+      path: '/platform'
+      fullPath: '/staff/platform'
+      preLoaderRoute: typeof StaffPlatformRouteImport
+      parentRoute: typeof StaffRoute
+    }
+    '/staff/products': {
+      id: '/staff/products'
+      path: '/products'
+      fullPath: '/staff/products'
+      preLoaderRoute: typeof StaffProductsRouteImport
+      parentRoute: typeof StaffRoute
+    }
+    '/staff/prompt': {
+      id: '/staff/prompt'
+      path: '/prompt'
+      fullPath: '/staff/prompt'
+      preLoaderRoute: typeof StaffPromptRouteImport
+      parentRoute: typeof StaffRoute
+    }
+    '/staff/protocol': {
+      id: '/staff/protocol'
+      path: '/protocol'
+      fullPath: '/staff/protocol'
+      preLoaderRoute: typeof StaffProtocolRouteImport
+      parentRoute: typeof StaffRoute
+    }
+    '/staff/qr': {
+      id: '/staff/qr'
+      path: '/qr'
+      fullPath: '/staff/qr'
+      preLoaderRoute: typeof StaffQrRouteImport
+      parentRoute: typeof StaffRoute
+    }
+    '/staff/report': {
+      id: '/staff/report'
+      path: '/report'
+      fullPath: '/staff/report'
+      preLoaderRoute: typeof StaffReportRouteImport
+      parentRoute: typeof StaffRoute
+    }
+    '/staff/vault': {
+      id: '/staff/vault'
+      path: '/vault'
+      fullPath: '/staff/vault'
+      preLoaderRoute: typeof StaffVaultRouteImport
+      parentRoute: typeof StaffRoute
+    }
+    '/staff/verify': {
+      id: '/staff/verify'
+      path: '/verify'
+      fullPath: '/staff/verify'
+      preLoaderRoute: typeof StaffVerifyRouteImport
+      parentRoute: typeof StaffRoute
+    }
+    '/staff/warranty': {
+      id: '/staff/warranty'
+      path: '/warranty'
+      fullPath: '/staff/warranty'
+      preLoaderRoute: typeof StaffWarrantyRouteImport
+      parentRoute: typeof StaffRoute
+    }
+    '/staff/whs': {
+      id: '/staff/whs'
+      path: '/whs'
+      fullPath: '/staff/whs'
+      preLoaderRoute: typeof StaffWhsRouteImport
+      parentRoute: typeof StaffRoute
+    }
+    '/staff/workforce': {
+      id: '/staff/workforce'
+      path: '/workforce'
+      fullPath: '/staff/workforce'
+      preLoaderRoute: typeof StaffWorkforceRouteImport
+      parentRoute: typeof StaffRoute
+    }
+    '/api/auth/$': {
+      id: '/api/auth/$'
+      path: '/api/auth/$'
+      fullPath: '/api/auth/$'
+      preLoaderRoute: typeof ApiAuthSplatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+  }
+}
+
+interface StaffRouteChildren {
+  StaffAdminRoute: typeof StaffAdminRoute
+  StaffAlertsRoute: typeof StaffAlertsRoute
+  StaffAnalyticsRoute: typeof StaffAnalyticsRoute
+  StaffBulletinRoute: typeof StaffBulletinRoute
+  StaffClientsRoute: typeof StaffClientsRoute
+  StaffCommandRoute: typeof StaffCommandRoute
+  StaffComplianceRoute: typeof StaffComplianceRoute
+  StaffConnectionsRoute: typeof StaffConnectionsRoute
+  StaffConsoleRoute: typeof StaffConsoleRoute
+  StaffCrewRoute: typeof StaffCrewRoute
+  StaffDocumentsRoute: typeof StaffDocumentsRoute
+  StaffGatesRoute: typeof StaffGatesRoute
+  StaffGpsRoute: typeof StaffGpsRoute
+  StaffInboxRoute: typeof StaffInboxRoute
+  StaffJobsRoute: typeof StaffJobsRoute
+  StaffOperationsRoute: typeof StaffOperationsRoute
+  StaffPayrollRoute: typeof StaffPayrollRoute
+  StaffPlatformRoute: typeof StaffPlatformRoute
+  StaffProductsRoute: typeof StaffProductsRoute
+  StaffPromptRoute: typeof StaffPromptRoute
+  StaffProtocolRoute: typeof StaffProtocolRoute
+  StaffQrRoute: typeof StaffQrRoute
+  StaffReportRoute: typeof StaffReportRoute
+  StaffVaultRoute: typeof StaffVaultRoute
+  StaffVerifyRoute: typeof StaffVerifyRoute
+  StaffWarrantyRoute: typeof StaffWarrantyRoute
+  StaffWhsRoute: typeof StaffWhsRoute
+  StaffWorkforceRoute: typeof StaffWorkforceRoute
+  StaffIndexRoute: typeof StaffIndexRoute
+}
+
+const StaffRouteChildren: StaffRouteChildren = {
+  StaffAdminRoute: StaffAdminRoute,
+  StaffAlertsRoute: StaffAlertsRoute,
+  StaffAnalyticsRoute: StaffAnalyticsRoute,
+  StaffBulletinRoute: StaffBulletinRoute,
+  StaffClientsRoute: StaffClientsRoute,
+  StaffCommandRoute: StaffCommandRoute,
+  StaffComplianceRoute: StaffComplianceRoute,
+  StaffConnectionsRoute: StaffConnectionsRoute,
+  StaffConsoleRoute: StaffConsoleRoute,
+  StaffCrewRoute: StaffCrewRoute,
+  StaffDocumentsRoute: StaffDocumentsRoute,
+  StaffGatesRoute: StaffGatesRoute,
+  StaffGpsRoute: StaffGpsRoute,
+  StaffInboxRoute: StaffInboxRoute,
+  StaffJobsRoute: StaffJobsRoute,
+  StaffOperationsRoute: StaffOperationsRoute,
+  StaffPayrollRoute: StaffPayrollRoute,
+  StaffPlatformRoute: StaffPlatformRoute,
+  StaffProductsRoute: StaffProductsRoute,
+  StaffPromptRoute: StaffPromptRoute,
+  StaffProtocolRoute: StaffProtocolRoute,
+  StaffQrRoute: StaffQrRoute,
+  StaffReportRoute: StaffReportRoute,
+  StaffVaultRoute: StaffVaultRoute,
+  StaffVerifyRoute: StaffVerifyRoute,
+  StaffWarrantyRoute: StaffWarrantyRoute,
+  StaffWhsRoute: StaffWhsRoute,
+  StaffWorkforceRoute: StaffWorkforceRoute,
+  StaffIndexRoute: StaffIndexRoute,
+}
+
+const StaffRouteWithChildren = StaffRoute._addFileChildren(StaffRouteChildren)
+
+const rootRouteChildren: RootRouteChildren = {
+  IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
+  AltierRoute: AltierRoute,
+  AnalysisRoute: AnalysisRoute,
+  AssuranceRoute: AssuranceRoute,
+  CareersRoute: CareersRoute,
+  LoginRoute: LoginRoute,
+  SolutionsRoute: SolutionsRoute,
+  StaffRoute: StaffRouteWithChildren,
+  VerifyRoute: VerifyRoute,
+  ApiAuthSplatRoute: ApiAuthSplatRoute,
+}
+export const routeTree = rootRouteImport
+  ._addFileChildren(rootRouteChildren)
+  ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { createStart } from '@tanstack/react-start'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+  }
+}

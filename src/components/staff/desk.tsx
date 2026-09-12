@@ -15,10 +15,10 @@ export function DeskHeader({
 }) {
   return (
     <header className="mb-6">
-      <p className="kicker">{kicker}</p>
-      <h1 className="gold-text font-display text-3xl md:text-4xl">{title}</h1>
-      {script ? <p className="font-script text-2xl text-gold">{script}</p> : null}
-      {copy ? <p className="mt-2 max-w-2xl text-lg text-muted">{copy}</p> : null}
+      <p className="na-head mb-3 inline-block px-4 py-1.5 text-[11px] font-extrabold uppercase tracking-[0.16em]">{kicker}</p>
+      <h1 className="font-display text-4xl text-[#0c1f4a] md:text-5xl">{title}</h1>
+      {script ? <p className="mt-1 text-xl font-semibold text-[#3d4a63]">{script}</p> : null}
+      {copy ? <p className="mt-3 max-w-2xl text-lg leading-relaxed text-[#122038]">{copy}</p> : null}
     </header>
   );
 }

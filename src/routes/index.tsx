@@ -1,13 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Button } from "@/components/ui/button";
 import { AnalysisForm } from "@/components/site/analysis-form";
 import { BeforeAfter } from "@/components/site/before-after";
 import { Film } from "@/components/site/film";
 import { SiteShell } from "@/components/site/shell";
-import { ChromeStrip, FieldChecklist } from "@/components/chrome-shield";
-import { SOLUTIONS, TRUST } from "@/lib/content";
-import { BrandLockup, WaterGlassBand } from "@/components/brand/logo";
-import { NanoDataBand, Qa7Banner } from "@/components/qa/qa7";
+import { ChromePlate } from "@/components/chrome-shield";
+import { BRAND, HOUSE, SOLUTIONS, TRUST } from "@/lib/content";
+import { NanoDataBand, Qa7Banner, SurfaceLifeBand } from "@/components/qa/qa7";
 import { listPublicBriefs } from "@/lib/server/atelier";
 import { useQuery } from "@tanstack/react-query";
 
@@ -17,238 +15,210 @@ function Home() {
   const briefs = useQuery({ queryKey: ["public-briefs"], queryFn: () => listPublicBriefs() });
   return (
     <SiteShell>
-      <section className="relative isolate overflow-hidden">
+      <section className="relative isolate min-h-[72vh] overflow-hidden md:min-h-[82vh]">
+        <img
+          src="/media/estate-dusk.jpg"
+          alt=""
+          className="absolute inset-0 h-full w-full object-cover object-center"
+        />
         <video
-          className="absolute inset-0 h-full w-full object-cover opacity-45"
+          className="absolute inset-0 h-full w-full object-cover object-center"
           src="/media/film-estate.mp4"
           poster="/media/estate-dusk.jpg"
           autoPlay
           muted
           loop
           playsInline
+          preload="auto"
         />
-        <div className="absolute inset-0 bg-linear-to-b from-carbon/40 via-carbon/70 to-carbon" />
-        <div className="relative mx-auto max-w-6xl px-5 py-16 md:py-28">
+        <div className="absolute inset-0 bg-linear-to-b from-carbon/25 via-carbon/40 to-carbon/90" />
+        <div className="relative mx-auto flex min-h-[72vh] max-w-6xl items-end px-5 py-16 md:min-h-[82vh] md:py-24">
           <div className="max-w-2xl">
             <p className="kicker mb-4 inline-block rounded-full border border-aqua/40 bg-aqua/10 px-3 py-1">
-              Darwin · By appointment · Limited edition
+              Darwin NT · We apply it. You don’t.
             </p>
-            <h1 className="mb-4 font-display text-4xl font-semibold leading-[1.08] md:text-6xl">
-              Advanced nano protection.
-              <span className="gold-text block italic">Lasting performance.</span>
+            <h1 className="mb-6 font-display text-4xl font-semibold leading-[1.12] md:text-6xl">
+              We coat glass, stone, metal, fabric and civic interiors so they stay cleaner.
+              <span className="gold-text mt-2 block italic">Water beads. Dirt lets go.</span>
             </h1>
-            <p className="mb-6 max-w-lg text-xl leading-relaxed text-muted md:text-2xl">
-              NanoAssure™ Surface Technology is the private asset-protection atelier of Sam's
-              Pro-Wash Solutions. We do not quote in public. We analyse, specify, and prove.
+            <p className="mb-8 max-w-lg text-xl leading-relaxed text-pearl md:text-2xl">
+              {BRAND.positioning} We apply the film, run the checks, then hand you the proof.
             </p>
-            <div className="mb-8 grid grid-cols-2 gap-2">
-              {[
-                ["Long lasting", "Invisible nano barrier, years not months"],
-                ["UV & weather", "Built for Darwin heat, salt and storms"],
-                ["Self-cleaning", "Water beads, dirt releases, glass stays clear"],
-                ["PFAS free", "Low-impact chemistry, specification documented"],
-              ].map(([t, d]) => (
-                <div key={t} className="metal-panel rounded-lg p-3">
-                  <p className="text-base font-semibold text-gold-hi">{t}</p>
-                  <p className="mt-1 text-base leading-snug text-muted">{d}</p>
-                </div>
-              ))}
-            </div>
             <div className="flex flex-wrap gap-3">
-              <Button asChild size="lg">
-                <Link to="/analysis">Private analysis</Link>
-              </Button>
-              <Button asChild variant="aqua" size="lg">
-                <Link to="/solutions">The collection</Link>
-              </Button>
+              <a href="#surfaces" className="glass-btn glass-btn-gold">
+                Surfaces
+              </a>
+              <Link to="/analysis" className="glass-btn">
+                Express interest
+              </Link>
+              <Link to="/verify" className="glass-btn">
+                Verify ID
+              </Link>
             </div>
-            <ChromeStrip className="mt-8 max-w-md" />
-            <BrandLockup className="mt-8 max-w-lg" />
           </div>
         </div>
       </section>
 
-      <Film
-        bleed
-        src="/media/film-beads.mp4"
-        poster="/media/beads-macro.jpg"
-        caption="The astonishment of water repulsion"
-        className="aspect-[21/9] min-h-[320px] md:min-h-[480px]"
-      />
-
-      <section className="mx-auto grid max-w-6xl gap-3 px-5 pb-16 sm:grid-cols-2 lg:grid-cols-4">
-        {TRUST.map((t) => (
-          <article key={t.title} className="metal-panel rounded-xl p-5 text-center">
-            <h3 className="mb-2 font-display text-2xl text-gold-hi">{t.title}</h3>
-            <p className="text-lg text-muted">{t.copy}</p>
-          </article>
-        ))}
+      <section className="mx-auto max-w-6xl px-5 py-12">
+        <p className="kicker mb-2">The house</p>
+        <h2 className="gold-text mb-6 font-display text-3xl md:text-4xl">Exclusive, insured, evidence-led</h2>
+        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          {TRUST.map((t) => (
+            <article key={t.title} className="rounded-2xl border border-gold/25 bg-carbon-2 p-5">
+              <h3 className="font-display text-xl text-gold-hi">{t.title}</h3>
+              <p className="mt-2 text-base text-muted">{t.copy}</p>
+            </article>
+          ))}
+        </div>
       </section>
 
-      <section className="pb-20">
-        <div className="mx-auto max-w-6xl px-5 pb-8 text-center">
-          <p className="kicker mb-2">Edition 01 · Glass</p>
-          <h2 className="gold-text font-display text-3xl md:text-4xl">Self-cleaning window coating</h2>
-          <p className="mx-auto mt-3 max-w-2xl text-muted">
-            Hydrophobic nano-coating creates a microscopic barrier. Water beads, lifts dirt, and
-            rolls away. Cleaner longer. Less maintenance. Extended asset life.
-          </p>
-        </div>
-        <BeforeAfter />
-        <div className="mx-auto max-w-6xl px-5 py-10">
-          <div className="metal-panel rounded-xl p-6">
-            <h3 className="mb-3 font-display text-xl text-purple-glow">How it works</h3>
-            <ol className="grid grid-cols-2 gap-3 md:grid-cols-4">
-              {["Coating bonds", "Water hits", "Beads & rolls", "Clean & clear"].map((s, i) => (
-                <li key={s} className="rounded-lg border border-border p-3 text-center">
-                  <span className="gold-cta mx-auto mb-2 grid size-8 place-items-center rounded-full text-sm font-bold">
-                    {i + 1}
-                  </span>
-                  <p className="text-sm font-semibold text-gold-hi">{s}</p>
-                </li>
-              ))}
-            </ol>
-          </div>
-        </div>
-        <WaterGlassBand tall />
-        <Film
-          bleed
-          src="/media/film-rain-glass.mp4"
-          poster="/media/water-glass-banner.jpg"
-          caption="Rain on specified glass."
-          className="aspect-[21/9] min-h-[280px] md:min-h-[420px]"
-        />
-      </section>
-
-      <section className="pb-20">
-        <div className="mx-auto flex max-w-6xl items-end justify-between gap-4 px-5 pb-8">
-          <div>
-            <p className="kicker">The collection</p>
-            <h2 className="gold-text font-display text-3xl">Specified systems</h2>
-          </div>
-          <Link to="/solutions" className="text-xs font-bold uppercase tracking-widest text-gold">
-            View all →
-          </Link>
-        </div>
-        <div>
+      <section id="surfaces" className="mx-auto max-w-6xl scroll-mt-28 px-5 py-10">
+        <p className="kicker mb-2">What do you need coated?</p>
+        <h2 className="gold-text mb-3 font-display text-3xl md:text-4xl">Tap the surface</h2>
+        <p className="mb-6 max-w-2xl text-lg text-muted">
+          Named systems only. We inspect before we specify. Method stays with the atelier.
+        </p>
+        <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
           {SOLUTIONS.map((s) => (
-            <Link key={s.id} to="/solutions" className="group relative block min-h-[58vh] w-full overflow-hidden md:min-h-[70vh]">
-              <img
-                src={s.image}
-                alt={s.title}
-                className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-linear-to-t from-carbon via-carbon/45 to-carbon/10" />
-              <div className="relative flex min-h-[58vh] items-end px-5 py-12 md:min-h-[70vh] md:px-12">
-                <div className="max-w-xl">
-                  <h3 className="font-display text-3xl text-gold-hi md:text-5xl">{s.title}</h3>
-                  <p className="mt-3 text-lg leading-relaxed text-pearl md:text-xl">{s.copy}</p>
-                </div>
-              </div>
+            <Link key={s.id} to="/solutions" hash={s.id} className="b4-pick">
+              <img src={s.image} alt="" className="mb-2 h-28 w-full rounded-xl object-cover md:h-32" />
+              <span className="b4-pick-name">{s.title}</span>
+              <span className="b4-pick-hint">{s.copy.split(".")[0]}.</span>
             </Link>
           ))}
         </div>
       </section>
 
+      <section id="proof" className="scroll-mt-28 pb-8">
+        <div className="mx-auto max-w-6xl px-5 pb-8 text-center">
+          <p className="kicker mb-2">What glass looks like after</p>
+          <h2 className="gold-text font-display text-3xl md:text-4xl">Self-cleaning window coating</h2>
+          <p className="mx-auto mt-3 max-w-2xl text-lg text-muted">
+            Water beads and dirt releases. The glass stays presentation-ready. We apply this. It is not a DIY kit.
+          </p>
+        </div>
+        <BeforeAfter />
+        <Film
+          bleed
+          src="/media/film-rain-glass.mp4"
+          poster="/media/water-glass-banner.jpg"
+          caption="Rain on specified glass"
+          className="mt-8 aspect-[21/9] min-h-[280px] md:min-h-[420px]"
+        />
+      </section>
+
+      <SurfaceLifeBand />
+
+      <Film
+        bleed
+        src="/media/film-facade.mp4"
+        poster="/media/facade-dusk.jpg"
+        caption="Specified façade. Presentation-ready."
+        className="aspect-[21/9] min-h-[260px] md:min-h-[400px]"
+      />
+
       <Qa7Banner />
+
+      <Film
+        bleed
+        src="/media/n7-pathway.mp4"
+        poster="/media/estate-night.jpg"
+        caption="NANO7™ · seven metallic gates"
+        className="aspect-[21/9] min-h-[240px] md:min-h-[360px]"
+      />
+
       <NanoDataBand />
 
-      <section className="mx-auto max-w-3xl px-5 pb-20">
-        <p className="kicker mb-2 text-center">
-          Pearl · QA-FORM-001 · Verify
-        </p>
-        <h2 className="gold-text mb-6 text-center font-display text-3xl">Five-test field checklist</h2>
-        <FieldChecklist documentLook />
-      </section>
-      <section className="relative min-h-[70vh] w-full overflow-hidden">
-        <img
-          src="/media/application.jpg"
-          alt="NanoAssure field application on commercial glass"
-          className="absolute inset-0 h-full w-full object-cover"
-        />
-        <div className="absolute inset-0 bg-linear-to-r from-carbon via-carbon/75 to-carbon/20" />
-        <div className="relative mx-auto flex min-h-[70vh] max-w-6xl items-center px-5 py-20">
+      <section className="relative isolate min-h-[52vh] overflow-hidden">
+        <img src="/media/chrome-banner.jpg" alt="" className="absolute inset-0 h-full w-full object-cover object-center" />
+        <div className="absolute inset-0 bg-linear-to-t from-carbon via-carbon/40 to-carbon/25" />
+        <div className="relative mx-auto flex min-h-[52vh] max-w-6xl items-end px-5 py-10">
           <div className="max-w-xl">
-          <p className="font-script text-3xl text-gold">By invitation</p>
-          <h2 className="gold-text mt-1 font-display text-3xl md:text-4xl">Exclusive analysis pathway</h2>
-          <p className="mt-4 leading-relaxed text-muted">
-            There are no public prices. No call-out menus. Clients, agencies and asset owners
-            request a confidential analysis. We inspect, specify chemistry to TDS, and issue a
-            NanoAssure™ verify ID when the work is proven.
-          </p>
-          <p className="mt-3 text-sm italic text-pearl/80">
-            SP applies advanced surface protection to specification. NanoAssure™ proves it.
-          </p>
-          <Button asChild className="mt-6">
-            <Link to="/analysis">Begin analysis</Link>
-          </Button>
+            <p className="kicker">Metal & chrome</p>
+            <h2 className="chrome-text font-display text-3xl md:text-5xl">Protects chrome. Does not chrome it.</h2>
+            <p className="mt-3 text-lg text-pearl">
+              A light film on existing polished metal. Not plating. Not wax. Applied by the atelier.
+            </p>
+            <Link to="/solutions" hash="metal" className="glass-btn mt-5 inline-flex">
+              Metal & chrome
+            </Link>
           </div>
         </div>
       </section>
 
-      <section className="pb-20">
-        <p className="kicker mx-auto max-w-6xl px-5 pb-4">Atelier film</p>
-        <Film
-          bleed
-          src="/media/film-house.mp4"
-          poster="/media/residence-night.jpg"
-          caption="Golden hour on glass."
-          className="aspect-[21/9] min-h-[280px] md:min-h-[520px]"
-        />
-        <Film
-          bleed
-          src="/media/film-rain-glass.mp4"
-          poster="/media/beads-macro.jpg"
-          caption="Rain. Chrome beads."
-          className="aspect-[21/9] min-h-[280px] md:min-h-[520px]"
-        />
-        <div className="grid grid-cols-2 md:grid-cols-3">
-          {[
-            ["/media/estate-dusk.jpg", "Dusk façade"],
-            ["/media/pavers.jpg", "Stone after coating"],
-            ["/media/stone-split.jpg", "Masonry split view"],
-            ["/media/estate-night.jpg", "Night façade"],
-            ["/media/facade-dusk.jpg", "Plaza dusk"],
-            ["/media/residence-night.jpg", "Evening glass"],
-            ["/media/beads-macro.jpg", "Hydrophobic beads"],
-            ["/media/technician.jpg", "Controlled application"],
-            ["/media/civic-stone.jpg", "Civic sandstone"],
-            ["/media/commercial-glass.jpg", "Commercial glass"],
-            ["/media/application.jpg", "Field mist"],
-            ["/media/metal-cladding.jpg", "Metal cladding"],
-            ["/media/solar-array.jpg", "Solar array"],
-            ["/media/antimicrobial-lobby.jpg", "High-touch interiors"],
-            ["/media/masonry-protected.jpg", "Protected masonry"],
-          ].map(([src, cap]) => (
-            <figure key={src} className="overflow-hidden">
-              <img src={src} alt={cap} className="aspect-[4/3] h-full w-full object-cover" />
-            </figure>
-          ))}
+      <section id="qualify" className="mx-auto max-w-6xl scroll-mt-28 px-5 py-14">
+        <p className="kicker mb-2">First contact</p>
+        <h2 className="gold-text font-display text-3xl md:text-4xl">Do I qualify for an analysis?</h2>
+        <p className="mt-3 max-w-2xl text-lg text-pearl">
+          Express interest. House selection. We reply by the size of the asset. No public prices. No application instructions.
+        </p>
+        <div className="mt-6 grid gap-3 md:grid-cols-2">
+          <article className="rounded-2xl border-2 border-gold/50 bg-gold/10 p-6">
+            <p className="font-mono text-xs tracking-[0.16em] text-gold-hi">$5,000 or more</p>
+            <h3 className="mt-2 font-display text-2xl text-gold-hi">Priority line</h3>
+            <p className="mt-2 text-lg text-pearl">
+              Automated approved response. You will receive a phone call very soon, you are in the priority line.
+            </p>
+          </article>
+          <article className="rounded-2xl border border-chrome/40 bg-carbon-2 p-6">
+            <p className="font-mono text-xs tracking-[0.16em] text-pearl">Under $5,000</p>
+            <h3 className="mt-2 font-display text-2xl text-gold-hi">Nanotech Team</h3>
+            <p className="mt-2 text-lg text-pearl">The Nanotech Team will respond within 24 hours.</p>
+          </article>
+          <article className="rounded-2xl border border-chrome/40 bg-carbon-2 p-6">
+            <p className="font-mono text-xs tracking-[0.16em] text-pearl">Personal</p>
+            <h3 className="mt-2 font-display text-2xl text-gold-hi">Residential pathway</h3>
+            <p className="mt-2 text-lg text-pearl">{HOUSE.personal}</p>
+          </article>
+          <article className="rounded-2xl border border-chrome/40 bg-carbon-2 p-6">
+            <p className="font-mono text-xs tracking-[0.16em] text-pearl">Commercial</p>
+            <h3 className="mt-2 font-display text-2xl text-gold-hi">Applicator All Clear</h3>
+            <p className="mt-2 text-lg text-pearl">{HOUSE.commercial}</p>
+          </article>
+        </div>
+        <p className="mt-5 max-w-2xl text-lg text-pearl">{HOUSE.upgrade}</p>
+        <a href="#interest" className="glass-btn glass-btn-gold mt-6 inline-flex">
+          Express interest
+        </a>
+      </section>
+
+      <section className="mx-auto max-w-6xl px-5 pb-8">
+        <div className="grid gap-3 md:grid-cols-3">
+          <Link to="/assurance" className="b4-pick">
+            <span className="b4-pick-name">NANO7™ pathway</span>
+            <span className="b4-pick-hint">Inspect to handover. Seven metallic gates.</span>
+          </Link>
+          <Link to="/verify" className="b4-pick">
+            <span className="b4-pick-name">Verify ID</span>
+            <span className="b4-pick-hint">NA-YYYYMMDD-XXXX on the asset certificate.</span>
+          </Link>
+          <Link to="/about" className="b4-pick">
+            <span className="b4-pick-name">The maison</span>
+            <span className="b4-pick-hint">Sam’s Prowash Solutions · NanoAssure™.</span>
+          </Link>
         </div>
       </section>
 
-      <section id="brief" className="mx-auto max-w-6xl px-5 pb-20">
-        {(briefs.data ?? []).length > 0 ? (
-          <>
-            <p className="kicker mb-3">Ops brief</p>
-            <div className="grid gap-4 md:grid-cols-2">
-              {briefs.data?.map((b) => (
-                <article key={b.id} className="metal-panel rounded-xl p-6">
-                  <h2 className="font-display text-2xl text-gold-hi">{b.title}</h2>
-                  <p className="mt-2 text-lg text-muted">{b.body}</p>
-                </article>
-              ))}
-            </div>
-          </>
-        ) : null}
-      </section>
+      {(briefs.data ?? []).length > 0 ? (
+        <section id="brief" className="mx-auto max-w-6xl px-5 py-12">
+          <p className="kicker mb-3">Ops brief</p>
+          <div className="grid gap-4 md:grid-cols-2">
+            {briefs.data?.map((b) => (
+              <article key={b.id} className="metal-panel rounded-xl p-6">
+                <h2 className="font-display text-2xl text-gold-hi">{b.title}</h2>
+                <p className="mt-2 text-lg text-muted">{b.body}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+      ) : null}
 
-      <section className="mx-auto max-w-3xl px-5 pb-24">
+      <section id="interest" className="mx-auto max-w-3xl scroll-mt-28 px-5 py-16">
         <ChromePlate>
           <div className="p-8">
-            <h2 className="gold-text mb-2 text-center font-display text-3xl">Request analysis</h2>
+            <h2 className="gold-foil mb-2 text-center font-display text-3xl">Express interest</h2>
             <p className="mb-6 text-center text-lg text-muted">
-              Direct to the atelier. Same-day acknowledgement. No public phone book.
+              Tell us the surface and the size of the asset. We inspect, specify and reply.
             </p>
             <AnalysisForm />
           </div>
@@ -257,4 +227,3 @@ function Home() {
     </SiteShell>
   );
 }
-

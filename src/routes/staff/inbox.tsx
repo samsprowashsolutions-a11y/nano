@@ -22,8 +22,18 @@ function Inbox() {
               <div>
                 <p className="font-display text-xl text-gold-hi">{l.organisation}</p>
                 <p className="text-sm text-muted">
-                  {l.contact_name} · {l.email} · {l.phone || "no phone"} · {l.sector}
+                  {l.contact_name} · {l.email} · {l.sector}
+                  {l.site ? ` · ${l.site}` : ""}
+                  {l.lane === "priority" ? " · PRIORITY $5,000+" : l.lane === "nanotech-24h" ? " · under $5,000 · 24h" : ""}
                 </p>
+                {l.swms ? (
+                  <p className="mt-2 text-sm">
+                    {[l.swms.surface, l.swms.access].filter(Boolean).join(" · ")}
+                    {l.swms.ticks?.length
+                      ? ` · SWMS ${l.swms.ticks.filter((t) => t.done).length} / ${l.swms.ticks.length} ticked`
+                      : ""}
+                  </p>
+                ) : null}
                 {l.notes ? <p className="mt-2 text-sm">{l.notes}</p> : null}
                 <p className="mt-1 text-sm uppercase tracking-widest text-muted">{l.created_at}</p>
               </div>
